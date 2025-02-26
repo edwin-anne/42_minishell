@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:57:53 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/02/26 20:37:28 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/02/26 20:49:59 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,31 @@
 
 #include <sys/types.h>
 
-typedef struct t_minishell
+typedef struct s_shell
 {
-	char	*infile;
-	int		in_fd;
-	char	*outfile;
-	int		out_fd;
-	char	**cmd;
-	int		count_cmd;
-	pid_t	*pids;
-	char	**path;
-	bool	here_doc;
-}	t_minishell;
+    t_env   *env;        // Liste chaînée des variables d'environnement
+    t_cmd   *cmds;       // Liste des commandes à exécuter
+    int     exit_status; // Code de retour du dernier processus
+    int     stdin_backup;  // Backup de stdin pour reset après redirections
+    int     stdout_backup; // Backup de stdout pour reset après redirections
+} t_shell;
+
+typedef struct s_cmd
+{
+    char    **args;       // Arguments de la commande (argv)
+    char    *path;        // Chemin vers l'exécutable
+    int     fd_in;        // Descripteur de fichier pour l'entrée
+    int     fd_out;       // Descripteur de fichier pour la sortie
+    int     is_builtin;   // Indique si c'est une commande interne (1) ou externe (0)
+    struct s_cmd *next;   // Commande suivante (utile pour les pipes)
+} t_cmd;
+
+typedef struct s_env
+{
+    char            *key;
+    char            *value;
+    struct s_env    *next;
+} t_env;
 
 
 #endif
