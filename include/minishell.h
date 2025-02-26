@@ -6,7 +6,6 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:57:53 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/02/26 21:57:10 by Edwin ANNE       ###   ########.fr       */
 /*   Updated: 2025/02/26 21:05:06 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -15,13 +14,12 @@
 # define MINISHELL_H
 
 #include <sys/types.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
-typedef struct s_shell
-{
-    t_env   *env;        // Liste chaînée des variables d'environnement
-    t_cmd   *cmds;       // Liste des commandes à exécuter
-    int     exit_status; // Code de retour du dernier processus
-} t_shell;
+# include "../libft/include/libft.h" 
+# include "../libft/include/ft_printf.h"
+# include "../libft/include/get_next_line.h"
 
 typedef struct s_cmd
 {
@@ -45,8 +43,6 @@ typedef struct s_shell
     t_env   *env;        // Liste chaînée des variables d'environnement
     t_cmd   *cmds;       // Liste des commandes à exécuter
     int     exit_status; // Code de retour du dernier processus
-    int     stdin_backup;  // Backup de stdin pour reset après redirections
-    int     stdout_backup; // Backup de stdout pour reset après redirections
 } t_shell;
 
 /*######	UTILS   	######*/
