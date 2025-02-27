@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:57:53 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/02/27 09:54:23 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/02/27 10:45:21 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <sys/types.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
 
 # include "../libft/include/libft.h" 
@@ -40,8 +41,9 @@ typedef struct s_cmd
 {
     char    **args;       // Arguments de la commande (argv)
     char    *path;        // Chemin vers l'exécutable
+	bool     is_builtin;   // Indique si c'est une commande interne (1) ou externe (0)
+	int		exit_code;
 	struct s_redir *redir;
-    bool     is_builtin;   // Indique si c'est une commande interne (1) ou externe (0)
     struct s_cmd *next;   // Commande suivante (utile pour les pipes)
 } t_cmd;
 
