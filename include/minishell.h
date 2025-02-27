@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:57:53 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/02/26 21:05:06 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/02/27 09:54:23 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,26 @@
 # include "../libft/include/ft_printf.h"
 # include "../libft/include/get_next_line.h"
 
+typedef enum e_redir_type
+{
+	NONE,
+	FILE_REDIR,
+	PIPE_REDIR,
+	HERE_DOC
+}	t_redir_type;
+
+typedef struct s_redir
+{
+	t_redir_type	type;    // Type de redirection en entrée
+	char	        *file;   // Chemin fichier pour l'entrée (si type_in == FILE_REDIR)
+	struct s_redir *next;
+}	t_redir;
+
 typedef struct s_cmd
 {
     char    **args;       // Arguments de la commande (argv)
     char    *path;        // Chemin vers l'exécutable
-    int     fd_in;        // Descripteur de fichier pour l'entrée
-    int     fd_out;       // Descripteur de fichier pour la sortie
+	struct s_redir *redir;
     bool     is_builtin;   // Indique si c'est une commande interne (1) ou externe (0)
     struct s_cmd *next;   // Commande suivante (utile pour les pipes)
 } t_cmd;
