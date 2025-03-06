@@ -5,17 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 21:41:49 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/02/26 22:00:39 by Edwin ANNE       ###   ########.fr       */
+/*   Created: 2025/02/26 21:41:49 by Edwin ANNE        #+#    #+#             *//*   Updated: 2025/02/27 20:25:32 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	parsing(char *line, int argc, char **argv, char **envp)
+t_shell	*parsing(t_shell *shell, char *line, int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-	(void)envp;
-	printf("Ceci est un minishell qui marche en voici la preuve je peux réecrire ce que tu as marqué -> %s", line);
+	char	**line_splited;
+	t_token	*token;
+
+	/*######	PRE PARSING 	######*/
+	line = pre_parsing(line);
+	debug_pre_parsing(line);
+	/*######	TOKENISATION	######*/
+	line_splited = ft_split(line, ' ');
+	token = tokenization(line_splited);
+	view_token_struct(token);
+	/*######	CMD 	######*/
+	shell->cmds = create_cmd(token, shell);
+	print_cmd_list(shell->cmds);
+	return (shell);
 }
