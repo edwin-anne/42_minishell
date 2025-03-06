@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"*.embeddedhtml": "html",
+		"cstdlib": "c",
+		"debug_ENV.C": "cpp"
+	}
+}
