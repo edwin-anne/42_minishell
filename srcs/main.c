@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
+/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:35:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/02/28 10:11:55 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/06 16:47:22 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "executing.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -19,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 
 	shell = malloc(sizeof(t_shell));
 	shell->env = copy_env(envp);
-	print_env_list(shell->env);
+	//print_env_list(shell->env);
 	while (1)
 	{
 		line = readline("$ ");
@@ -29,6 +30,8 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		}
 		parsing(shell, line, argc, argv);
+		export(shell, shell->cmds->args);
+		print_env_list(shell->env);
 		//Tu peux appeller ta fonction executing ici
 		//Avec le t_shell *shell qui contiendra
 		//ENV + la commande parser
