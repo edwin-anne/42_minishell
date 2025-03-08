@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:29:03 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/06 17:41:42 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/03/08 15:04:16 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,61 +14,52 @@
 #include "parsing.h"
 
 /**
- * @brief : export envp variables as child processes. 
- * The function should include a variable in the child process envp without
- * affecting other envp.
- * Without any argument, it will display all exported variables.
+ * @brief For minishell, export should behave like this: 
+ * when we bump into valid arg(s), the variable should be added to the envp.
+ * it should work fine with one or multiple arguments.
  */
 
-void    export(t_shell *shell, char **args)
+void    ft_export(t_shell *shell, char **args)
 {
-    int i;
-    char    *eq_pos;
+    int     i;
+    t_env   *tmp;
+    char    **env_val;
 
-    i = 1;
+    tmp = shell->env;
+    i = 0;
     while (args[i])
     {
-        if (verifyExport(args[i]) == SUCESS)
-        {
-            eq_pos = ft_strchr(args[i], '=');
-            if (eq_pos)
-            {
-                /**eq_pos = '\0';
-                shell->env->key = args[i];
-                shell->env->value = eq_pos + 1;*/
-                updateExport(shell, shell->env->key, shell->env->value);
-            }
-            i++;
-        }
-    }         
+        env_val = ft_split(shell->cmds->args[i], '=');
+        if (verify_args_export(args[i]) == SUCCESS)
+            update_export(tmp, env_val[0], env_val[1]);
+        i++;
+    }
 }
-int  verifyExport(char *args)
+
+int verify_args_export(char *args)
 {
     if (!ft_strchr(args, '='))
         return (FAIL);
-    if (ft_isdigit(args[0]))
-        return (ft_printf("bash: export: '%s': not a valid identifier\n", args[1]), FAIL);
-    if (!ft_isalpha(args[0]) && args[0] != '_')
+    else if (ft_isdigit(args[0]))
+        return (ft_printf("bash: export: '%s': not a valid identifier\n", args), FAIL);
+    else if (ft_isalpha(args && args[0] != '_'))
         return (ft_printf("bash: export: invalid option\n"), FAIL);
-    return (SUCESS);
+    return (SUCCESS);
 }
-void    updateExport(t_shell *shell, char *key, char *value)
+
+void    update_export(t_env *tmp, char *key, char *value)
 {
-    /*while (shell->env)
+    while (tmp->next)
     {
-        if (ft_strcmp(shell->env->key, key) == 0)
+        if (ft_strcmp(tmp->key, key) == 0)
         {
-            //free(shell->env->value);
-            shell->env->value = ft_strdup(value);
+            tmp->value= ft_strdup(value);
+            printf("traasd\n");
             return ;
         }
-        shell->env = shell->env->next;
-    }*/
-    envAddBack(shell->env, key, value);
-    /*new_env->key = ft_strdup(key);
-    new_env->value = ft_strdup(value);
-    new_env->next = shell->env;
-    shell->env = new_env;
-    shell->env->next = NULL;*/
+        tmp = tmp->next;
+    }
+    add_var_back(tmp, key, value);
 }
+
 

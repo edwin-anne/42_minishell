@@ -6,12 +6,13 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:35:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/06 16:47:22 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/03/08 14:32:05 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "executing.h"
+#include "minishell.h"
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -30,7 +31,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		}
 		parsing(shell, line, argc, argv);
-		export(shell, shell->cmds->args);
+		ft_export(shell, shell->cmds->args);
 		print_env_list(shell->env);
 		//Tu peux appeller ta fonction executing ici
 		//Avec le t_shell *shell qui contiendra
