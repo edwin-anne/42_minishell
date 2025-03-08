@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/08 14:49:52 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/03/08 15:06:52 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ void    ft_export(t_shell *shell, char **args);
 int     verify_args_export(char *args);
 void    update_export(t_env *tmp, char *key, char *value);
 t_env   *add_var_back(t_env *env, char *key, char *value);
+//
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:29:03 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/08 15:04:16 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/03/08 15:50:18 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,21 @@ void    ft_export(t_shell *shell, char **args)
 
 int verify_args_export(char *args)
 {
+    size_t i;
+
+    i = 0;
     if (!ft_strchr(args, '='))
         return (FAIL);
     else if (ft_isdigit(args[0]))
         return (ft_printf("bash: export: '%s': not a valid identifier\n", args), FAIL);
-    else if (ft_isalpha(args && args[0] != '_'))
+    else if (!ft_isalpha(args[0]) && args[0] != '_')
         return (ft_printf("bash: export: invalid option\n"), FAIL);
+    while (args[i])
+    {
+        if ((!isalpha(args[i]) && !isdigit(args[i])) || (ft_strlen(args) != i && args[i] != '+'))
+            return (ft_printf("bash: export: '%s': not a valid identifier\n", args), FAIL);
+        i++;
+    }
     return (SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:54:39 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/08 14:57:45 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/03/08 15:06:05 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
  * @brief Useful & necessary functions to make specific builtins working.
  */
 
+/* export: function add variable to the env. */
 t_env   *add_var_back(t_env *env, char *key, char *value)
 {
     t_env   *tmp;
