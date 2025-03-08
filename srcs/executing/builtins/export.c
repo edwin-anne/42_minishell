@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:29:03 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/08 15:50:18 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:37:10 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,54 +21,64 @@
 
 void    ft_export(t_shell *shell, char **args)
 {
-    int     i;
-    t_env   *tmp;
-    char    **env_val;
+	char    **env_val;
+	char    *value;
+	t_env   *tmp;
+	size_t  len;
+	int     i;
 
-    tmp = shell->env;
-    i = 0;
-    while (args[i])
-    {
-        env_val = ft_split(shell->cmds->args[i], '=');
-        if (verify_args_export(args[i]) == SUCCESS)
-            update_export(tmp, env_val[0], env_val[1]);
-        i++;
-    }
+	tmp = shell->env;
+	i = 1;
+	while (args[i])
+	{
+		env_val = ft_split(shell->cmds->args[i], '=');
+		len = ft_strlen(env_val[0]) + 1;
+		value = ft_strdup(args[i] + len);
+		if (verify_args_export(args[i]) == SUCCESS)
+			update_export(tmp, env_val[0], value);
+		i++;
+	}
 }
 
 int verify_args_export(char *args)
 {
-    size_t i;
-
-    i = 0;
-    if (!ft_strchr(args, '='))
-        return (FAIL);
-    else if (ft_isdigit(args[0]))
-        return (ft_printf("bash: export: '%s': not a valid identifier\n", args), FAIL);
-    else if (!ft_isalpha(args[0]) && args[0] != '_')
-        return (ft_printf("bash: export: invalid option\n"), FAIL);
-    while (args[i])
-    {
-        if ((!isalpha(args[i]) && !isdigit(args[i])) || (ft_strlen(args) != i && args[i] != '+'))
-            return (ft_printf("bash: export: '%s': not a valid identifier\n", args), FAIL);
-        i++;
-    }
-    return (SUCCESS);
+	size_t i;
+	size_t len;
+	
+	len = ft_strlen(args); 
+	i = 0;
+	if (!ft_strchr(args, '='))
+		return (FAIL);
+	else if (ft_isdigit(args[0]))
+		return (ft_printf("bash: export: '%s': not a valid identifier\n", args), FAIL);
+	else if (!ft_isalpha(args[0]) && args[0] != '_')
+		return (ft_printf("bash: export: invalid option\n"), FAIL);
+	while (args[i] && args[i] != '=')
+	{
+		if ((!ft_isalnum(args[i]) && args[i] != '_'))
+		{
+			if ((args[i] == '+' && args[i + 1] != '='))
+				return (ft_printf("bash: export: '%s': not a valid identifier\n", args), FAIL);
+		}
+		
+		i++;
+	}
+	return (SUCCESS);
 }
 
 void    update_export(t_env *tmp, char *key, char *value)
 {
-    while (tmp->next)
-    {
-        if (ft_strcmp(tmp->key, key) == 0)
-        {
-            tmp->value= ft_strdup(value);
-            printf("traasd\n");
-            return ;
-        }
-        tmp = tmp->next;
-    }
-    add_var_back(tmp, key, value);
+	while (tmp->next)
+	{
+		if (ft_strcmp(tmp->key, key) == 0)
+		{
+			tmp->value= ft_strdup(value);
+			printf("traasd\n");
+			return ;
+		}
+		tmp = tmp->next;
+	}
+	add_var_back(tmp, key, value);
 }
 
 
