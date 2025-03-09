@@ -5,7 +5,7 @@ MINISHELL:
         ☐ cd with only a relative or abs path
         ☐ pwd with no option
         ✔ export with no option @done(25-03-08 15:06)
-        ☐ unset with no options
+        ✔ unset with no options @done(25-03-09 16:11)
         ☐ env with no options or arguments
         ☐ exit with no options
     
