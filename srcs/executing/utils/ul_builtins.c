@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   ul_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:54:39 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/08 17:06:07 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/03/09 15:25:31 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,24 @@
  * @brief Useful & necessary functions to make specific builtins working.
  */
 
-/* export: function add variable to the env. */
-t_env   *add_var_back(t_env *env, char *key, char *value)
+t_env   *search_lst(t_env *env)
 {
-    t_env   *tmp;
-    t_env   *new_var;
-    
-    new_var = malloc(sizeof(t_env));
-    if (!new_var || !env)
-        return (NULL);
-    tmp = env;
-    if (tmp->next == NULL)
-    {
-        new_var->key = key;
-        new_var->value = value;
-        tmp->next = new_var;
-        new_var->next = NULL;
-    }
-    return (tmp);
+	t_env	*tmp;
+
+	if (!env)
+		return (NULL);
+	tmp = env;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	return (tmp);
 }
 
+void    free_node_env(t_env *env)
+{
+	if (env)
+	{
+    	free(env->key);
+    	free(env->value);
+    	free(env);
+	}
+}

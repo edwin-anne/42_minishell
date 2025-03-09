@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:35:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/08 15:09:27 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/03/09 14:47:07 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **envp)
 
 	shell = malloc(sizeof(t_shell));
 	shell->env = copy_env(envp);
-	//print_env_list(shell->env);
+	print_env_list(shell->env);
 	while (1)
 	{
 		line = readline("$ ");
@@ -30,8 +30,10 @@ int	main(int argc, char **argv, char **envp)
 			ft_putstr_fd("\n", 1);
 			break ;
 		}
+		
 		parsing(shell, line, argc, argv);
-		ft_export(shell, shell->cmds->args);
+		//ft_export(shell, shell->cmds->args);
+		ft_unset(shell, shell->cmds->args);
 		print_env_list(shell->env);
 		//Tu peux appeller ta fonction executing ici
 		//Avec le t_shell *shell qui contiendra

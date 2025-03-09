@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:29:03 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/08 17:37:10 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/03/09 15:15:59 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,22 @@ void    update_export(t_env *tmp, char *key, char *value)
 	add_var_back(tmp, key, value);
 }
 
-
+/* export: function add variable to the env. */
+t_env   *add_var_back(t_env *env, char *key, char *value)
+{
+    t_env   *tmp;
+    t_env   *new_var;
+    
+    new_var = malloc(sizeof(t_env));
+    if (!new_var || !env)
+        return (NULL);
+    tmp = env;
+    if (tmp->next == NULL)
+    {
+        new_var->key = key;
+        new_var->value = value;
+        tmp->next = new_var;
+        new_var->next = NULL;
+    }
+    return (tmp);
+}
