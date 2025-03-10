@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:29:03 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/09 15:15:59 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/03/10 17:45:39 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void    ft_export(t_shell *shell, char **args)
 int verify_args_export(char *args)
 {
 	size_t i;
-	size_t len;
+	//size_t len;
 	
-	len = ft_strlen(args); 
+	//len = ft_strlen(args); 
 	i = 0;
 	if (!ft_strchr(args, '='))
 		return (FAIL);
@@ -60,7 +60,6 @@ int verify_args_export(char *args)
 			if ((args[i] == '+' && args[i + 1] != '='))
 				return (ft_printf("bash: export: '%s': not a valid identifier\n", args), FAIL);
 		}
-		
 		i++;
 	}
 	return (SUCCESS);
