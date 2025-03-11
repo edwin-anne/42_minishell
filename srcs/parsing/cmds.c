@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/09 16:19:34 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/11 12:00:15 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ t_cmd *create_cmd(t_token *token, t_shell *shell)
 			if (token->next)
 				token = token->next;
 			else
-				printf("minishell: syntax error near unexpected token `newline'\n");
+				ft_fdprintf(2, "minishell: syntax error near unexpected token `newline'\n");
 		}
 		else if (token->type == WORD || token->type == ENV_VAR)
 			add_args(current_cmd, token->value);
