@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:57:53 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/02 12:54:38 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/11 11:59:52 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <readline/history.h>
 
 # include "../libft/include/libft.h" 
+# include "ft_fdprintf.h"
 # include "../libft/include/ft_printf.h"
 # include "../libft/include/get_next_line.h"
 
@@ -69,8 +70,12 @@ typedef struct s_shell
     int     exit_status; // Code de retour du dernier processus
 } t_shell;
 
-/*######	UTILS   	######*/
-
+/*######	FREE   	######*/
+void	free_shell(t_shell *shell);
+void	free_env(t_env *env);
+void	free_cmds(t_cmd *cmd);
+void	free_redir(t_redir *redir);
+void	free_char_array(char **array);
 
 #endif
 

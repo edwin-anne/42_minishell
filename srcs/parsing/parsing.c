@@ -23,10 +23,13 @@ t_shell	*parsing(t_shell *shell, char *line, int argc, char **argv)
 	debug_pre_parsing(line);
 	/*######	TOKENISATION	######*/
 	line_splited = ft_split(line, ' ');
+	free(line);
 	token = tokenization(line_splited);
+	free_char_array(line_splited);
 	view_token_struct(token);
 	/*######	CMD 	######*/
 	shell->cmds = create_cmd(token, shell);
+	free_tokens(token);
 	print_cmd_list(shell->cmds);
 	return (shell);
 }

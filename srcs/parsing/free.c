@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 10:07:32 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/09 16:19:46 by Edwin ANNE       ###   ########.fr       */
+/*   Created: 2025/03/09 11:17:44 by Edwin ANNE        #+#    #+#             */
+/*   Updated: 2025/03/09 16:19:49 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	ft_perror(char *str, int exit_code)
+void	free_tokens(t_token *head)
 {
-	ft_putstr_fd(str, 2);
-	exit(exit_code);
+	t_token	*tmp;
+
+	while (head)
+	{
+		tmp = head;
+		head = head->next;
+		free(tmp->value);
+		free(tmp);
+	}
 }

@@ -1,19 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_fdprintf_error.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 10:07:32 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/09 16:19:46 by Edwin ANNE       ###   ########.fr       */
+/*   Created: 2024/10/29 13:57:10 by eanne             #+#    #+#             */
+/*   Updated: 2025/03/11 10:47:30 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "ft_fdprintf.h"
 
-void	ft_perror(char *str, int exit_code)
+int	write_null(int fd)
 {
-	ft_putstr_fd(str, 2);
-	exit(exit_code);
+	write(fd, "(null)", 6);
+	return (6);
+}
+
+int	write_nil(int fd)
+{
+	write(fd, "(nil)", 5);
+	return (5);
+}
+
+int	write_format(int fd, int letter)
+{
+	write(fd, "%", 1);
+	if (letter == '%')
+		return (1);
+	write(fd, &letter, 1);
+	return (2);
 }

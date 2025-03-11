@@ -32,8 +32,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 		
 		parsing(shell, line, argc, argv);
-		ft_echo(shell);
-		//print_env_list(shell->env);
 		if (line[0] != '\0')
 			add_history(line);
 		free(line);
