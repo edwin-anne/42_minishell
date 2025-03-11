@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/05 14:14:03 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/09 11:19:08 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ t_env			*copy_env(char **envp);
 t_env			*add_env_node(t_env *node, char *env);
 
 /*######	QUOTE 	######*/
-void            quote(char **args);
+int             quote(char **args);
+void            interpret_quotes(char **args);
 
 /*######	BUILT_IN 	######*/
 bool			is_built_in(char **cmds);
@@ -68,10 +69,14 @@ void			execute_here_doc_cmds(t_cmd *cmds);
 
 /*######	ENV_VAR 	######*/
 void            execute_env_var(t_env *env, char **arg);
+void            name_env_var(char c, char **result);
 
 /*######	UTILS 	######*/
 /*######	FT_SPLIT_MULTI  	######*/
 char			**ft_split_multi(const char *s, char **delimiters);
+
+/*######	FREE 	######*/
+void            free_tokens(t_token *head);
 
 /*######	ERROR 	######*/
 void			ft_perror(char *str, int exit_code);

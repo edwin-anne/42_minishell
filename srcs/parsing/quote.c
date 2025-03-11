@@ -6,36 +6,92 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:12:01 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/05 14:23:23 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/09 16:20:07 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-#include <stdio.h>
+int quote(char **args)
+{
+	int		i;
+	int		single_quote_open;
+	int		double_quote_open;
+	char	*arg;
 
-void quote(char **args) {
-    int i = 0;
-    int single_quote_open = 0;
-    int double_quote_open = 0;
+	i = 0;
+	single_quote_open = 0;
+	double_quote_open = 0;
+	if (!args)
+		return (0);
+	while (args[i])
+	{
+		arg = args[i];
+		if (!arg[0] || (arg[0] && arg[1] == '"') || (arg[0] && arg[1] == '\''))
+			return (0);
+		while (*arg)
+		{
+			if (*arg == '\'' && double_quote_open == 0)
+				single_quote_open = !single_quote_open;
+			else if (*arg == '"' && single_quote_open == 0)
+				double_quote_open = !double_quote_open;
+			arg++;
+		}
+		i++;
+	}
+	if (single_quote_open || double_quote_open)
+		return (0);
+	return (1);
+}
 
-    while (args[i]) {
-        char *arg = args[i];
-        while (*arg) {
-            if (*arg == '\'' && double_quote_open == 0) {
-                single_quote_open = !single_quote_open;
-            } else if (*arg == '"' && single_quote_open == 0) {
-                double_quote_open = !double_quote_open;
-            }
-            arg++;
-        }
-        i++;
-    }
+char	*remove_quotes(const char *arg)
+{
+	int		i;
+	int		j;
+	int		len;
+	char	quote;
+	char 	*result;
+	
+	len = strlen(arg);
+	result = malloc(len + 1);
+	i = 0;
+	j = 0;
+	quote = 0;
+	if (!result)
+		return (NULL);
+	while (arg[i])
+	{
+		if ((arg[i] == '\'' || arg[i] == '"') && (quote == 0 || quote == arg[i]))
+		{
+			if (quote == 0)
+				quote = arg[i];
+			else
+				quote = 0;
+		} else {
+			result[j++] = arg[i];
+		}
+		i++;
+	}
+	result[j] = '\0';
+	return (result);
+}
 
-    if (single_quote_open) {
-        printf("minishell: syntax error near unexpected token `'`\n");
-    }
-    if (double_quote_open) {
-        printf("minishell: syntax error near unexpected token `\"`\n");
-    }
+void	interpret_quotes(char **args)
+{
+	int		i;
+	char	*processed;
+	
+	i = 0;
+	if (!args)
+		return ;
+	while (args[i])
+	{
+		processed = remove_quotes(args[i]);
+		if (processed)
+		{
+			free(args[i]);
+			args[i] = processed;
+		}
+		i++;
+	}
 }
