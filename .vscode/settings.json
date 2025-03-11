@@ -2,6 +2,8 @@
 	"files.associations": {
 		"*.embeddedhtml": "html",
 		"cstdlib": "c",
-		"debug_ENV.C": "cpp"
+		"debug_ENV.C": "cpp",
+		"minishell.h": "c",
+		"executing.h": "c"
 	}
 }
