@@ -10,6 +10,7 @@ SRC_DIR = srcs/
 # COMPILER & FLAGS
 CC      = cc
 CFLAGS  = -Wall -Wextra -Werror -I$(INC) -I./libft/include
+LDFLAGS = -lreadline
 RM      = rm -f
 
 # SOURCES FILES (recherche automatique)
@@ -23,7 +24,7 @@ $(LIBFT):
 	@make -C ./libft
 
 $(NAME): $(OBJS) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(LDFLAGS) -o $(NAME)
 
 #COMPILE OBJ FROM SRCS
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c

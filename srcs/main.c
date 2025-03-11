@@ -3,24 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:35:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/02/26 21:50:05 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/11 16:41:43 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "executing.h"
+#include "minishell.h"
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
+	t_shell	*shell;
 
+	shell = malloc(sizeof(t_shell));
+	shell->env = copy_env(envp);
+	//print_env_list(shell->env);
 	while (1)
 	{
-		ft_putstr_fd("$ ", 1);
-		line = get_next_line(0);
-		parsing(line, argc, argv, envp);
+		line = readline("$ ");
+		if (!line)
+		{
+			ft_putstr_fd("\n", 1);
+			break ;
+		}
+		
+		parsing(shell, line, argc, argv);
+		if (line[0] != '\0')
+			add_history(line);
 		free(line);
 	}
+	return (0);
 }

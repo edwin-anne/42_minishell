@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:57:53 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/02/27 10:45:21 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/11 11:59:52 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 
 #include <sys/types.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <stdbool.h>
+#include <stddef.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 # include "../libft/include/libft.h" 
+# include "ft_fdprintf.h"
 # include "../libft/include/ft_printf.h"
 # include "../libft/include/get_next_line.h"
 
@@ -27,24 +30,30 @@ typedef enum e_redir_type
 	NONE,
 	FILE_REDIR,
 	PIPE_REDIR,
-	HERE_DOC
+	HERE_DOC,
+	APPEND_REDIR
 }	t_redir_type;
 
 typedef struct s_redir
 {
-	t_redir_type	type;    // Type de redirection en entrée
-	char	        *file;   // Chemin fichier pour l'entrée (si type_in == FILE_REDIR)
-	struct s_redir *next;
+	t_redir_type	type_in;    // Type de redirection en entrée
+	char	        *file_in;   // Chemin fichier pour l'entrée (si type_in == FILE_REDIR)
+	char			*limiter_here_doc;
+	int		        fd_in;      // File descriptor pour l'entrée
+
+	t_redir_type	type_out;   // Type de redirection en sortie
+	char	        *file_out;  // Chemin fichier pour la sortie (si type_out == FILE_REDIR)
+	int		        fd_out;     // File descriptor pour la sortie
 }	t_redir;
 
 typedef struct s_cmd
 {
     char    **args;       // Arguments de la commande (argv)
     char    *path;        // Chemin vers l'exécutable
-	bool     is_builtin;   // Indique si c'est une commande interne (1) ou externe (0)
-	int		exit_code;
 	struct s_redir *redir;
-    struct s_cmd *next;   // Commande suivante (utile pour les pipes)
+    bool     is_builtin;   // Indique si c'est une commande interne (1) ou externe (0)
+    struct s_env *env;
+	struct s_cmd *next;   // Commande suivante (utile pour les pipes)
 } t_cmd;
 
 typedef struct s_env
@@ -61,8 +70,12 @@ typedef struct s_shell
     int     exit_status; // Code de retour du dernier processus
 } t_shell;
 
-/*######	UTILS   	######*/
-
+/*######	FREE   	######*/
+void	free_shell(t_shell *shell);
+void	free_env(t_env *env);
+void	free_cmds(t_cmd *cmd);
+void	free_redir(t_redir *redir);
+void	free_char_array(char **array);
 
 #endif
 

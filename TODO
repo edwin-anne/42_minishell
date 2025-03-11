@@ -1,0 +1,56 @@
+MINISHELL:
+
+    1.1 BUILT-IN commands:
+        ☐ echo with the option -n
+        ☐ cd with only a relative or abs path
+        ☐ pwd with no option (verif s'il se sert de l'env)
+        ✔ export with no option @done(25-03-08 15:06)
+        ✔ unset with no options @done(25-03-09 16:11)
+        ✔ env with no options or arguments @done(25-03-10 17:53) 
+        ☐ env s'exec dans l'enfant
+        ☐ exit with no options
+    
+    1.2 INTERACTIVE mode:
+        ☐ ctrl-C display a new prompt on a new line
+        ☐ ctrl-D exits the shell
+        ☐ ctrl-\ does nothing
+    1.3 VERIF A FAIRE:
+        ☐ si -n fonctionne sur echo.
+        ☐ remplacer ft_printf par ft_fdprintf pour les builtins.
+
+TODO : executing checklist (in child)
+    
+check where to redirect the entry and if we need, redirect the output
+If we have an here_doc do it first
+if we have multiple here_doc we need to stock them then erase it with the next here_doc
+! ulimit -n (if we open to much fd)? open file/pipe in the child dynamicly
+find path to cmd and execve
+do it for every pipe/cmd
+!! handle exit code !
+
+    todo 2 : if we have only one cmd (no pipe)
+    
+redirecting then check if we have a builtins (for the parent)? if not a builtins then fork, redirect the child output/entry and execve
+
+    todo 3 : multiple cmd (1 or + pipes)
+    ! if we have a builtin like cd it don't work because it change the PWD and OLDPWD of the CHILD not the main
+    ? pipex but mine need some modifications (creation of pipes and structs etc)
+    ? pipex need to be executed from left to right (changing one while when creating my lst of cmd)
+todo : redirection
+    
+redirect the STDIN to the last IN or HDC redirection (before the pipe)
+if we don't have the permission on the infile the command isn't exec and the outfile isn't created if it doesn't exist! even if we don't have the perms we do every here_doc before exit/quit
+finally we redirect the STDOUT to the last OUT or APP and create it if it doesn't exist
+! don't forget to unlink the tmp file of each heredoc before killing the child? redirection with pipes ? boolean for handle_out to see if we find a out or not
+
+    todo 3.1 : pipes
+    
+ulimit -n change the limit for both but they are separate for example :
+ulimit -n 25 set the limit to 25 so the main can open 25 fd and the child can open 25 fd too
+if the main open a fd (24 left) the child still have 25 left
+? so to handle it maybe we can create each pipe in the child before the redirection
+
+todo 4 : cmd 
+check path for every command with access and our envp list
+! if no path execve wil "fail" and so we need to free evrything
+execve
