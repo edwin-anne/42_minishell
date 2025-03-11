@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:35:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/10 17:54:35 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/11 16:41:43 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		
 		parsing(shell, line, argc, argv);
+		ft_echo(shell);
 		//print_env_list(shell->env);
 		if (line[0] != '\0')
 			add_history(line);

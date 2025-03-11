@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/10 17:37:43 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/11 16:41:35 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ void    free_node_env(t_env *env);
 t_env   *search_lst(t_env *env);
 //
 int   ft_env(t_shell *shell, char **args);
+//
+int   ft_echo(t_shell *shell);
 
 #endif
