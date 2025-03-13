@@ -2,6 +2,7 @@ MINISHELL:
 
     1.1 BUILT-IN commands:
         ☐ echo with the option -n
+            ☐ echo multiple arg no space between arg  
         ☐ cd with only a relative or abs path
         ☐ pwd with no option (verif s'il se sert de l'env)
         ✔ export with no option @done(25-03-08 15:06)
