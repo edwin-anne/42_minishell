@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:35:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/11 17:10:47 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/13 18:19:37 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	main(int argc, char **argv, char **envp)
 
 	shell = malloc(sizeof(t_shell));
 	shell->env = copy_env(envp);
-	//print_env_list(shell->env);
 	while (1)
 	{
 		line = readline("$ ");
@@ -32,7 +31,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		
 		parsing(shell, line, argc, argv);
-		ft_echo(shell);
+		ft_pwd();
 		if (line[0] != '\0')
 			add_history(line);
 	}

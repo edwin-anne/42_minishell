@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:29:03 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/10 17:45:39 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/12 14:34:38 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@ int verify_args_export(char *args)
 	if (!ft_strchr(args, '='))
 		return (FAIL);
 	else if (ft_isdigit(args[0]))
-		return (ft_printf("bash: export: '%s': not a valid identifier\n", args), FAIL);
+		return (ft_fdprintf(1, "bash: export: '%s': not a valid identifier\n", args), FAIL);
 	else if (!ft_isalpha(args[0]) && args[0] != '_')
-		return (ft_printf("bash: export: invalid option\n"), FAIL);
+		return (ft_fdprintf(1, "bash: export: invalid option\n"), FAIL);
 	while (args[i] && args[i] != '=')
 	{
 		if ((!ft_isalnum(args[i]) && args[i] != '_'))
 		{
 			if ((args[i] == '+' && args[i + 1] != '='))
-				return (ft_printf("bash: export: '%s': not a valid identifier\n", args), FAIL);
+				return (ft_fdprintf(1, "bash: export: '%s': not a valid identifier\n", args), FAIL);
 		}
 		i++;
 	}
@@ -72,7 +72,6 @@ void    update_export(t_env *tmp, char *key, char *value)
 		if (ft_strcmp(tmp->key, key) == 0)
 		{
 			tmp->value= ft_strdup(value);
-			printf("traasd\n");
 			return ;
 		}
 		tmp = tmp->next;
