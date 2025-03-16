@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 16:50:55 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/09 16:20:11 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/16 10:16:25 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_token_type	tokenization_set_type(char *word)
 	if (ft_strcmp(word, ">>") == 0)
 		return (APPEND);
 	if (ft_strcmp(word, "<<") == 0)
-		return (HEREDOC);
+		return (HERE_DOC);
 	if (word[0] == '$' && strlen(word) > 1)
 		return (ENV_VAR);
 	return (WORD);

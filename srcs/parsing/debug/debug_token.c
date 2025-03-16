@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 16:32:38 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/02/27 20:50:17 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/16 10:24:11 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ const char *token_type_to_string(t_token_type type) {
         case REDIR_IN: return "REDIR_IN";
         case REDIR_OUT: return "REDIR_OUT";
         case APPEND: return "APPEND";
-        case HEREDOC: return "HEREDOC";
+        case HERE_DOC: return "HEREDOC";
         case ENV_VAR: return "ENV_VAR";
         default: return "UNKNOWN";
     }

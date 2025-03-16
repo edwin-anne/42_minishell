@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:43:44 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/09 16:19:54 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/16 10:30:17 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,34 @@ char	*execute_here_doc(char *filepath, char *limiter)
 	close(fd);
 }
 
-void	execute_here_doc_cmds(t_cmd *cmds)
+void execute_here_doc_cmds(t_cmd *cmds)
 {
-	int	id_here_doc;
-	
-	id_here_doc = 0;
-	while (cmds != NULL)
-	{
-		if (cmds->redir && cmds->redir->type_in == HERE_DOC)
-		{
-			//TODO -> recuperer le limiter qui doit etre ajouter dans la struct
-			debug_here_doc(ft_itoa(id_here_doc), "test");
-			cmds->redir->file_in = execute_here_doc(ft_itoa(id_here_doc), "test");
-			id_here_doc++;
-		}
-		cmds = cmds->next;
-	}
+    int id_here_doc;
+    char *id_str;
+    t_redir *redir;
+
+    id_here_doc = 0;
+    while (cmds != NULL)
+    {
+        redir = cmds->redir_in;
+        while (redir != NULL)
+        {
+            if (redir->type == HEREDOC)
+            {
+                id_str = ft_itoa(id_here_doc);
+                if (!id_str)
+                {
+                    ft_fdprintf(2, "minishell: memory allocation error\n");
+                    return;
+                }
+                debug_here_doc(id_str, redir->limiter);
+                redir->file = execute_here_doc(id_str, redir->limiter);
+
+                free(id_str);
+                id_here_doc++;
+            }
+            redir = redir->next;
+        }
+        cmds = cmds->next;
+    }
 }

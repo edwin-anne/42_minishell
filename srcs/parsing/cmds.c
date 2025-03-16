@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/11 12:00:15 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/16 10:31:57 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 void add_args(t_cmd *cmd, char *arg)
 {
-	int	i;
-	int	j;
+	int i = 0;
+	int j = 0;
 	char **new_args;
 
-	i = 0;
-	j = 0;
 	while (cmd->args && cmd->args[i])
 		i++;
 	new_args = malloc(sizeof(char *) * (i + 2));
@@ -37,57 +35,58 @@ void add_args(t_cmd *cmd, char *arg)
 	cmd->is_builtin = is_built_in(cmd->args);
 }
 
-void guess_redir(t_cmd *cmd, t_token *token)
+void add_redir(t_redir **redir_list, t_token *token, t_redir_type type)
 {
-	int	redir_type;
+	t_redir *new_redir;
+	t_redir *last;
 
-	if (!cmd || !token || !cmd->redir)
-		return ;
-	if (!token->type)
+	if (!token->next || token->next->type != WORD)
 	{
-		cmd->redir->type_in = NONE;
-		return ;
+		ft_fdprintf(2, "minishell: syntax error near unexpected token\n");
+		return;
 	}
-	if (token->type == REDIR_IN || token->type == REDIR_OUT || 
-		token->type == APPEND || token->type == HEREDOC)
-	{
-		if (!token->next || token->next->type != WORD)
-		{
-			cmd->redir->type_in = NONE;
-			return ;
-		}
-		redir_type = NONE;
-		if (token->type == REDIR_IN)
-			redir_type = FILE_REDIR;
-		else if (token->type == REDIR_OUT)
-			redir_type = FILE_REDIR;
-		else if (token->type == APPEND)
-			redir_type = APPEND_REDIR;
-		else if (token->type == HEREDOC)
-			redir_type = HERE_DOC;
-		write_redir(cmd, token, redir_type);
-	}
+
+	new_redir = malloc(sizeof(t_redir));
+	if (!new_redir)
+		return;
+	new_redir->type = type;
+	new_redir->file = strdup(token->next->value);
+	new_redir->limiter = (type == HEREDOC) ? strdup(token->next->value) : NULL;
+	new_redir->fd = -1;
+	new_redir->next = NULL;
+
+	// Ajouter la redirection à la fin de la liste
+	if (!(*redir_list))
+		*redir_list = new_redir;
 	else
-		cmd->redir->type_in = NONE;
+	{
+		last = *redir_list;
+		while (last->next)
+			last = last->next;
+		last->next = new_redir;
+	}
 }
 
-void write_redir(t_cmd *cmd, t_token *token, t_redir_type type)
+void guess_redir(t_cmd *cmd, t_token *token)
 {
-	if (!cmd || !token || !cmd->redir || !token->next)
+	if (!cmd || !token)
 		return;
-	
-	cmd->redir->type_in = type;
-	if (token->next->value)
-		cmd->redir->file_in = strdup(token->next->value);
-	else
-		cmd->redir->file_in = NULL;
+
+	if (token->type == REDIR_IN)
+		add_redir(&cmd->redir_in, token, INPUT_REDIR);
+	else if (token->type == REDIR_OUT)
+		add_redir(&cmd->redir_out, token, OUTPUT_REDIR);
+	else if (token->type == APPEND)
+		add_redir(&cmd->redir_out, token, APPEND_REDIR);
+	else if (token->type == HERE_DOC)
+		add_redir(&cmd->redir_in, token, HEREDOC);
 }
 
 t_cmd *create_cmd(t_token *token, t_shell *shell)
 {
 	t_cmd *cmd_list = NULL;
 	t_cmd *current_cmd = NULL;
-	
+
 	cmd_list = init_cmd();
 	current_cmd = cmd_list;
 	while (token)
@@ -102,8 +101,8 @@ t_cmd *create_cmd(t_token *token, t_shell *shell)
 			current_cmd->next = init_cmd();
 			current_cmd = current_cmd->next;
 		}
-		else if (token->type == REDIR_IN || token->type == REDIR_OUT || 
-				token->type == APPEND || token->type == HEREDOC)
+		else if (token->type == REDIR_IN || token->type == REDIR_OUT ||
+				 token->type == APPEND || token->type == HERE_DOC)
 		{
 			guess_redir(current_cmd, token);
 			if (token->next)
@@ -115,6 +114,7 @@ t_cmd *create_cmd(t_token *token, t_shell *shell)
 			add_args(current_cmd, token->value);
 		token = token->next;
 	}
+
 	execute_here_doc_cmds(cmd_list);
 	quote(cmd_list->args);
 	execute_env_var(shell->env, cmd_list->args);
