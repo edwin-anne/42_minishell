@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:35:28 by Edwin ANNE        #+#    #+#             */
 /*   Updated: 2025/03/17 18:04:34 by lolq             ###   ########.fr       */
@@ -19,6 +19,8 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	t_shell	*shell;
 
+	using_history();
+	rl_initialize();
 	shell = malloc(sizeof(t_shell));
 	shell->env = copy_env(envp);
 	while (1)
@@ -36,6 +38,8 @@ int	main(int argc, char **argv, char **envp)
 		if (line[0] != '\0')
 			add_history(line);
 	}
+	clear_history();
+	rl_clear_history();
 	return (0);
 }
 

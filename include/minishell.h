@@ -28,30 +28,28 @@
 
 typedef enum e_redir_type
 {
-	NONE,
-	FILE_REDIR,
-	PIPE_REDIR,
-	HERE_DOC,
-	APPEND_REDIR
-}	t_redir_type;
+    NO_REDIR,
+    INPUT_REDIR,   // "<"
+    HEREDOC,       // "<<"
+    OUTPUT_REDIR,  // ">"
+    APPEND_REDIR   // ">>"
+}   t_redir_type;
 
 typedef struct s_redir
 {
-	t_redir_type	type_in;    // Type de redirection en entrée
-	char	        *file_in;   // Chemin fichier pour l'entrée (si type_in == FILE_REDIR)
-	char			*limiter_here_doc;
-	int		        fd_in;      // File descriptor pour l'entrée
-
-	t_redir_type	type_out;   // Type de redirection en sortie
-	char	        *file_out;  // Chemin fichier pour la sortie (si type_out == FILE_REDIR)
-	int		        fd_out;     // File descriptor pour la sortie
-}	t_redir;
+    t_redir_type    type;       // Type de redirection
+    char            *file;      // Nom du fichier (si applicable)
+    char            *limiter;   // Limiteur pour heredoc (si applicable)
+    int             fd;         // File descriptor associé
+    struct s_redir  *next;      // Pointeur vers la prochaine redirection
+}   t_redir;
 
 typedef struct s_cmd
 {
     char    **args;       // Arguments de la commande (argv)
     char    *path;        // Chemin vers l'exécutable
-	struct s_redir *redir;
+	t_redir *redir_in;   // Liste chaînée des redirections d'entrée
+    t_redir *redir_out;
     bool     is_builtin;   // Indique si c'est une commande interne (1) ou externe (0)
     struct s_env *env;
 	struct s_cmd *next;   // Commande suivante (utile pour les pipes)

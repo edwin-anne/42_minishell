@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/09 11:19:08 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/16 10:14:46 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef enum e_token_type {
     REDIR_IN,
     REDIR_OUT,
     APPEND,
-    HEREDOC,
+    HERE_DOC,
     ENV_VAR
 } t_token_type;
 

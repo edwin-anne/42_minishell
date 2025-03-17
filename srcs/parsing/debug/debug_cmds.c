@@ -6,71 +6,66 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:21:22 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/09 16:25:46 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/16 10:16:58 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "parsing.h"
 
-void print_redir(t_redir *redir)
+void print_redir_list(t_redir *redir_list, const char *type)
 {
-	if (!redir)
-	{
-		printf("  Redirections: None\n");
-		return;
-	}
+    if (!redir_list)
+    {
+        printf("    %s: None\n", type);
+        return;
+    }
 
-	printf("  Redirections:\n");
-	
-	// Affichage de l'entrée
-	if (redir->type_in == FILE_REDIR)
-		printf("    Input: File - %s (fd: %d) (file: %s)\n", redir->file_in, redir->fd_in, redir->file_in);
-	else if (redir->type_in == PIPE_REDIR)
-		printf("    Input: Pipe (fd: %d)\n", redir->fd_in);
-	else if (redir->type_in == HERE_DOC)
-		printf("    Input: Here Document (fd: %d) (file: %s)\n", redir->fd_in, redir->file_in);
-	else
-		printf("    Input: None\n");
+    printf("    %s:\n", type);
+    while (redir_list)
+    {
+        if (redir_list->type == INPUT_REDIR)
+            printf("      - Input: File - %s (fd: %d)\n", redir_list->file, redir_list->fd);
+        else if (redir_list->type == HEREDOC)
+            printf("      - Input: Here Document (fd: %d) (limiter: %s)\n", redir_list->fd, redir_list->limiter);
+        else if (redir_list->type == OUTPUT_REDIR)
+            printf("      - Output: File - %s (fd: %d)\n", redir_list->file, redir_list->fd);
+        else if (redir_list->type == APPEND_REDIR)
+            printf("      - Output: Append - %s (fd: %d)\n", redir_list->file, redir_list->fd);
+        else
+            printf("      - Unknown redirection type\n");
 
-	// Affichage de la sortie
-	if (redir->type_out == FILE_REDIR)
-		printf("    Output: File - %s (fd: %d)\n", redir->file_out, redir->fd_out);
-	else if (redir->type_out == PIPE_REDIR)
-		printf("    Output: Pipe (fd: %d)\n", redir->fd_out);
-	else
-		printf("    Output: None\n");
+        redir_list = redir_list->next;
+    }
 }
 
 void print_cmd_list(t_cmd *cmd_list)
 {
-	int cmd_index = 1;
-	
-	printf("\n========= Liste des commandes =========\n");
-	while (cmd_list)
-	{
-		printf("\nCommande %d:\n", cmd_index++);
-		printf("  Path: %s\n", cmd_list->path ? cmd_list->path : "(NULL)");
+    int cmd_index = 1;
 
-		printf("  Arguments: ");
-		if (cmd_list->args)
-		{
-			for (int i = 0; cmd_list->args[i]; i++)
-				printf("\"%s\" ", cmd_list->args[i]);
-		}
-		else
-		{
-			printf("(NULL)");
-		}
-		printf("\n");
+    printf("\n========= Liste des commandes =========\n");
+    while (cmd_list)
+    {
+        printf("\nCommande %d:\n", cmd_index++);
+        printf("  Arguments: ");
+        if (cmd_list->args)
+        {
+            for (int i = 0; cmd_list->args[i]; i++)
+                printf("\"%s\" ", cmd_list->args[i]);
+        }
+        else
+        {
+            printf("(NULL)");
+        }
+        printf("\n");
 
-		printf("  Builtin: %s\n", cmd_list->is_builtin ? "Yes" : "No");
+        // Affichage des redirections multiples
+        print_redir_list(cmd_list->redir_in, "Redirections d'entrée");
+        print_redir_list(cmd_list->redir_out, "Redirections de sortie");
 
-		print_redir(cmd_list->redir);
-		
-		printf("--------------------------------------\n");
+        printf("--------------------------------------\n");
 
-		cmd_list = cmd_list->next;
-	}
-	printf("=======================================\n");
+        cmd_list = cmd_list->next;
+    }
+    printf("=======================================\n");
 }
