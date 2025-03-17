@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/13 18:19:16 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/17 11:27:12 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ void    ft_unset(t_shell *shell, char **args);
 void    free_node_env(t_env *env);
 t_env   *search_lst(t_env *env);
 //
-int   ft_env(t_shell *shell, char **args);
+int     ft_env(t_shell *shell, char **args);
 //
-int   ft_echo(t_shell *shell);
+int     ft_echo(t_shell *shell);
 //
-int    ft_pwd(void);
+int     ft_pwd(void);
+//
+void    ft_exit(t_shell *shell);
+int     is_arg_nb(char *arg);
 
 #endif

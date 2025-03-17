@@ -6,15 +6,11 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:41:45 by lolq              #+#    #+#             */
-/*   Updated: 2025/03/13 18:51:50 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/17 09:05:11 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 
-int ft_cd(t_shell *shell)
-{
-    
-}
-
+//int ft_cd(t_shell *shell)
 // opendir, readdir, closedir
