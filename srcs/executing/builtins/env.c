@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:12:37 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/12 14:34:06 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/17 16:37:55 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  */
 
  int   ft_env(t_shell *shell, char **args)
- {
+{
     t_env   *current;
     
     current = shell->env;
@@ -38,6 +38,5 @@
         current = current->next;
     }
    return (SUCCESS);
- }
-
+}
  
