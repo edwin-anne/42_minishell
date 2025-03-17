@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ul_builtins.c                                      :+:      :+:    :+:   */
+/*   utl_builtins.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:54:39 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/09 15:25:31 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/03/17 09:57:11 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "minishell.h"
 
 /**
- * @brief Useful & necessary functions to make specific builtins working.
+ * @brief Useful & necessary functions to make builtins working.
  */
 
 t_env   *search_lst(t_env *env)
