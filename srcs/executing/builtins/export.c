@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:29:03 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/17 17:57:43 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/18 16:49:05 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * it should work fine with one or multiple arguments.
  */
 
-void    ft_export(t_shell *shell, char **args)
+int    ft_export(t_shell *shell, char **args)
 {
 	char    **env_val;
 	char    *value;
@@ -36,8 +36,11 @@ void    ft_export(t_shell *shell, char **args)
 		value = ft_strdup(args[i] + len);
 		if (verify_args_export(args[i]) == SUCCESS)
 			update_export(tmp, env_val[0], value);
+		else
+			return (FAIL);
 		i++;
 	}
+	return (SUCCESS);
 }
 
 int verify_args_export(char *args)
@@ -45,7 +48,7 @@ int verify_args_export(char *args)
 	size_t i;
 	//size_t len;
 	
-	//len = ft_strlen(args); 
+	//len = ft_strlen(args);
 	i = 0;
 	if (!ft_strchr(args, '='))
 		return (FAIL);

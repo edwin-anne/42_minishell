@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:12:37 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/17 16:37:55 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/18 14:21:19 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@
  * @brief Env should display all the variable of the environnement.
  */
 
- int   ft_env(t_shell *shell, char **args)
+ int   ft_env(t_shell *shell, t_cmd *cmds)
 {
     t_env   *current;
     
     current = shell->env;
-    if (shell->cmds->args[1])
+    if (cmds->args[1])
     {
-        if (ft_strcmp(shell->cmds->args[1], "env") != 0)
+        if (ft_strcmp(cmds->args[1], "env") != 0)
         {
-            ft_fdprintf(1, "env: '%s': No such file or directory\n", args[1]);
+            ft_fdprintf(1, "env: '%s': No such file or directory\n", cmds->args[1]);
             return (FAIL);
         }
     }

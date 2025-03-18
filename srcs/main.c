@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:35:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/17 18:04:34 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/18 13:53:46 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		}
 		parsing(shell, line, argc, argv);
-		ft_pwd();
-		ft_env(shell, shell->cmds->args);
-		ft_cd(shell);
+		builtins_executing(shell, shell->cmds);
 		if (line[0] != '\0')
 			add_history(line);
 	}
