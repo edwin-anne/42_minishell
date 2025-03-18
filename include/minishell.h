@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:57:53 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/17 16:37:19 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/18 17:47:27 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,3 @@ void	free_redir(t_redir *redir);
 void	free_char_array(char **array);
 
 #endif
-
-/*echo -n "test" | cat -e
-
-cmd->path = /usr/bin/echo
-cmd->args[0] = echo
-cmd->args[1] = -n
-cmd->args[2] = "test"
-cmd->next->path = /usr/bin/cat
-cmd->next->args[0] = cat
-cmd->next->args[1] = -e*/

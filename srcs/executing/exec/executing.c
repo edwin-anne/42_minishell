@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:22:18 by lolq              #+#    #+#             */
-/*   Updated: 2025/03/18 16:45:53 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/18 17:48:52 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,3 @@ int    builtins_executing(t_shell *shell, t_cmd *cmds)
         return (ft_unset(shell, cmds->args), SUCCESS);
     return (FAIL);
 }
-
-/**
- * void : export, unset a changer 
- * t_shell a changer pour t_cmd
- */

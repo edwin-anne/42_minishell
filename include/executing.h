@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/18 16:49:35 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/18 17:57:21 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ t_env   *search_lst(t_env *env);
 int     is_arg_nb(char *arg);
 void    update_env(t_env *tmp, char *str, char *current_dir);
 
-/* EXECUTING: detection of builtins */
+/* EXECUTING: exec of builtins */
 int    builtins_executing(t_shell *shell, t_cmd *cmds);
+
+/* EXEC: */
+char    *search_env_path(t_shell *shell, t_cmd *cmds);
 
 #endif
