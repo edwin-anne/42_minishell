@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/19 15:53:41 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/19 16:50:43 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ int    builtins_executing(t_shell *shell, t_cmd *cmds);
 
 /* PATH: */
 char    *search_env_path(t_env *env);
-void    find_executable(t_cmd *cmds, t_env *env);
 char    *search_in_path(char *cmd, char **path_split);
+void    find_executable(t_cmd *cmds, t_env *env);
+
+// 
 
 #endif

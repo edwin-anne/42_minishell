@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:49:26 by lolq              #+#    #+#             */
-/*   Updated: 2025/03/19 15:55:12 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/19 16:26:34 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
  * - searches for the PATH env variable in the linked list.
  * - use the PATH to locate the exec file.
  * - add the path to the structure.
- * 
  */
 
 char    *search_env_path(t_env *env)
