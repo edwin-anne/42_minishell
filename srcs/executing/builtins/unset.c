@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 13:41:43 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/09 15:29:51 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/03/19 10:35:52 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include "executing.h"
 
 /**
- * @brief Unset will remove variables from the env. Unset will work only when 
- * we pass as argument a correct name of the variable.
+ * @brief unset values and attributes of variables and functions.
  */
 
 void ft_unset(t_shell *shell, char **args)

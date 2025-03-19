@@ -10,6 +10,7 @@ MINISHELL:
             ✔ env with no options or arguments @done(25-03-10 17:53) 
                 ☐ env s'exec dans l'enfant
             ☐ free toutes les struct de minishell avant exit
+            ☐ echo -n -n (ne doit rien écrire)
             ✔ exit with no options @done(25-03-17 11:34)
 
     2.1 PARSING (Edwin):
@@ -22,6 +23,7 @@ MINISHELL:
         3.1 verification:
             ✔ si -n fonctionne sur echo. @done(25-03-11 17:09)
             ✔ remplacer ft_printf par ft_fdprintf pour les builtins. @done(25-03-12 14:39)
+    
     
 
 TODO : executing checklist (in child)

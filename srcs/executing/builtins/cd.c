@@ -6,14 +6,14 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:41:45 by lolq              #+#    #+#             */
-/*   Updated: 2025/03/18 13:51:33 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/19 10:30:50 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 
 /**
- * @brief Implement the cd command to change the current directory. Handling paths,
+ * @brief cd command change the current directory. Handling paths,
  * updating env variables.
  */
 

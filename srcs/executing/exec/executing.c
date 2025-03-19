@@ -6,11 +6,17 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:22:18 by lolq              #+#    #+#             */
-/*   Updated: 2025/03/18 17:48:52 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/19 11:53:30 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
+
+/**
+ * @brief calling all main functions to make the execution working: 
+ *  - builtins exec will check which builtins is called. 
+ *  - 
+ */
 
 int    builtins_executing(t_shell *shell, t_cmd *cmds)
 {
@@ -33,3 +39,17 @@ int    builtins_executing(t_shell *shell, t_cmd *cmds)
         return (ft_unset(shell, cmds->args), SUCCESS);
     return (FAIL);
 }
+
+/**
+ * int  ft_executing(t_shell *shell)
+ *{
+ *  while (shell->cmds)
+ *  {
+ *  create_child     
+ *  builtins_exec
+ *  search_path
+ *  open_pipe
+ *  open_fd
+ *  }
+ *}
+ */
