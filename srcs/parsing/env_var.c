@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 10:14:46 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/21 11:07:20 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/21 13:33:55 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,11 @@ static char *process_env_var(t_env *env, char *str)
 			value = get_env_value(env, var_name);
 			if (value)
 				append_str(&result, value);
+			else
+			{
+				append_str(&result, "$");
+				append_str(&result, var_name);
+			}
 		}
 		else
 		{
