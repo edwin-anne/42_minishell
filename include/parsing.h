@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/16 10:14:46 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/21 11:08:15 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ void			execute_here_doc_cmds(t_cmd *cmds);
 /*######	ENV_VAR 	######*/
 void            execute_env_var(t_env *env, char **arg);
 void            name_env_var(char c, char **result);
+void            append_str(char **result, const char *str);
+
+/*######	ENV_VAR_CASE 	######*/
+char            *ft_getpid();
+char            *ft_getexitcode();
 
 /*######	UTILS 	######*/
 /*######	FT_SPLIT_MULTI  	######*/
