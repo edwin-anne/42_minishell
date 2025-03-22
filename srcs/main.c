@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:35:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/22 12:01:32 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/22 17:13:16 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		}
 		parsing(shell, line, argc, argv);
-		builtins_executing(shell, shell->cmds);
-		//find_executable(shell->cmds, shell->env);*/
+		create_child(shell, shell->cmds);
 		if (line[0] != '\0')
 			add_history(line);
 	}

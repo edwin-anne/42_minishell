@@ -6,14 +6,14 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:22:18 by lolq              #+#    #+#             */
-/*   Updated: 2025/03/19 11:53:30 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/22 17:24:28 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 
 /**
- * @brief calling all main functions to make the execution working: 
+ * @brief: calling all main functions to make the execution working: 
  *  - builtins exec will check which builtins is called. 
  *  - 
  */

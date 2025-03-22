@@ -6,14 +6,14 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:49:26 by lolq              #+#    #+#             */
-/*   Updated: 2025/03/19 16:26:34 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/22 17:24:32 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 
 /**
- * @brief find the full path of executable cmd using the system's PATH. 
+ * @brief: find the full path of executable cmd using the system's PATH. 
  * - searches for the PATH env variable in the linked list.
  * - use the PATH to locate the exec file.
  * - add the path to the structure.
@@ -38,6 +38,8 @@ void    find_executable(t_cmd *cmds, t_env *env)
     char    **path_split;
     char    *path_value;
 
+    if (cmds->is_builtin == true)
+        return ;
     path_value = search_env_path(env);
     if (!path_value)
         return ;
@@ -46,11 +48,11 @@ void    find_executable(t_cmd *cmds, t_env *env)
         return ;
     if (access(cmds->args[0], X_OK) == 0)
     {
+        cmds->path = cmds->args[0];
         free_char_array(path_split);
         return ;
     }
     cmds->path = search_in_path(cmds->args[0], path_split);
-    ft_fdprintf(2, "%s\n", cmds->path);
     free_char_array(path_split);
 }
 

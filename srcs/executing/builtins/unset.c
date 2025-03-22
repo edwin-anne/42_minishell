@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 13:41:43 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/19 10:35:52 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/22 17:24:24 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "executing.h"
 
 /**
- * @brief unset values and attributes of variables and functions.
+ * @brief: unset values and attributes of variables and functions.
  */
 
 void ft_unset(t_shell *shell, char **args)

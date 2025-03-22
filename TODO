@@ -10,7 +10,7 @@ MINISHELL:
             ✔ env with no options or arguments @done(25-03-10 17:53) 
                 ☐ env s'exec dans l'enfant
             ☐ free toutes les struct de minishell avant exit
-            ☐ echo -n -n (ne doit rien écrire)
+            ✔ echo -n -n (ne doit rien écrire) @done(25-03-22 12:18)
             ✔ exit with no options @done(25-03-17 11:34)
 
     2.1 PARSING (Edwin):

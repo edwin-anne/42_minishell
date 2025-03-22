@@ -6,14 +6,14 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:46:58 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/19 10:35:19 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/22 17:24:43 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 
 /**
- * @brief : pwd return the working directory name.
+ * @brief: pwd return the working directory name.
  */
 
 int    ft_pwd(void)

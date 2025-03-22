@@ -6,14 +6,14 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 10:02:15 by lolq              #+#    #+#             */
-/*   Updated: 2025/03/22 12:14:24 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/22 17:25:01 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 
 /**
- * @brief echo have to write arguments to minishell output.
+ * @brief: echo have to write arguments to minishell output.
  * And echo -n will not add a newline.
  */
 

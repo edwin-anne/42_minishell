@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:29:03 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/19 10:34:39 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/22 17:24:46 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 #include "parsing.h"
 
 /**
- * @brief export set the export attribute for variables corresponding to the
+ * @brief: export set the export attribute for variables corresponding to the
  * specified names.
  */
+
 int    ft_export(t_shell *shell, char **args)
 {
 	char    **env_val;
