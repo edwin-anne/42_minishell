@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 10:14:46 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/21 13:33:55 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/22 11:51:00 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,57 +47,55 @@ void append_str(char **result, const char *str)
 
 static char *process_env_var(t_env *env, char *str)
 {
-	char *result;
-	char *value;
-	char var_name[256];
-	char temp[2];
-	int i;
-	int	j;
+    char *result;
+    char *value;
+    char var_name[256];
+    char temp[2];
+    int i;
+    int j;
+    int in_single_quotes;
+    int in_double_quotes;
 
-	result = strdup("");
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$' && str[i + 1])
-		{
-			i++;
-			if (str[i] == '?')
-			{
-				append_str(&result, ft_getexitcode());
-				i++;
-				continue;
-			}
-
-			if (str[i] == '$')
-			{
-				append_str(&result, ft_getpid());
-				i++;
-				continue;
-			}
-
-			j = 0;
-			while (str[i] && is_var_char(str[i]) && j < 255)
-				var_name[j++] = str[i++];
-			var_name[j] = '\0';
-
-			value = get_env_value(env, var_name);
-			if (value)
-				append_str(&result, value);
-			else
-			{
-				append_str(&result, "$");
-				append_str(&result, var_name);
-			}
-		}
-		else
-		{
-			temp[0] = str[i];
-			temp[1] = '\0';
-			append_str(&result, temp);
-			i++;
-		}
-	}
-	return (result);
+    result = strdup("");
+    i = 0;
+    in_single_quotes = 0;
+    in_double_quotes = 0;
+    while (str[i])
+    {
+        if (str[i] == '\'' && !in_double_quotes)
+            in_single_quotes = !in_single_quotes;
+        else if (str[i] == '\"' && !in_single_quotes)
+            in_double_quotes = !in_double_quotes;
+        else if (str[i] == '$' && !in_single_quotes && str[i + 1])
+        {
+            i++;
+            if (str[i] == '?')
+            {
+                append_str(&result, ft_getexitcode());
+                i++;
+                continue;
+            }
+            if (str[i] == '$')
+            {
+                append_str(&result, ft_getpid());
+                i++;
+                continue;
+            }
+            j = 0;
+            while (str[i] && is_var_char(str[i]) && j < 255)
+                var_name[j++] = str[i++];
+            var_name[j] = '\0';
+            value = get_env_value(env, var_name);
+            if (value)
+                append_str(&result, value);
+            continue;
+        }
+        temp[0] = str[i];
+        temp[1] = '\0';
+        append_str(&result, temp);
+        i++;
+    }
+    return (result);
 }
 
 void execute_env_var(t_env *env, char **args)
