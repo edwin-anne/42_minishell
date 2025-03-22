@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/21 11:08:15 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/22 16:40:04 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,12 @@ void            append_str(char **result, const char *str);
 /*######	ENV_VAR_CASE 	######*/
 char            *ft_getpid();
 char            *ft_getexitcode();
+
+/*######	ENV_VAR_UTILS 	######*/
+char	        *get_env_value(t_env *env, char *key);
+int             is_var_char(char c);
+void            append_str(char **result, const char *str);
+int             update_quote_state(char c, int *in_sq, int *in_dq);
 
 /*######	UTILS 	######*/
 /*######	FT_SPLIT_MULTI  	######*/
