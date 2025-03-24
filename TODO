@@ -1,30 +1,46 @@
-MINISHELL: 
-    1.1 EXECUTING (lola):
-        1.1 built-ins commands:
-            ✔ echo with the option -n @done(25-03-11 17:17)
-              ☐ echo multiple arg no space between arg  
-            ☐ cd with only a relative or abs path
-            ✔ pwd with no option (verif s'il se sert de l'env) @done(25-03-13 18:39)
-            ✔ export with no option @done(25-03-08 15:06)
-            ✔ unset with no options @done(25-03-09 16:11)
-            ✔ env with no options or arguments @done(25-03-10 17:53) 
-                ☐ env s'exec dans l'enfant
-            ☐ free toutes les struct de minishell avant exit
-            ✔ exit with no options @done(25-03-17 11:34)
-
-    2.1 PARSING (Edwin):
-        2.1 INTERACTIVE mode:
-            ☐ ctrl-C display a new prompt on a new line
-            ☐ ctrl-D exits the shell
-            ☐ ctrl-\ does nothing
+MINISHELL:     
+1. EXECUTING (Lola):
     
-    3.1 COMMUN:
-        3.1 verification:
-            ✔ si -n fonctionne sur echo. @done(25-03-11 17:09)
-            ✔ remplacer ft_printf par ft_fdprintf pour les builtins. @done(25-03-12 14:39)
-    
+    handling builtins cmds:
+    ✔ echo with the option -n @done(25-03-11 17:17)
+        ✔ echo multiple arg no space between arg @done(25-03-22 17:38)
+      ✔ cd with only a relative or abs path @done(25-03-22 17:38)
+      ✔ pwd with no option (verif s'il se sert de l'env) @done(25-03-13 18:39)
+      ✔ export with no option @done(25-03-08 15:06)
+      ✔ unset with no options @done(25-03-09 16:11)
+      ✔ env with no options or arguments @done(25-03-10 17:53) 
+          ☐ env s'exec dans l'enfant
+      ☐ free toutes les struct de minishell avant exit
+      ✔ echo -n -n (ne doit rien écrire) @done(25-03-22 12:18)
+      ✔ exit with no options @done(25-03-17 11:34)
 
-TODO : executing checklist (in child)
+    handling redirection:
+        ☐ détecter si il y a une redirection (>, >>, <).
+        ☐ ordre de priorité : heredoc -> redir entrée -> redir sortie.
+        ☐ implémenter dup2 pour :
+            - rediriger STDIN/STDOUT vers les fichiers.
+            - restore les fds originaux apres l'execution.
+        ☐ valider les permissions des fichiers avant l'execution.
+    
+    handling heredocs (<<):
+        ☐ détecter les heredocs en premier.
+        ☐ suppr les fichiers tmp avec unlink (apres utilisation, si signaux ctrl+c, error case).
+
+    handling pipes:
+        ☐ créer les pipes dans les enfants. (?)
+        ☐ fermer les fd inutilisés dans chaque enfant.
+        ☐ tout fd ouvert doit etre dans les structs.
+    
+    handling cmds:
+        ☐ execve avec la gestion des cmds introvables code 127, permission denied code 126.
+        ☐ envoyer le bon exit code.
+
+    tofix:
+        ☐ test: "export =" -> segfault (check après merge)
+        ☐ echo -nnnnnnnnn -> doit fonctionner
+
+
+/*TODO : executing checklist (in child)
     
 check where to redirect the entry and if we need, redirect the output
 If we have an here_doc do it first
@@ -59,4 +75,4 @@ if the main open a fd (24 left) the child still have 25 left
 todo 4 : cmd 
 check path for every command with access and our envp list
 ! if no path execve wil "fail" and so we need to free evrything
-execve
+execve*/

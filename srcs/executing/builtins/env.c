@@ -6,14 +6,14 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:12:37 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/18 14:21:19 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/22 17:24:53 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 
 /**
- * @brief Env should display all the variable of the environnement.
+ * @brief: env should display all the variable of the environnement.
  */
 
  int   ft_env(t_shell *shell, t_cmd *cmds)

@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:57:53 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/17 16:37:19 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/24 09:39:17 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <errno.h>
+#include <sys/wait.h>
 
 # include "../libft/include/libft.h" 
 # include "ft_fdprintf.h"
@@ -48,6 +49,7 @@ typedef struct s_cmd
 {
     char    **args;       // Arguments de la commande (argv)
     char    *path;        // Chemin vers l'exécutable
+    pid_t     pid;          // pid d'une cmd
 	t_redir *redir_in;   // Liste chaînée des redirections d'entrée
     t_redir *redir_out;
     bool     is_builtin;   // Indique si c'est une commande interne (1) ou externe (0)
@@ -77,13 +79,3 @@ void	free_redir(t_redir *redir);
 void	free_char_array(char **array);
 
 #endif
-
-/*echo -n "test" | cat -e
-
-cmd->path = /usr/bin/echo
-cmd->args[0] = echo
-cmd->args[1] = -n
-cmd->args[2] = "test"
-cmd->next->path = /usr/bin/cat
-cmd->next->args[0] = cat
-cmd->next->args[1] = -e*/

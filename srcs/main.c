@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:35:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/21 11:12:49 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/24 10:50:33 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	main(int argc, char **argv, char **envp)
 			ft_putstr_fd("\n", 1);
 			break ;
 		}
+		parsing(shell, line, argc, argv);
+		executing(shell);
 		if (line[0] != '\0')
 		{
 			line_copy = ft_strdup(line);
