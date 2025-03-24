@@ -25,9 +25,26 @@ MINISHELL:
             ✔ remplacer ft_printf par ft_fdprintf pour les builtins. @done(25-03-12 14:39)
     
 1. EXECUTING (Lola):
+    handling redirection:
+        ☐ detecter si il y a une redirection (>, >>, <).
+        ☐ ordre de priorite : heredoc -> redir entree -> redir sortie.
+        ☐ implementer dup2 pour :
+            - rediriger STDIN/STDOUT vers les fichiers.
+            - restore les fds originaux apres l'execution.
+        ☐ valider les permissions des fichiers avant l'execution.
+    
+    handling heredocs (<<):
+        ☐ detecter les heredocs en premier.
+        ☐ creer des fichiers tmp unique.
+        ☐ gerer des multiples heredocs -> dernier heredoc ecrase les precedents.
+        ☐ suppr les fichiers tmp avec unlink (apres utilisation, si signaux ctrl+c, error case).
+    
+    handling pipes:
+        ☐ 
     features:
         ☐ handling redir :
              ☐ savoir si y'a une redir
+             ☐ savoir si y'a un here_doc en 1er
              ☐ save les fds 
              ☐ ouvrir/fermer des pipes
         ☐ handling dup2 : dup avec la bonne redir
