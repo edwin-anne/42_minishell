@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:57:53 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/24 09:39:17 by lolq             ###   ########.fr       */
+/*   Updated: 2025/03/24 16:38:16 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 #include <readline/history.h>
 #include <errno.h>
 #include <sys/wait.h>
+#include <signal.h>
+#include <sys/signal.h>
 
 # include "../libft/include/libft.h" 
 # include "ft_fdprintf.h"
@@ -70,6 +72,9 @@ typedef struct s_shell
     t_cmd   *cmds;       // Liste des commandes à exécuter
     int     exit_status; // Code de retour du dernier processus
 } t_shell;
+
+/*######	SIGNAUX   	######*/
+void	init_signals(void);
 
 /*######	FREE   	######*/
 void	free_shell(t_shell *shell);
