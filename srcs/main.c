@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:35:28 by Edwin ANNE        #+#    #+#             */
 /*   Updated: 2025/03/24 10:50:33 by lolq             ###   ########.fr       */
@@ -17,6 +17,7 @@
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
+	char    *line_copy;
 	t_shell	*shell;
 
 	using_history();
@@ -34,8 +35,17 @@ int	main(int argc, char **argv, char **envp)
 		parsing(shell, line, argc, argv);
 		executing(shell);
 		if (line[0] != '\0')
-			add_history(line);
+		{
+			line_copy = ft_strdup(line);
+			parsing(shell, line, argc, argv);
+			builtins_executing(shell, shell->cmds);
+			add_history(line_copy);
+			free(line_copy);
+		}
+		else
+			parsing(shell, line, argc, argv);
 	}
+	free_shell(shell);
 	clear_history();
 	rl_clear_history();
 	return (0);
