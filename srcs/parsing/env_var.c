@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 10:14:46 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/22 16:40:39 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/25 09:43:31 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,21 @@
 
 static int	handle_special_vars(char **res, char *str, int *i)
 {
+	char *tmp;
+
 	if (str[*i] == '?')
 	{
-		append_str(res, ft_getexitcode());
+		tmp = ft_getexitcode();
+		append_str(res, tmp);
+		free(tmp);
 		(*i)++;
 		return (1);
 	}
 	if (str[*i] == '$')
 	{
-		append_str(res, ft_getpid());
+		tmp = ft_getpid();
+		append_str(res, tmp);
+		free(tmp);
 		(*i)++;
 		return (1);
 	}
