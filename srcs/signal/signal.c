@@ -6,11 +6,13 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 16:02:25 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/24 16:36:36 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/25 10:01:13 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_shell *g_shell;
 
 static void	handle_sigint(int sig)
 {
@@ -24,13 +26,14 @@ static void	handle_sigint(int sig)
 static void	handle_sigquit(int sig)
 {
 	(void)sig;
-	// Ne rien faire en mode interactif
 }
 
-void	init_signals(void)
+void	init_signals(t_shell *shell)
 {
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
+
+	g_shell = shell;
 
 	sa_int.sa_handler = handle_sigint;
 	sa_int.sa_flags = SA_RESTART;

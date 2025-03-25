@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:12:01 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/09 16:20:07 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/25 17:33:23 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,17 @@ char	*remove_quotes(const char *arg)
 {
 	int		i;
 	int		j;
-	int		len;
 	char	quote;
-	char 	*result;
-	
-	len = strlen(arg);
-	result = malloc(len + 1);
+	char	*result;
+
+	if (!arg)
+		return (NULL);
+	result = malloc(strlen(arg) + 1);
+	if (!result)
+		return (NULL);
 	i = 0;
 	j = 0;
 	quote = 0;
-	if (!result)
-		return (NULL);
 	while (arg[i])
 	{
 		if ((arg[i] == '\'' || arg[i] == '"') && (quote == 0 || quote == arg[i]))
@@ -67,9 +67,9 @@ char	*remove_quotes(const char *arg)
 				quote = arg[i];
 			else
 				quote = 0;
-		} else {
-			result[j++] = arg[i];
 		}
+		else
+			result[j++] = arg[i];
 		i++;
 	}
 	result[j] = '\0';

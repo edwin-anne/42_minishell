@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:35:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/24 16:07:20 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/25 17:40:33 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	main(int argc, char **argv, char **envp)
 
 	using_history();
 	rl_initialize();
-	init_signals();
 	shell = malloc(sizeof(t_shell));
 	shell->env = copy_env(envp);
+	init_signals(shell);
 	while (1)
 	{
 		line = readline("$ ");
@@ -37,6 +37,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(line);
 			parsing(shell, line, argc, argv);
 			executing(shell);
+			free_cmds(shell->cmds);
 		}
 		free(line);
 	}
