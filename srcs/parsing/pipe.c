@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/07 21:04:33 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/07 21:50:09 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	create_pipe(t_cmd *cmds)
 {
 	t_cmd	*current;
-	int		i;
 	
 	if (!cmds)
 		return;
@@ -28,7 +27,6 @@ void	create_pipe(t_cmd *cmds)
 		current = current->next;
 	}
 	current = cmds;
-	i = 0;
 	while (current && current->next)
 	{
 		t_pipe *new_pipe = init_redir();
@@ -41,6 +39,5 @@ void	create_pipe(t_cmd *cmds)
 		current->pipe_out = new_pipe;
 		current->next->pipe_in = new_pipe;
 		current = current->next;
-		i++;
 	}
 }
