@@ -75,7 +75,7 @@ typedef struct s_shell
 } t_shell;
 
 /*######	SIGNAUX   	######*/
-void	init_signals(void);
+void	init_signals(t_shell *shell);
 
 /*######	FREE   	######*/
 void	free_shell(t_shell *shell);

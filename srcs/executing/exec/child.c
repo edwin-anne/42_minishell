@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
 /*   Updated: 2025/04/07 09:12:29 by lolq             ###   ########.fr       */
@@ -57,9 +57,11 @@ void exec_child(t_cmd *cmds, t_shell *shell)
     {
         if (execve(cmds->path, cmds->args, env) == -1)
         {
+            free_shell(shell);
             perror("execve failed");
             exit(EXIT_FAILURE);    
         }
+        
     }
     free_char_array(env);
 }

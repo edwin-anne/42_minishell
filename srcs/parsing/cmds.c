@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/16 10:31:57 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/03/25 17:39:30 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void add_args(t_cmd *cmd, char *arg)
 	int i = 0;
 	int j = 0;
 	char **new_args;
+	char **old_args;
 
 	while (cmd->args && cmd->args[i])
 		i++;
@@ -30,8 +31,9 @@ void add_args(t_cmd *cmd, char *arg)
 	}
 	new_args[i] = strdup(arg);
 	new_args[i + 1] = NULL;
-	free(cmd->args);
+	old_args = cmd->args;
 	cmd->args = new_args;
+	free(old_args);
 	cmd->is_builtin = is_built_in(cmd->args);
 }
 
