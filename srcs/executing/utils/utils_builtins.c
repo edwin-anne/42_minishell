@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utl_builtins.c                                     :+:      :+:    :+:   */
+/*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:54:39 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/17 09:57:11 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/05 13:35:38 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,21 @@ void    free_node_env(t_env *env)
     	free(env->value);
     	free(env);
 	}
+}
+
+int		ft_strcharcmp(char *str, char comp)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-')
+		i++;
+	while (str[i])
+	{
+		if (str[i] == comp)
+			i++;
+		else
+			return (FAIL);			
+	}
+	return (SUCCESS);
 }

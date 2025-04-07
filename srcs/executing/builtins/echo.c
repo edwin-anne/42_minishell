@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 10:02:15 by lolq              #+#    #+#             */
-/*   Updated: 2025/03/22 17:25:01 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/05 13:34:40 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int   ft_echo(t_cmd *cmds)
     no_nl = 0;
     i = 1;
     args = cmds->args;
-    while (args[i] && ft_strcmp(args[i], "-n") == 0)
+    while (ft_strcharcmp(args[i], 'n') == SUCCESS)
     {
         no_nl = 1;
         i++;

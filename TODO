@@ -9,7 +9,7 @@ MINISHELL:
       ✔ export with no option @done(25-03-08 15:06)
       ✔ unset with no options @done(25-03-09 16:11)
       ✔ env with no options or arguments @done(25-03-10 17:53) 
-          ☐ env s'exec dans l'enfant
+          ✔ env s'exec dans l'enfant @done(25-04-05 13:22)
       ☐ free toutes les struct de minishell avant exit
       ✔ echo -n -n (ne doit rien écrire) @done(25-03-22 12:18)
       ✔ exit with no options @done(25-03-17 11:34)
@@ -37,7 +37,8 @@ MINISHELL:
 
     tofix:
         ☐ test: "export =" -> segfault (check après merge)
-        ☐ echo -nnnnnnnnn -> doit fonctionner
+        ✔ test: echo -nnnnnnnnn -> doit fonctionner @done(25-04-05 13:35)
+        ✔ test: "ls | ls" -> actuellement exec 4 fois ls au lieu de 2 @done(25-04-05 13:22)
 
 
 /*TODO : executing checklist (in child)

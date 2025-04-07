@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/24 11:24:18 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/05 13:29:42 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 #define PATH_MAX 4096
 
 /* BUILTINS: all builtins functions */
-int     builtins_executing(t_shell *shell, t_cmd *cmds);
+int     builtins_parent(t_shell *shell, t_cmd *cmds);
+int     builtins_child(t_shell *shell, t_cmd *cmds);
 int     ft_pwd(void);
 int     ft_cd(t_cmd *cmds, t_env *env);
 int     ft_env(t_shell *shell, t_cmd *cmds);
@@ -38,6 +39,8 @@ void    free_node_env(t_env *env);
 t_env   *search_lst(t_env *env);
 int     is_arg_nb(char *arg);
 void    update_env(t_env *tmp, char *str, char *current_dir);
+int		ft_strcharcmp(char *str, char comp);
+
 
 /* EXECUTING: the main function calling all functions */
 int    executing(t_shell *shell);

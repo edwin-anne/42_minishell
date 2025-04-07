@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:22:18 by lolq              #+#    #+#             */
-/*   Updated: 2025/03/24 11:31:59 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/05 13:12:02 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,9 @@ int executing(t_shell *shell)
     t_cmd   *tmp;
  
     tmp = shell->cmds;
-    while (tmp)
-    {
-        create_child(shell, shell->cmds);
-        wait_children(shell);
-        tmp = tmp->next;
-    }
+    create_child(shell, shell->cmds);
+    wait_children(shell);
+    tmp = tmp->next;
     return (FAIL);
 }
  

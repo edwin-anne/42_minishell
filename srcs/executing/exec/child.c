@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/03/25 17:35:59 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/07 09:12:29 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,21 @@ int create_child(t_shell *shell, t_cmd *cmds)
     pid_t   pid;
     
     tmp = cmds;
+    
     while (tmp != NULL)
     {
-        pid = fork();
-        if (pid < 0)
-            exit(1); // TODO: ne pas oublier de free la struct (edwin)
-        if (pid == 0)
+        if (builtins_parent(shell, tmp) != SUCCESS)
         {
-            // Child process
-            //printf("Child process for command: %s\n", tmp->args[0]);
-            exec_child(tmp, shell);
-            exit(0); // Quit child after executing
+            pid = fork();
+            if (pid < 0)
+                exit(1); // TODO: ne pas oublier de free la struct (edwin)
+            if (pid == 0)
+            {
+                exec_child(tmp, shell);
+                exit(0);
+            }
         }
-        // Parent continues
         tmp->pid = pid;
-        //printf("Parent created child pid: %d for cmd: %s\n", pid, tmp->args[0]);
         tmp = tmp->next;
     }
     return (FAIL);
@@ -52,7 +52,7 @@ void exec_child(t_cmd *cmds, t_shell *shell)
     env = env_char(shell);
     find_executable(cmds, shell->env);
     if (cmds->is_builtin == true)
-        builtins_executing(shell, shell->cmds);
+        builtins_child(shell, shell->cmds);
     else 
     {
         if (execve(cmds->path, cmds->args, env) == -1)
