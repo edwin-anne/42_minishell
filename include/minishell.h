@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:57:53 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/24 16:38:16 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/05 10:39:51 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_redir
     char            *file;      // Nom du fichier (si applicable)
     char            *limiter;   // Limiteur pour heredoc (si applicable)
     int             fd;         // File descriptor associé
+    int             pipe_fd;    // 
     struct s_redir  *next;      // Pointeur vers la prochaine redirection
 }   t_redir;
 

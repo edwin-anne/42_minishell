@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:29:03 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/22 17:24:46 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/05 13:21:02 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,23 @@ int    ft_export(t_shell *shell, char **args)
 int verify_args_export(char *args)
 {
 	size_t i;
-	//size_t len;
 	
-	//len = ft_strlen(args);
 	i = 0;
 	if (!ft_strchr(args, '='))
 		return (FAIL);
-	else if (ft_isdigit(args[0]))
-		return (ft_fdprintf(1, "bash: export: '%s': not a valid identifier\n", args), FAIL);
-	else if (!ft_isalpha(args[0]) && args[0] != '_')
-		return (ft_fdprintf(1, "bash: export: invalid option\n"), FAIL);
 	while (args[i] && args[i] != '=')
 	{
-		if ((!ft_isalnum(args[i]) && args[i] != '_'))
+		if ((!ft_isalnum(args[i]) || args[i] != '_'))
 		{
 			if ((args[i] == '+' && args[i + 1] != '='))
 				return (ft_fdprintf(1, "bash: export: '%s': not a valid identifier\n", args), FAIL);
 		}
 		i++;
 	}
+	if (ft_isdigit(args[0]) || ft_strchr(args, '+'))
+		return (ft_fdprintf(1, "bash: export: '%s': not a valid identifier\n", args), FAIL);
+	if (!ft_isalpha(args[0]) && args[0] != '_')
+		return (ft_fdprintf(1, "bash: export: invalid option\n"), FAIL);
 	return (SUCCESS);
 }
 
