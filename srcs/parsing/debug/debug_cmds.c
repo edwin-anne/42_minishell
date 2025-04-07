@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:21:22 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/16 10:16:58 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/07 18:28:19 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,19 @@ void print_cmd_list(t_cmd *cmd_list)
         // Affichage des redirections multiples
         print_redir_list(cmd_list->redir_in, "Redirections d'entrée");
         print_redir_list(cmd_list->redir_out, "Redirections de sortie");
+        
+        // Affichage des pipe_in et pipe_out
+        printf("  Pipe entrée: ");
+        if (cmd_list->pipe_in)
+            printf("read[%d], write[%d]\n", cmd_list->pipe_in->pipe[0], cmd_list->pipe_in->pipe[1]);
+        else
+            printf("NULL\n");
+            
+        printf("  Pipe sortie: ");
+        if (cmd_list->pipe_out)
+            printf("read[%d], write[%d]\n", cmd_list->pipe_out->pipe[0], cmd_list->pipe_out->pipe[1]);
+        else
+            printf("NULL\n");
 
         printf("--------------------------------------\n");
 

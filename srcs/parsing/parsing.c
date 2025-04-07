@@ -29,6 +29,8 @@ t_shell	*parsing(t_shell *shell, char *line, int argc, char **argv)
 	view_token_struct(token);
 	/*######	CMD 	######*/
 	shell->cmds = create_cmd(token, shell);
+	/*######	PIPE 	######*/
+	create_pipe(shell->cmds);
 	free_tokens(token);
 	print_cmd_list(shell->cmds);
 	return (shell);
