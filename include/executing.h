@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/05 13:29:42 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/07 17:21:12 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,9 @@ void    exec_child(t_cmd *cmds, t_shell *shell);
 int     env_len(t_env *env);
 void    wait_children(t_shell *shell);
 char    **env_char(t_shell *shell);
+
+/* HANDLING FDS: */
+void    handling_open(t_redir *redir, int flags, mode_t mode);
+void   open_fds(t_cmd *cmds);
 
 #endif
