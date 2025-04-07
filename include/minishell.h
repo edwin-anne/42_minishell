@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:57:53 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/05 10:39:51 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/07 09:17:40 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,18 @@ typedef struct s_redir
     char            *file;      // Nom du fichier (si applicable)
     char            *limiter;   // Limiteur pour heredoc (si applicable)
     int             fd;         // File descriptor associé
-    int             pipe_fd;    // 
     struct s_redir  *next;      // Pointeur vers la prochaine redirection
 }   t_redir;
 
 typedef struct s_cmd
 {
-    char    **args;       // Arguments de la commande (argv)
-    char    *path;        // Chemin vers l'exécutable
-    pid_t     pid;          // pid d'une cmd
-	t_redir *redir_in;   // Liste chaînée des redirections d'entrée
-    t_redir *redir_out;
-    bool     is_builtin;   // Indique si c'est une commande interne (1) ou externe (0)
+    char         **args;       // Arguments de la commande (argv)
+    char         *path;        // Chemin vers l'exécutable
+    pid_t        pid;          // pid d'une cmd
+	t_redir      *redir_in;   // Liste chaînée des redirections d'entrée
+    t_redir      *redir_out;
+    bool         is_builtin;   // Indique si c'est une commande interne (1) ou externe (0)
+    int          pipe_fd[2]; // 
     struct s_env *env;
 	struct s_cmd *next;   // Commande suivante (utile pour les pipes)
 } t_cmd;
