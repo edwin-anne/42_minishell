@@ -10,35 +10,14 @@ MINISHELL:
       ✔ unset with no options @done(25-03-09 16:11)
       ✔ env with no options or arguments @done(25-03-10 17:53) 
           ✔ env s'exec dans l'enfant @done(25-04-05 13:22)
-      ☐ free toutes les struct de minishell avant exit
       ✔ echo -n -n (ne doit rien écrire) @done(25-03-22 12:18)
       ✔ exit with no options @done(25-03-17 11:34)
 
-    handling redirection:
-        ☐ détecter si il y a une redirection (>, >>, <).
-        ☐ ordre de priorité : heredoc -> redir entrée -> redir sortie.
-        ☐ implémenter dup2 pour :
-            - rediriger STDIN/STDOUT vers les fichiers.
-            - restore les fds originaux apres l'execution.
-        ☐ valider les permissions des fichiers avant l'execution.
-    
-    handling heredocs (<<):
-        ☐ détecter les heredocs en premier.
-        ☐ suppr les fichiers tmp avec unlink (apres utilisation, si signaux ctrl+c, error case).
-
-    handling pipes:
-        ☐ créer les pipes dans les enfants. (?)
-        ☐ fermer les fd inutilisés dans chaque enfant.
-        ☐ tout fd ouvert doit etre dans les structs.
-    
-    handling cmds:
-        ☐ execve avec la gestion des cmds introvables code 127, permission denied code 126.
-        ☐ envoyer le bon exit code.
-
     tofix:
-        ☐ test: "export =" -> segfault (check après merge)
+        ✔ test: "export =" -> segfault (check après merge) @done(25-04-07 18:20)
         ✔ test: echo -nnnnnnnnn -> doit fonctionner @done(25-04-05 13:35)
         ✔ test: "ls | ls" -> actuellement exec 4 fois ls au lieu de 2 @done(25-04-05 13:22)
+        ☐ test: "cd .." -> ne fonctionne pas. 
 
 
 /*TODO : executing checklist (in child)

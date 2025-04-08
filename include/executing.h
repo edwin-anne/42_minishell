@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/07 17:21:12 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/08 17:42:02 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,20 @@ void    exec_child(t_cmd *cmds, t_shell *shell);
 int     env_len(t_env *env);
 void    wait_children(t_shell *shell);
 char    **env_char(t_shell *shell);
+void    handle_fork(t_shell *shell, t_cmd *cmd);
 
 /* HANDLING FDS: */
 void    handling_open(t_redir *redir, int flags, mode_t mode);
-void   open_fds(t_cmd *cmds);
+void    open_fds(t_cmd *cmds);
+void    close_fds(t_cmd  *cmds);
+void    ft_close_fds(t_redir *fd);
+
+/* HANDLING PIPES: */
+void    open_pipes(t_shell *shell, t_cmd *cmds);
+
+/* DUP.C: */
+int    get_fdin(t_cmd *cmd);
+int    get_fdout(t_cmd *cmd);
+void    ft_dup(t_cmd *cmd);
 
 #endif
