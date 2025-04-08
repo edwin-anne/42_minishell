@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:57:53 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/07 09:17:40 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/07 13:47:00 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ typedef struct s_redir
     struct s_redir  *next;      // Pointeur vers la prochaine redirection
 }   t_redir;
 
+typedef struct s_pipe
+{
+    int pipe[2];
+}   t_pipe;
+
 typedef struct s_cmd
 {
     char         **args;       // Arguments de la commande (argv)
@@ -55,7 +60,8 @@ typedef struct s_cmd
 	t_redir      *redir_in;   // Liste chaînée des redirections d'entrée
     t_redir      *redir_out;
     bool         is_builtin;   // Indique si c'est une commande interne (1) ou externe (0)
-    int          pipe_fd[2]; // 
+    t_pipe       *pipe_in;
+    t_pipe       *pipe_out;
     struct s_env *env;
 	struct s_cmd *next;   // Commande suivante (utile pour les pipes)
 } t_cmd;

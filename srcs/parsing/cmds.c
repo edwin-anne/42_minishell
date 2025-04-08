@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/25 17:39:30 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/07 18:11:43 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void add_redir(t_redir **redir_list, t_token *token, t_redir_type type)
 	new_redir->fd = -1;
 	new_redir->next = NULL;
 
-	// Ajouter la redirection à la fin de la liste
 	if (!(*redir_list))
 		*redir_list = new_redir;
 	else
