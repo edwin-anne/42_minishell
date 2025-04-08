@@ -18,6 +18,7 @@ MINISHELL:
         ✔ test: echo -nnnnnnnnn -> doit fonctionner @done(25-04-05 13:35)
         ✔ test: "ls | ls" -> actuellement exec 4 fois ls au lieu de 2 @done(25-04-05 13:22)
         ☐ test: "cd .." -> ne fonctionne pas. 
+        ☐ fix: (child.c:64) appelle de shell->cmds ? (pas cmds)
 
 
 /*TODO : executing checklist (in child)
