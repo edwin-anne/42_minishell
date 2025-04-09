@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/08 17:42:28 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/09 13:58:46 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int create_child(t_shell *shell, t_cmd *cmds)
     {
         open_fds(tmp);
         open_pipes(shell, tmp);
-        ft_dup(tmp);
         handle_fork(shell, tmp);
         close_fds(tmp);
         tmp = tmp->next;
@@ -47,6 +46,7 @@ void    handle_fork(t_shell *shell, t_cmd *cmd)
             exit(1); // TODO: ne pas oublier de free la struct (edwin)
         if (pid == 0)
         {
+            ft_dup(cmd);
             exec_child(cmd, shell);
             exit(0);
         }
