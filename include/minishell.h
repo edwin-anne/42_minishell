@@ -60,8 +60,8 @@ typedef struct s_cmd
 	t_redir      *redir_in;   // Liste chaînée des redirections d'entrée
     t_redir      *redir_out;
     bool         is_builtin;   // Indique si c'est une commande interne (1) ou externe (0)
-    t_pipe       *pipe_in;
-    t_pipe       *pipe_out;
+    t_pipe       *pipe;
+    int          *pipe_prev;
     struct s_env *env;
 	struct s_cmd *next;   // Commande suivante (utile pour les pipes)
 } t_cmd;
