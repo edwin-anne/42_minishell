@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/07 18:26:18 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/10 09:16:17 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_token {
 
 /*######	INIT 	######*/
 t_cmd			*init_cmd(void);
-t_pipe          *init_redir(void);
+t_pipe          *init_pipe(void);
 
 /*######	PARSING 	######*/
 t_shell			*parsing(t_shell *shell, char *line, int argc, char **argv);
