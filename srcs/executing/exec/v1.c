@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handling_fds.c                                     :+:      :+:    :+:   */
+/*   pipes,fds&dup.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:02:29 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/08 16:14:39 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/10 11:29:27 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 
-void    handling_open(t_redir *redir, int flags, mode_t mode)
+/*void    handling_open(t_redir *redir, int flags, mode_t mode)
 {
     if (!redir || !redir->file)
         return ;
@@ -77,3 +77,54 @@ void    ft_close_fds(t_redir *fd)
     close(fd->fd);
     fd->fd = -1;    
 }
+
+void    open_pipes(t_shell *shell, t_cmd *cmds)
+{
+
+    if (cmds->pipe_in != NULL && cmds->pipe_in->pipe[0] == -1 && cmds->pipe_in->pipe[1] == -1)
+    {
+        if (pipe(cmds->pipe_in->pipe) == -1)
+        {
+            ft_fdprintf(2, "bash: pipe error: Too many open files\n");
+            ft_fdprintf(2, "bash: start_pipeline: pgrp pipe: Too many open files\n");
+            shell->exit_status = 129;
+        }
+    }
+    if (cmds->pipe_out != NULL && cmds->pipe_out->pipe[0] == -1 && cmds->pipe_out->pipe[1] == -1)
+    {
+        if (pipe(cmds->pipe_out->pipe) == -1)
+        {
+            ft_fdprintf(2, "bash: start_pipeline: pgrp pipe: Too many open files\n");
+            ft_fdprintf(2, "bash: pipe error: Too many open files\n");
+            shell->exit_status = 129;
+        }
+    }
+}
+
+int    get_fdin(t_cmd *cmd)
+{
+    if (cmd->redir_in != NULL)
+        return (cmd->redir_in->fd);
+    else if (cmd->pipe_in != NULL)
+        return (cmd->pipe_in->pipe[0]);
+    else 
+        return (STDIN_FILENO);
+}
+
+int get_fdout(t_cmd *cmd)
+{
+    if (cmd->redir_out != NULL)
+        return (cmd->redir_out->fd);
+    else if (cmd->pipe_out != NULL)
+        return (cmd->pipe_out->pipe[1]);
+    else 
+        return (STDOUT_FILENO);
+}
+
+void    ft_dup(t_cmd *cmd)
+{
+    printf("%d\n", ((get_fdin(cmd))));
+    printf("%d\n",((get_fdout(cmd))));
+    dup2(get_fdin(cmd), STDIN_FILENO);
+    dup2(get_fdout(cmd), STDOUT_FILENO);
+}*/

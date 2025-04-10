@@ -6,11 +6,12 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/09 13:58:46 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/10 12:02:53 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
+#include "parsing.h"
 
 /**
  * @brief: handles the creation and execution of child processes for cmd exec.
@@ -26,10 +27,11 @@ int create_child(t_shell *shell, t_cmd *cmds)
     tmp = cmds;
     while (tmp)
     {
-        open_fds(tmp);
+        //open_fds(tmp);
         open_pipes(shell, tmp);
+        print_cmd_list(cmds);
         handle_fork(shell, tmp);
-        close_fds(tmp);
+        //close_fds(tmp);
         tmp = tmp->next;
     }
     return (FAIL);
