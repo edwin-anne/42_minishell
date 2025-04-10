@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/07 09:12:29 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/09 13:58:46 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,37 @@
 int create_child(t_shell *shell, t_cmd *cmds)
 {
     t_cmd   *tmp;
-    pid_t   pid;
     
     tmp = cmds;
-    
-    while (tmp != NULL)
+    while (tmp)
     {
-        if (builtins_parent(shell, tmp) != SUCCESS)
-        {
-            pid = fork();
-            if (pid < 0)
-                exit(1); // TODO: ne pas oublier de free la struct (edwin)
-            if (pid == 0)
-            {
-                exec_child(tmp, shell);
-                exit(0);
-            }
-        }
-        tmp->pid = pid;
+        open_fds(tmp);
+        open_pipes(shell, tmp);
+        handle_fork(shell, tmp);
+        close_fds(tmp);
         tmp = tmp->next;
     }
     return (FAIL);
 }
 
+void    handle_fork(t_shell *shell, t_cmd *cmd)
+{
+    pid_t   pid;
+
+    if (builtins_parent(shell, cmd) != SUCCESS)
+    {
+        pid = fork();
+        if (pid < 0)
+            exit(1); // TODO: ne pas oublier de free la struct (edwin)
+        if (pid == 0)
+        {
+            ft_dup(cmd);
+            exec_child(cmd, shell);
+            exit(0);
+        }
+    }
+    cmd->pid = pid; 
+}
 void exec_child(t_cmd *cmds, t_shell *shell)
 {
     char    **env;
