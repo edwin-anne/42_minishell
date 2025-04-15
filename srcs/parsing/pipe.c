@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/10 09:19:01 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/10 11:59:42 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	create_pipe(t_cmd *cmds)
         if (!current->pipe)
             return ;
         if (current->next)
-            current->next->pipe_prev = &(current->pipe->pipe[0]);  // Assigner l'adresse
+            current->next->pipe_prev = &(current->pipe->pipe[1]);  // Assigner l'adresse
         current = current->next;
     }
 }

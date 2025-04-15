@@ -6,11 +6,12 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/09 13:58:46 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/15 10:45:52 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
+#include "parsing.h"
 
 /**
  * @brief: handles the creation and execution of child processes for cmd exec.
@@ -26,10 +27,10 @@ int create_child(t_shell *shell, t_cmd *cmds)
     tmp = cmds;
     while (tmp)
     {
-        open_fds(tmp);
         open_pipes(shell, tmp);
+        print_cmd_list(cmds);
         handle_fork(shell, tmp);
-        close_fds(tmp);
+        close_pipes(tmp);
         tmp = tmp->next;
     }
     return (FAIL);
@@ -47,6 +48,7 @@ void    handle_fork(t_shell *shell, t_cmd *cmd)
         if (pid == 0)
         {
             ft_dup(cmd);
+            ft_dup_redir(cmd->redir_in, cmd->redir_out);
             exec_child(cmd, shell);
             exit(0);
         }
@@ -77,11 +79,19 @@ void exec_child(t_cmd *cmds, t_shell *shell)
 void    wait_children(t_shell *shell)
 {
     t_cmd *tmp;
+    int status;
 
     tmp = shell->cmds;
     while (tmp)
     {
-        waitpid(tmp->pid, &shell->exit_status, 0);
+        if (tmp->pid > 0)
+        {
+            waitpid(tmp->pid, &status, 0);
+            if (WIFEXITED(status))
+                shell->exit_status = WEXITSTATUS(status);
+            else if (WIFSIGNALED(status))
+                shell->exit_status = 128 + WTERMSIG(status);
+        }
         tmp = tmp->next;
     }
 }

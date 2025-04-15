@@ -1,0 +1,88 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handling_redir.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/15 09:29:15 by lolq              #+#    #+#             */
+/*   Updated: 2025/04/15 10:43:43 by lolq             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "executing.h"
+
+int    check_redir_in(t_redir *redir_in)
+{
+    t_redir *tmp;
+    int last_fd;
+
+    last_fd = -1;
+    tmp = redir_in;
+    while (tmp)
+    {
+        if (tmp->type == INPUT_REDIR || tmp->type == HEREDOC)
+        {
+            if (last_fd > 0)
+                close(last_fd);
+            tmp->fd = open(tmp->file, O_RDONLY);
+            last_fd = tmp->fd;
+        }
+        tmp = tmp->next;
+    }
+    return (last_fd);
+}
+
+int    check_redir_out(t_redir *redir_out)
+{
+    t_redir *tmp;
+    int     last_fd;
+    
+    last_fd = -1;
+    tmp = redir_out;
+    while (tmp)
+    {
+        if (tmp->type == APPEND_REDIR)
+        {
+            if (last_fd > 0)
+                close(last_fd);
+            tmp->fd = open(tmp->file, O_CREAT | O_WRONLY | O_APPEND, 0644);
+            last_fd = tmp->fd;
+        }
+        if (tmp->type == OUTPUT_REDIR)
+        {
+            if (last_fd > 0)
+                close(tmp->fd);
+            tmp->fd = open(tmp->file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+            last_fd = tmp->fd;
+        }
+        tmp = tmp->next;
+    }
+    return(last_fd);
+}
+
+void    ft_dup_redir(t_redir *in, t_redir *out)
+{
+    int redir_in;
+    int redir_out;
+
+    if (in == NULL)
+        redir_in = -1;
+    else 
+        redir_in = check_redir_in(in);
+    if (out == NULL)
+        redir_out = -1;
+    else 
+        redir_out = check_redir_out(out);
+    
+    if (redir_in > 0)
+    {
+        dup2(redir_in, STDIN_FILENO);
+        close(redir_in);
+    }
+    if (redir_out > 0)
+    {
+        dup2(redir_out, STDOUT_FILENO);
+        close(redir_out);
+    }
+}

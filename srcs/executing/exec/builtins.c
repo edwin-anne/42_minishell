@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:14:13 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/05 13:13:35 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/10 09:51:42 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int builtins_child(t_shell *shell, t_cmd *cmds)
         return (ft_env(shell, cmds), SUCCESS);
     return (FAIL);
 }
+
 int builtins_parent(t_shell *shell, t_cmd *cmds)
 {
     char    **args;
