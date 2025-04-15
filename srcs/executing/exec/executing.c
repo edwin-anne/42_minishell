@@ -6,12 +6,11 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:22:18 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/09 17:20:40 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/15 09:07:50 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
-#include "parsing.h"
 /**
  * @brief: main execution orchestrator for the minishell
  * - open_ds() : handles input/output redir.  
