@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/10 09:16:17 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/15 13:04:50 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ char			*execute_here_doc(char *filepath, char *limiter);
 void			execute_here_doc_cmds(t_cmd *cmds);
 
 /*######	ENV_VAR 	######*/
-void            execute_env_var(t_env *env, char **arg);
+void	        execute_env_var(t_shell *shell, char **args);
 void            name_env_var(char c, char **result);
 void            append_str(char **result, const char *str);
 
 /*######	ENV_VAR_CASE 	######*/
 char            *ft_getpid();
-char            *ft_getexitcode();
+char            *ft_getexitcode(t_shell *shell);
 
 /*######	ENV_VAR_UTILS 	######*/
 char	        *get_env_value(t_env *env, char *key);

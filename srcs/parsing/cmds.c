@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/08 16:34:46 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/15 13:04:13 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ t_cmd	*create_cmd(t_token *token, t_shell *shell)
 	}
 	execute_here_doc_cmds(cmd_list);
 	quote(cmd_list->args);
-	execute_env_var(shell->env, cmd_list->args);
+	execute_env_var(shell, cmd_list->args);
 	interpret_quotes(cmd_list->args);
 	return (cmd_list);
 }
