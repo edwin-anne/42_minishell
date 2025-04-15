@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/15 09:00:35 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/15 10:21:03 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,10 @@ void    close_pipes(t_cmd *cmd);
 void    ft_dup(t_cmd *cmd);
 int     get_fdout(t_cmd *cmd);
 int     get_fdin(t_cmd *cmd);
+
+/* HANDLING REDIR: */
+int    check_redir_in(t_redir *redir_in);
+int    check_redir_out(t_redir *redir_out);
+void    ft_dup_redir(t_redir *in, t_redir *out);
 
 #endif

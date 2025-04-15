@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/15 08:59:50 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/15 10:45:52 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void    handle_fork(t_shell *shell, t_cmd *cmd)
         if (pid == 0)
         {
             ft_dup(cmd);
+            ft_dup_redir(cmd->redir_in, cmd->redir_out);
             exec_child(cmd, shell);
             exit(0);
         }
