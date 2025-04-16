@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:43:44 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/16 11:40:10 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/16 11:44:40 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ void execute_here_doc_cmds(t_cmd *cmds)
             {
                 id_str = ft_itoa(id_here_doc);
                 if (!id_str)
+                {
                     ft_fdprintf(2, "minishell: memory allocation error\n");
                     return;
+                }
                 filepath = ft_strjoin("/tmp/minishell_here_doc_", id_str);
                 free(id_str);
                 if (!filepath)
