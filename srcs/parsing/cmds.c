@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/15 13:04:13 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/16 13:47:50 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,32 @@ void	guess_redir(t_cmd *cmd, t_token *token)
 		add_redir(&cmd->redir_in, token, HEREDOC);
 }
 
+void	process_command(t_cmd *cmd_list, t_shell *shell)
+{
+	execute_here_doc_cmds(cmd_list);
+	quote(cmd_list->args);
+	execute_env_var(shell, cmd_list->args);
+	interpret_quotes(cmd_list->args);
+}
+
+void	process_token(t_token *token, t_cmd *current_cmd)
+{
+	if (token->type == REDIR_IN || token->type == REDIR_OUT
+		|| token->type == APPEND || token->type == HERE_DOC)
+	{
+		guess_redir(current_cmd, token);
+		if (!token->next)
+			ft_fdprintf(2,
+				"minishell: syntax error near unexpected token `newline'\n");
+	}
+	else if (token->type == WORD || token->type == ENV_VAR)
+		add_args(current_cmd, token->value);
+}
+
 t_cmd	*create_cmd(t_token *token, t_shell *shell)
 {
-	t_cmd *cmd_list;
-	t_cmd *current_cmd;
+	t_cmd	*cmd_list;
+	t_cmd	*current_cmd;
 
 	cmd_list = init_cmd();
 	current_cmd = cmd_list;
@@ -104,22 +126,9 @@ t_cmd	*create_cmd(t_token *token, t_shell *shell)
 			current_cmd->next = init_cmd();
 			current_cmd = current_cmd->next;
 		}
-		else if (token->type == REDIR_IN || token->type == REDIR_OUT ||
-				 token->type == APPEND || token->type == HERE_DOC)
-		{
-			guess_redir(current_cmd, token);
-			if (token->next)
-				token = token->next;
-			else
-				ft_fdprintf(2, "minishell: syntax error near unexpected token `newline'\n");
-		}
-		else if (token->type == WORD || token->type == ENV_VAR)
-			add_args(current_cmd, token->value);
+		else
+			process_token(token, current_cmd);
 		token = token->next;
 	}
-	execute_here_doc_cmds(cmd_list);
-	quote(cmd_list->args);
-	execute_env_var(shell, cmd_list->args);
-	interpret_quotes(cmd_list->args);
-	return (cmd_list);
+	return (process_command(cmd_list, shell), cmd_list);
 }
