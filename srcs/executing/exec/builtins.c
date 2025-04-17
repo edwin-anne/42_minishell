@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:14:13 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/17 11:26:03 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/17 13:11:06 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,7 @@ int builtins_parent(t_shell *shell, t_cmd *cmds)
         return (ft_unset(shell, cmds->args), SUCCESS); 
     if (ft_strcmp(args[0], "exit") == 0)
         return(ft_exit(shell, cmds), SUCCESS);
+    if (ft_strcmp(args[0], "cd") == 0)
+        return (ft_cd(cmds, shell->env), SUCCESS);
     return (FAIL);
 }
