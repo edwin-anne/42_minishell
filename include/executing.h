@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/15 10:21:03 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/17 10:32:46 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int     ft_pwd(void);
 int     ft_cd(t_cmd *cmds, t_env *env);
 int     ft_env(t_shell *shell, t_cmd *cmds);
 int     ft_echo(t_cmd *cmds);
-int     ft_export(t_shell *shell, char **args);
+int    ft_export(t_shell *shell, t_cmd *cmds);
 void    ft_exit(t_shell *shell, t_cmd *cmds);
 void    ft_unset(t_shell *shell, char **args);
 

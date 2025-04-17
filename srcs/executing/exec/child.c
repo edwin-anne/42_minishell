@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/15 10:45:52 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/17 09:29:30 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void exec_child(t_cmd *cmds, t_shell *shell)
     env = env_char(shell);
     find_executable(cmds, shell->env);
     if (cmds->is_builtin == true)
-        builtins_child(shell, shell->cmds);
+        builtins_child(shell, cmds);
     else 
     {
         if (execve(cmds->path, cmds->args, env) == -1)

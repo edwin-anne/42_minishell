@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:29:03 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/07 09:32:46 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/17 10:34:02 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * specified names.
  */
 
-int    ft_export(t_shell *shell, char **args)
+int    ft_export(t_shell *shell, t_cmd *cmds)
 {
 	char    **env_val;
 	char    *value;
@@ -28,14 +28,14 @@ int    ft_export(t_shell *shell, char **args)
 
 	tmp = shell->env;
 	i = 1;
-	while (args[i])
+	while (cmds->args[i])
 	{
-		env_val = ft_split(shell->cmds->args[i], '=');
-		if (!env_val[0] || !ft_strchr(args[i], '='))
-			return (ft_fdprintf(1, "bash: export: '=': not a valid identifier\n", args), FAIL);
+		env_val = ft_split(cmds->args[i], '=');
+		if (!env_val[0] || !ft_strchr(cmds->args[i], '='))
+			return (ft_fdprintf(1, "bash: export: '=': not a valid identifier\n", cmds->args), FAIL);
 		len = ft_strlen(env_val[0]) + 1;	
-		value = ft_strdup(args[i] + len);
-		if (verify_args_export(args[i]) == SUCCESS)
+		value = ft_strdup(cmds->args[i] + len);
+		if (verify_args_export(cmds->args[i]) == SUCCESS)
 			update_export(tmp, env_val[0], value);
 		else
 			return (FAIL);
