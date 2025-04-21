@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/17 10:32:46 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/21 08:59:52 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int     env_len(t_env *env);
 void    wait_children(t_shell *shell);
 char    **env_char(t_shell *shell);
 void    handle_fork(t_shell *shell, t_cmd *cmd);
+int     handle_redir(t_shell *shell, t_cmd *cmd);
 
 /* HANDLING PIPES: */
 void    open_pipes(t_shell *shell, t_cmd *cmds);

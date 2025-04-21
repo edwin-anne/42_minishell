@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:53:09 by lolq              #+#    #+#             */
-/*   Updated: 2025/03/22 17:24:57 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/17 13:33:31 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void ft_exit(t_shell *shell, t_cmd *cmds)
     int     exit_code;
     char    **args;
     long    nb;
-
+    
     ft_fdprintf(1, "exit\n");
     args = cmds->args;
     if (!args[1])
-        exit(shell->exit_status);
+        exit(0);
     nb = ft_atol(args[1]);
     if (!is_arg_nb(args[1]))
     {

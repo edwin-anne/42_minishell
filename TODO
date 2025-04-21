@@ -21,12 +21,15 @@ MINISHELL:
             ✔ test: "cd" -> ne renvoie pas vers le home @done(25-04-17 13:12)
             ✔ test: "cd <dossier qui n'existe pas>" doit renvoyer une erreur @done(25-04-17 13:12)
             ✔ fix: (child.c:64) appelle de shell->cmds ? (pas cmds) @done(25-04-17 11:52)
-            ☐ fix: manage command not found "execve failed: Bad address"
+            ✔ fix: manage command not found "execve failed: Bad address" @done(25-04-21 08:19)
             ☐ fix: verification que le fd ne soit pas a -1 avant d'ouvrir "Warning: invalid file descriptor -1 in syscall close()"
-            ☐ fix: "exit" tout seul fait -> "Syscall param exit_group(status) contains uninitialised byte(s)"
+            ✔ fix: "exit" tout seul fait -> "Syscall param exit_group(status) contains uninitialised byte(s)" @done(25-04-21 08:14)
             ☐ fix: wait_children est appeler si c'est une commande builtins parent
             ☐ fix: ajouter les bon code erreurs (remplacer les EXIT_FAILURE)
             ✔ fix: execution d'export dans le parent ou enfant ? @done(25-04-17 11:52)
+            ☐ fix: si il n'y a pas de infile, ne pas exec la commande.
+            ☐ fix: "< infile_inexistant" -> jump or move depends on uninitialised value(s).
+
         
     
     2. PARSING (Edwin) :
@@ -40,4 +43,4 @@ MINISHELL:
             ☐ "ls |" - "ls | | | grep test" seg fault
     
     3. ERREUR INCONNU :
-        ☐ "echo "line1\nline2\nline3" | grep line | wc -l" renvoie 1 alors qu'il doit renvoyer 3
+        ✔ "echo "line1\nline2\nline3" | grep line | wc -l" renvoie 1 alors qu'il doit renvoyer 3 @done(25-04-17 13:23)
