@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/22 11:35:50 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/22 22:08:46 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ typedef struct s_token {
     t_token_type type;
     char *value;
     struct s_token *next;
-	struct s_token *prev;
+    struct s_token *prev;
+    int skip;
 } t_token;
 
 /*######	INIT 	######*/

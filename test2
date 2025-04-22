@@ -1,9 +1,9 @@
+Makefile
+TODO
 include
 libft
-Makefile
 minishell
 minishell.pdf
 minishell.supp
-outfile.txt
 srcs
-TODO
+test2
