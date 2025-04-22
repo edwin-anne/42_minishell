@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/15 10:21:03 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/21 08:59:52 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int     ft_pwd(void);
 int     ft_cd(t_cmd *cmds, t_env *env);
 int     ft_env(t_shell *shell, t_cmd *cmds);
 int     ft_echo(t_cmd *cmds);
-int     ft_export(t_shell *shell, char **args);
+int    ft_export(t_shell *shell, t_cmd *cmds);
 void    ft_exit(t_shell *shell, t_cmd *cmds);
 void    ft_unset(t_shell *shell, char **args);
 
@@ -57,6 +57,7 @@ int     env_len(t_env *env);
 void    wait_children(t_shell *shell);
 char    **env_char(t_shell *shell);
 void    handle_fork(t_shell *shell, t_cmd *cmd);
+int     handle_redir(t_shell *shell, t_cmd *cmd);
 
 /* HANDLING PIPES: */
 void    open_pipes(t_shell *shell, t_cmd *cmds);

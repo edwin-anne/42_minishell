@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 09:29:15 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/15 10:43:43 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/22 09:40:00 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,14 @@ int    check_redir_in(t_redir *redir_in)
     {
         if (tmp->type == INPUT_REDIR || tmp->type == HEREDOC)
         {
-            if (last_fd > 0)
+            if (last_fd >= 0)
                 close(last_fd);
             tmp->fd = open(tmp->file, O_RDONLY);
+            if (tmp->fd < 0)
+            {
+                ft_fdprintf(2, "minishell: %s: No such file or directory\n", tmp->file);
+                return (-1);
+            }
             last_fd = tmp->fd;
         }
         tmp = tmp->next;
@@ -44,14 +49,14 @@ int    check_redir_out(t_redir *redir_out)
     {
         if (tmp->type == APPEND_REDIR)
         {
-            if (last_fd > 0)
+            if (last_fd >= 0)
                 close(last_fd);
             tmp->fd = open(tmp->file, O_CREAT | O_WRONLY | O_APPEND, 0644);
             last_fd = tmp->fd;
         }
         if (tmp->type == OUTPUT_REDIR)
         {
-            if (last_fd > 0)
+            if (last_fd >= 0)
                 close(tmp->fd);
             tmp->fd = open(tmp->file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
             last_fd = tmp->fd;

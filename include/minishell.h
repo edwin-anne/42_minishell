@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:57:53 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/08 10:03:33 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/22 09:53:18 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,13 @@ typedef struct s_pipe
 
 typedef struct s_cmd
 {
-    char         **args;       // Arguments de la commande (argv)
-    char         *path;        // Chemin vers l'exécutable
-    pid_t        pid;          // pid d'une cmd
-	t_redir      *redir_in;   // Liste chaînée des redirections d'entrée
-    t_redir      *redir_out;
-    bool         is_builtin;   // Indique si c'est une commande interne (1) ou externe (0)
+    char         **args;      // Arguments de la commande (argv)
+    char         *path;      // Chemin vers l'exécutable
+    pid_t        pid;       // pid d'une cmd
+    int         has_child;  // Flag pour la fonction wait children
+	t_redir      *redir_in; // Liste chaînée des redirections d'entrée
+    t_redir      *redir_out; // Liste chainée des redirections de sorties
+    bool         is_builtin; // Indique si c'est une commande interne (1) ou externe (0)
     t_pipe       *pipe;
     int          *pipe_prev;
     struct s_env *env;

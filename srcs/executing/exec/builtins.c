@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:14:13 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/10 09:51:42 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/21 10:24:10 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 /**
  * @brief : builtins exec will check which builtins is called and execute the
  * correct ones.
+ * if the cmd is inside a pipe or redir, then the cmd should not execute inside
+ * the parent.
  */
 
 int builtins_child(t_shell *shell, t_cmd *cmds)
@@ -28,6 +30,12 @@ int builtins_child(t_shell *shell, t_cmd *cmds)
         return (ft_pwd(), SUCCESS);
     if (ft_strcmp(args[0], "env") == 0)
         return (ft_env(shell, cmds), SUCCESS);
+    if (ft_strcmp(args[0], "export") == 0)
+        return(ft_export(shell, cmds), SUCCESS);
+    if (ft_strcmp(args[0], "unset") == 0)
+        return (ft_unset(shell, cmds->args), SUCCESS); 
+    if (ft_strcmp(args[0], "exit") == 0)
+        return(ft_exit(shell, cmds), SUCCESS);
     return (FAIL);
 }
 
@@ -36,11 +44,15 @@ int builtins_parent(t_shell *shell, t_cmd *cmds)
     char    **args;
 
     args = cmds->args;
+    if (cmds->pipe != NULL || cmds->pipe_prev != NULL) 
+        return (FAIL);
     if (ft_strcmp(args[0], "export") == 0)
-        return(ft_export(shell, cmds->args), SUCCESS);
+        return(ft_export(shell, cmds), SUCCESS);
     if (ft_strcmp(args[0], "unset") == 0)
         return (ft_unset(shell, cmds->args), SUCCESS); 
     if (ft_strcmp(args[0], "exit") == 0)
         return(ft_exit(shell, cmds), SUCCESS);
+    if (ft_strcmp(args[0], "cd") == 0)
+        return (ft_cd(cmds, shell->env), SUCCESS);
     return (FAIL);
 }
