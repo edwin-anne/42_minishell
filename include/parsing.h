@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/22 10:54:31 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/22 11:35:50 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void			add_args(t_cmd *cmd, char *arg);
 int             add_redir(t_redir **redir_list, t_token *token, t_redir_type type);
 void            guess_redir(t_cmd *cmd, t_token *token);
 void	        process_command(t_cmd *cmd_list, t_shell *shell);
-void            process_token(t_token *token, t_cmd *current_cmd);
+int	            process_token(t_token *token, t_cmd *current_cmd);
 t_cmd           *create_cmd(t_token *token, t_shell *shell);
 
 /*######	TOKEN 	######*/

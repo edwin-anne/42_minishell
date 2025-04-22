@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/17 09:52:02 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/22 11:35:43 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	add_redir(t_redir **redir_list, t_token *token, t_redir_type type)
 	t_redir	*new_redir;
 	t_redir	*last;
 
-	if (!token->next || token->next->type != WORD)
-		return (ft_fdprintf(2, "minishell: syntax error near unexpected token\n"));
+	// if (!token->next || token->next->type != WORD)
+	// 	return (ft_fdprintf(2, "minishell: syntax error near unexpected token\n"));
 	new_redir = malloc(sizeof(t_redir));
 	if (!new_redir)
 		return (0);
@@ -91,18 +91,22 @@ void	process_command(t_cmd *cmd_list, t_shell *shell)
 	interpret_quotes(cmd_list->args);
 }
 
-void	process_token(t_token *token, t_cmd *current_cmd)
+int	process_token(t_token *token, t_cmd *current_cmd)
 {
 	if (token->type == REDIR_IN || token->type == REDIR_OUT
 		|| token->type == APPEND || token->type == HERE_DOC)
 	{
-		guess_redir(current_cmd, token);
 		if (!token->next)
+		{
 			ft_fdprintf(2,
 				"minishell: syntax error near unexpected token `newline'\n");
+			return (0);
+		}
+		guess_redir(current_cmd, token);
 	}
 	else if (token->type == WORD || token->type == ENV_VAR)
 		add_args(current_cmd, token->value);
+	return (1);
 }
 
 t_cmd	*create_cmd(t_token *token, t_shell *shell)
@@ -121,11 +125,24 @@ t_cmd	*create_cmd(t_token *token, t_shell *shell)
 		}
 		else if (token->type == PIPE)
 		{
+			if (!token->next)
+			{
+				ft_fdprintf(2, "minishell: syntax error near unexpected token `|'\n");
+				free_cmds(cmd_list);
+				return (NULL);
+			}
 			current_cmd->next = init_cmd();
 			current_cmd = current_cmd->next;
 		}
 		else
-			process_token(token, current_cmd);
+		{
+			if (process_token(token, current_cmd) == 0)
+			{
+				free_cmds(cmd_list);
+				return (NULL);
+			}
+		}
+			
 		token = token->next;
 	}
 	return (process_command(cmd_list, shell), cmd_list);
