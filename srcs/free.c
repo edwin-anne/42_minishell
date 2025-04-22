@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 11:21:25 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/16 12:00:45 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/22 11:45:04 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void free_cmds(t_cmd *cmd)
             free_redir_list(cmd->redir_in);
         if (cmd->redir_out)
             free_redir_list(cmd->redir_out);
+        if (cmd->pipe)
+            free(cmd->pipe);
         cmd = cmd->next;
         free(tmp);
     }
