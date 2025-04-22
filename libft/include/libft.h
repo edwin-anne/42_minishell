@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 17:56:44 by loribeir          #+#    #+#             */
-/*   Updated: 2025/02/27 23:05:47 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/22 18:25:23 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len);
 int		ft_atoi(const char *nptr);
 void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strdup(const char *source);
+char	*ft_strndup(const char *source, size_t n);
 
 /* FUNCTIONS: SUPPL*/
 char	*ft_substr(char const *s, unsigned int start, size_t len);
