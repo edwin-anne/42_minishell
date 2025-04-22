@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/17 09:58:03 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/22 10:54:31 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ t_shell			*parsing(t_shell *shell, char *line, int argc, char **argv);
 
 /*######	PRE PARSING 	######*/
 char			*pre_parsing(char *line);
-void	        calculate_buffer_size(const char *line, char *new_line);
 
 /*######	CMDS 	######*/
 void			add_args(t_cmd *cmd, char *arg);

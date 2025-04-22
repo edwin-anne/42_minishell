@@ -6,13 +6,13 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:48:40 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/17 09:57:45 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/22 10:54:15 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	calculate_buffer_size(const char *line, char *new_line)
+static int	calculate_buffer_size(const char *line)
 {
 	int	size;
 	int	i;
@@ -33,20 +33,18 @@ void	calculate_buffer_size(const char *line, char *new_line)
 		size++;
 		i++;
 	}
-	new_line = malloc(sizeof(char) * size + 1);
-	return ;
+	return (size);
 }
 
 char	*pre_parsing(char *line)
 {
 	char	*new_line;
-	int		size;
 	int		j;
 	int		i;
 
 	if (!line)
 		return (NULL);
-	calculate_buffer_size(line, new_line);
+	new_line = malloc(sizeof(char) * (calculate_buffer_size(line) + 1));
 	if (!new_line)
 		return (NULL);
 	j = 0;
