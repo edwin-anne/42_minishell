@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:53:09 by lolq              #+#    #+#             */
 /*   Updated: 2025/04/17 13:33:31 by lolq             ###   ########.fr       */
@@ -40,6 +40,7 @@ void ft_exit(t_shell *shell, t_cmd *cmds)
         return ;
     }
     exit_code = (int)((nb % 256 + 256) % 256);
+    free_shell(shell);
     exit(exit_code);
 }
 

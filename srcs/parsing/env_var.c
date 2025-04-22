@@ -6,19 +6,19 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 10:14:46 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/25 09:43:31 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/17 09:34:45 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static int	handle_special_vars(char **res, char *str, int *i)
+static int	handle_special_vars(t_shell *shell, char **res, char *str, int *i)
 {
-	char *tmp;
+	char	*tmp;
 
 	if (str[*i] == '?')
 	{
-		tmp = ft_getexitcode();
+		tmp = ft_getexitcode(shell);
 		append_str(res, tmp);
 		free(tmp);
 		(*i)++;
@@ -59,7 +59,7 @@ static void	handle_regular_char(char **res, char c)
 	append_str(res, temp);
 }
 
-char	*process_env_var(t_env *env, char *str)
+char	*process_env_var(t_shell *shell, char *str)
 {
 	char	*result;
 	int		i;
@@ -77,9 +77,9 @@ char	*process_env_var(t_env *env, char *str)
 		else if (str[i] == '$' && !in_sq && str[i + 1])
 		{
 			i++;
-			if (handle_special_vars(&result, str, &i))
+			if (handle_special_vars(shell, &result, str, &i))
 				continue ;
-			handle_env_var(env, &result, str, &i);
+			handle_env_var(shell->env, &result, str, &i);
 		}
 		else
 			handle_regular_char(&result, str[i++]);
@@ -87,7 +87,7 @@ char	*process_env_var(t_env *env, char *str)
 	return (result);
 }
 
-void	execute_env_var(t_env *env, char **args)
+void	execute_env_var(t_shell *shell, char **args)
 {
 	int		i;
 	char	*processed;
@@ -97,7 +97,7 @@ void	execute_env_var(t_env *env, char **args)
 		return ;
 	while (args[i])
 	{
-		processed = process_env_var(env, args[i]);
+		processed = process_env_var(shell, args[i]);
 		free(args[i]);
 		args[i] = processed;
 		i++;

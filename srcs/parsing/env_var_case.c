@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:01:15 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/22 11:55:44 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/17 09:34:17 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ char	*ft_getpid(void)
 }
 
 /* TODO -> get exit status with struct t_shell */
-char	*ft_getexitcode(void)
+char	*ft_getexitcode(t_shell *shell)
 {
 	char	*result;
 	char	exit_status[12];
 
-	snprintf(exit_status, sizeof(exit_status), "%d", 0);
+	snprintf(exit_status, sizeof(exit_status), "%d", shell->exit_status);
 	result = ft_strdup(exit_status);
 	return (result);
 }

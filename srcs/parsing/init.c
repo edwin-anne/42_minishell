@@ -12,7 +12,7 @@
 
 #include "parsing.h"
 
-t_cmd *init_cmd(void)
+t_cmd	*init_cmd(void)
 {
     t_cmd *cmd;
 
@@ -32,13 +32,12 @@ t_cmd *init_cmd(void)
     return (cmd);
 }
 
-t_pipe  *init_pipe(void)
+t_pipe	*init_pipe(void)
 {
-    t_pipe *pipe;
-    
-    pipe = (t_pipe *)malloc(sizeof(t_pipe));
-    pipe->pipe[0] = -1;
-    pipe->pipe[1] = -1;
+	t_pipe	*pipe;
 
-    return (pipe);
+	pipe = (t_pipe *)malloc(sizeof(t_pipe));
+	pipe->pipe[0] = -1;
+	pipe->pipe[1] = -1;
+	return (pipe);
 }
