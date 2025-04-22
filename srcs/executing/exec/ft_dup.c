@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:33:27 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/15 08:54:30 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/22 09:41:44 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void    ft_dup(t_cmd *cmd)
 
     get_in = get_fdin(cmd);
     get_out = get_fdout(cmd);
-    if (get_in != STDIN_FILENO)
+    if (get_in != STDIN_FILENO && get_in >= 0)
     {
         dup2(get_in, STDIN_FILENO);
         close(get_in);
     }
-    if (get_out != STDOUT_FILENO)
+    if (get_out != STDOUT_FILENO && get_out >= 0)
     {
         dup2(get_out, STDOUT_FILENO);
         close(get_out);

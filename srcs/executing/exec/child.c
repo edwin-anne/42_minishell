@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/21 09:25:32 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/22 09:54:16 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void    handle_fork(t_shell *shell, t_cmd *cmd)
         exit(0);
     }
     cmd->pid = pid; 
+    cmd->has_child = 1; // un enfant a bien été crée
 }
 
 void exec_child(t_cmd *cmds, t_shell *shell)
@@ -111,7 +112,7 @@ void    wait_children(t_shell *shell)
     tmp = shell->cmds;
     while (tmp)
     {
-        if (tmp->pid > 0)
+        if (tmp->has_child && tmp->pid > 0)
         {
             waitpid(tmp->pid, &status, 0);
             if (WIFEXITED(status))

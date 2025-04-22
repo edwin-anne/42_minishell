@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:08:04 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/10 09:15:46 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/22 09:59:38 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_cmd *init_cmd(void)
     cmd->args = NULL;
     cmd->path = NULL;
     cmd->is_builtin = false;
+    cmd->has_child = 0;
     cmd->next = NULL;
 
     cmd->redir_in = NULL;
