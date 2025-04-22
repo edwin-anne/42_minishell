@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/22 11:35:43 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/22 11:40:10 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int	add_redir(t_redir **redir_list, t_token *token, t_redir_type type)
 	t_redir	*new_redir;
 	t_redir	*last;
 
-	// if (!token->next || token->next->type != WORD)
-	// 	return (ft_fdprintf(2, "minishell: syntax error near unexpected token\n"));
 	new_redir = malloc(sizeof(t_redir));
 	if (!new_redir)
 		return (0);
