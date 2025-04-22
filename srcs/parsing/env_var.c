@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 10:14:46 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/15 13:06:09 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/17 09:34:45 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	handle_special_vars(t_shell *shell, char **res, char *str, int *i)
 {
-	char *tmp;
+	char	*tmp;
 
 	if (str[*i] == '?')
 	{

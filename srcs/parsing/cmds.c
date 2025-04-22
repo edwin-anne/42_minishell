@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/16 13:47:50 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/17 09:52:02 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,16 @@ void	add_args(t_cmd *cmd, char *arg)
 	cmd->is_builtin = is_built_in(cmd->args);
 }
 
-void	add_redir(t_redir **redir_list, t_token *token, t_redir_type type)
+int	add_redir(t_redir **redir_list, t_token *token, t_redir_type type)
 {
 	t_redir	*new_redir;
 	t_redir	*last;
 
 	if (!token->next || token->next->type != WORD)
-	{
-		ft_fdprintf(2, "minishell: syntax error near unexpected token\n");
-		return ;
-	}
+		return (ft_fdprintf(2, "minishell: syntax error near unexpected token\n"));
 	new_redir = malloc(sizeof(t_redir));
 	if (!new_redir)
-		return ;
+		return (0);
 	new_redir->type = type;
 	new_redir->file = ft_strdup(token->next->value);
 	if (type == HEREDOC)
@@ -69,6 +66,7 @@ void	add_redir(t_redir **redir_list, t_token *token, t_redir_type type)
 			last = last->next;
 		last->next = new_redir;
 	}
+	return (0);
 }
 
 void	guess_redir(t_cmd *cmd, t_token *token)

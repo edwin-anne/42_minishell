@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/15 10:45:52 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/15 12:58:00 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int create_child(t_shell *shell, t_cmd *cmds)
     while (tmp)
     {
         open_pipes(shell, tmp);
-        print_cmd_list(cmds);
+        //print_cmd_list(cmds);
         handle_fork(shell, tmp);
         close_pipes(tmp);
         tmp = tmp->next;

@@ -6,13 +6,13 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:48:40 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/24 16:32:31 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/17 09:57:45 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static int	calculate_buffer_size(const char *line)
+void	calculate_buffer_size(const char *line, char *new_line)
 {
 	int	size;
 	int	i;
@@ -23,17 +23,18 @@ static int	calculate_buffer_size(const char *line)
 	{
 		if (line[i] == '|' || line[i] == '<' || line[i] == '>')
 		{
-			if (i > 0 && line[i - 1] != ' ' && 
-				!(i > 0 && line[i] == line[i - 1]))
+			if (i > 0 && line[i - 1] != ' '
+				&& !(i > 0 && line[i] == line[i - 1]))
 				size++;
-			if (line[i + 1] && line[i + 1] != ' ' && 
-				!(line[i + 1] == line[i]))
+			if (line[i + 1] && line[i + 1] != ' '
+				&& !(line[i + 1] == line[i]))
 				size++;
 		}
 		size++;
 		i++;
 	}
-	return (size + 1);
+	new_line = malloc(sizeof(char) * size + 1);
+	return ;
 }
 
 char	*pre_parsing(char *line)
@@ -45,20 +46,19 @@ char	*pre_parsing(char *line)
 
 	if (!line)
 		return (NULL);
-	size = calculate_buffer_size(line);
-	new_line = malloc(sizeof(char) * size);
+	calculate_buffer_size(line, new_line);
 	if (!new_line)
 		return (NULL);
 	j = 0;
 	i = 0;
 	while (line[i])
 	{
-		if (i > 0 && (line[i] == '|' || line[i] == '<' || line[i] == '>') &&
-			line[i - 1] != ' ' && (line[i] != line[i - 1]))
+		if (i > 0 && (line[i] == '|' || line[i] == '<' || line[i] == '>')
+			&& line[i - 1] != ' ' && (line[i] != line[i - 1]))
 			new_line[j++] = ' ';
 		new_line[j++] = line[i];
-		if ((line[i] == '|' || line[i] == '<' || line[i] == '>') &&
-			line[i + 1] && line[i + 1] != ' ' && (line[i + 1] != line[i]))
+		if ((line[i] == '|' || line[i] == '<' || line[i] == '>')
+			&& line[i + 1] && line[i + 1] != ' ' && (line[i + 1] != line[i]))
 			new_line[j++] = ' ';
 		i++;
 	}

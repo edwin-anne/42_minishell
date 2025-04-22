@@ -18,8 +18,27 @@ MINISHELL:
         ✔ test: echo -nnnnnnnnn -> doit fonctionner @done(25-04-05 13:35)
         ✔ test: "ls | ls" -> actuellement exec 4 fois ls au lieu de 2 @done(25-04-05 13:22)
         ☐ test: "cd .." -> ne fonctionne pas. 
+        ☐ test: "cd" -> ne renvoie pas vers le home
+        ☐ test: "cd <dossier qui n'existe pas>" doit renvoyer une erreur
         ☐ fix: (child.c:64) appelle de shell->cmds ? (pas cmds)
+        ☐ fix: manage command not found "execve failed: Bad address"
+        ☐ fix: verification que le fd ne soit pas a -1 avant d'ouvrir "Warning: invalid file descriptor -1 in syscall close()"
+        ☐ fix: "exit" tout seul fait -> "Syscall param exit_group(status) contains uninitialised byte(s)"
+        ☐ fix: wait_children est appeler si c'est une commande builtins parent
 
+2. PARSING (Edwin) :
+    parsing error:
+        ✔ prendre en consideration le "&&" comme un argument de la commande @done(25-04-15 12:00)
+        ☐ emmetre l'exit code quand "echo $?" (fait a tester !)
+        ✔ mettre les here_doc dans le dossier /tmp au lieu de la racine projet @done(25-04-16 11:41)
+        ✔ here_doc ??? "free(): double free detected in tcache 2" @done(25-04-16 11:41)
+        ☐ echo 'Hello $USER' ne doit pas remplacer la valeur $USER
+        ☐ "tr ' ' '\n'" parsing mauvais = "tr" "'" "'" "'\n'"
+        ☐ "ls |" - "ls | | | grep test" seg fault
+        ☐ ls | echo "oui" > ne supprime pas les quotes inutile
+
+3. ERREUR INCONNU :
+    ☐ "echo "line1\nline2\nline3" | grep line | wc -l" renvoie 1 alors qu'il doit renvoyer 3
 
 /*TODO : executing checklist (in child)
     

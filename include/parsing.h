@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/16 13:53:22 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/17 09:58:03 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ t_shell			*parsing(t_shell *shell, char *line, int argc, char **argv);
 
 /*######	PRE PARSING 	######*/
 char			*pre_parsing(char *line);
+void	        calculate_buffer_size(const char *line, char *new_line);
 
 /*######	CMDS 	######*/
 void			add_args(t_cmd *cmd, char *arg);
-void            add_redir(t_redir **redir_list, t_token *token, t_redir_type type);
+int             add_redir(t_redir **redir_list, t_token *token, t_redir_type type);
 void            guess_redir(t_cmd *cmd, t_token *token);
 void	        process_command(t_cmd *cmd_list, t_shell *shell);
 void            process_token(t_token *token, t_cmd *current_cmd);
@@ -68,7 +69,7 @@ bool			is_built_in(char **cmds);
 
 /*######	HERE_DOC 	######*/
 char			*execute_here_doc(char *filepath, char *limiter);
-void			execute_here_doc_cmds(t_cmd *cmds);
+int             execute_here_doc_cmds(t_cmd *cmds);
 
 /*######	ENV_VAR 	######*/
 void	        execute_env_var(t_shell *shell, char **args);
