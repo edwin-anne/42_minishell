@@ -9,7 +9,7 @@ SRC_DIR = srcs/
 
 # COMPILER & FLAGS
 CC      = cc
-CFLAGS  = -Wall -Wextra -Werror -I$(INC) -I./libft/include
+CFLAGS  = -Wall -Wextra -Werror -g -I$(INC) -I./libft/include
 LDFLAGS = -lreadline
 RM      = rm -f
 
