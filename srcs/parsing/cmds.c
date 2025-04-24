@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/22 22:09:02 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/24 09:57:57 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ void	add_args(t_cmd *cmd, char *arg)
 		j++;
 	}
 	new_args[i] = ft_strdup(arg);
+	if (!new_args[i])
+	{
+		free(new_args);
+		return;
+	}
 	new_args[i + 1] = NULL;
 	old_args = cmd->args;
 	cmd->args = new_args;
@@ -49,8 +54,21 @@ int	add_redir(t_redir **redir_list, t_token *token, t_redir_type type)
 		return (0);
 	new_redir->type = type;
 	new_redir->file = ft_strdup(token->next->value);
+	if (!new_redir->file)
+	{
+		free(new_redir);
+		return (0);
+	}
 	if (type == HEREDOC)
+	{
 		new_redir->limiter = ft_strdup(token->next->value);
+		if (!new_redir->limiter)
+		{
+			free(new_redir->file);
+			free(new_redir);
+			return (0);
+		}
+	}
 	else
 		new_redir->limiter = NULL;
 	new_redir->fd = -1;
@@ -64,7 +82,7 @@ int	add_redir(t_redir **redir_list, t_token *token, t_redir_type type)
 			last = last->next;
 		last->next = new_redir;
 	}
-	return (0);
+	return (1);
 }
 
 void	guess_redir(t_cmd *cmd, t_token *token)

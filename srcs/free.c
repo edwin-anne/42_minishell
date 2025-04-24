@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 11:21:25 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/22 11:45:04 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/24 09:45:37 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,32 +31,51 @@ void free_redir_list(t_redir *redir)
 void free_cmds(t_cmd *cmd)
 {
     t_cmd *tmp;
-    int i;
 
+    if (!cmd)
+        return;
     while (cmd)
     {
         tmp = cmd;
         if (cmd->args)
         {
-            i = 0;
+            int i = 0;
             while (cmd->args[i])
             {
-                free(cmd->args[i]);
+                if (cmd->args[i])
+                    free(cmd->args[i]);
                 i++;
             }
             free(cmd->args);
+            cmd->args = NULL;
         }
 
         if (cmd->path)
+        {
             free(cmd->path);
+            cmd->path = NULL;
+        }
         if (cmd->redir_in)
+        {
             free_redir_list(cmd->redir_in);
+            cmd->redir_in = NULL;
+        }
         if (cmd->redir_out)
+        {
             free_redir_list(cmd->redir_out);
+            cmd->redir_out = NULL;
+        }
         if (cmd->pipe)
+        {
             free(cmd->pipe);
+            cmd->pipe = NULL;
+        }
         cmd = cmd->next;
-        free(tmp);
+        if (tmp)
+        {
+            free(tmp);
+            tmp = NULL;
+        }
     }
 }
 
