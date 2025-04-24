@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/22 09:54:16 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/24 16:22:41 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ void    handle_fork(t_shell *shell, t_cmd *cmd)
     if (builtins_parent(shell, cmd) == SUCCESS)
         return ;
     if (handle_redir(shell, cmd) < 0)
+    {
+        shell->exit_status = 1; // si une redir rate, exit code a 1
         return;
+    }
     pid = fork();
     if (pid < 0)
         exit(1); // TODO: ne pas oublier de free la struct (edwin)
@@ -82,7 +85,12 @@ void exec_child(t_cmd *cmds, t_shell *shell)
     env = env_char(shell);
     find_executable(cmds, shell->env);
     if (cmds->is_builtin == true)
+    {
         builtins_child(shell, cmds);
+        free_shell(shell);
+        free_char_array(env);
+        exit(shell->exit_status);
+    }
     else 
     {
         if (!cmds->path)
@@ -90,7 +98,8 @@ void exec_child(t_cmd *cmds, t_shell *shell)
             ft_fdprintf(2, "minishell: %s: command not found\n", cmds->args[0]);
             free_shell(shell);
             free_char_array(env);
-            exit(127);
+            shell->exit_status = 127;
+            exit(shell->exit_status);
         }
         if (execve(cmds->path, cmds->args, env) == -1)
         {
@@ -98,8 +107,8 @@ void exec_child(t_cmd *cmds, t_shell *shell)
             perror("execve failed");
             exit(EXIT_FAILURE);    
         }
-        
     }
+    free_shell(shell);
     free_char_array(env);
 }
 

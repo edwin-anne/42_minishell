@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:53:09 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/17 13:33:31 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/24 13:16:09 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ void ft_exit(t_shell *shell, t_cmd *cmds)
     ft_fdprintf(1, "exit\n");
     args = cmds->args;
     if (!args[1])
-        exit(0);
+        return (free_shell(shell), exit(0), (void)0);
     nb = ft_atol(args[1]);
     if (!is_arg_nb(args[1]))
     {
+        free_shell(shell);
         ft_fdprintf(2, "bash: exit: %s: numeric argument required\n", args[1]);
         exit(2);
     }
