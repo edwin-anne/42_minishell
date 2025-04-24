@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:08:04 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/24 09:56:35 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/24 13:13:30 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_cmd	*init_cmd(void)
     cmd->is_builtin = false;
     cmd->has_child = 0;
     cmd->next = NULL;
+    cmd->pipe = NULL;
 
     cmd->redir_in = NULL;
     cmd->redir_out = NULL;
