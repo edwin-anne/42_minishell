@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 16:02:25 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/25 10:01:13 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/24 09:20:55 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ static void	handle_sigint(int sig)
 static void	handle_sigquit(int sig)
 {
 	(void)sig;
+	ft_putstr_fd("\n", 1);
+	free_shell(g_shell);
+	exit(0);
 }
 
 void	init_signals(t_shell *shell)

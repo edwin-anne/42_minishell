@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 09:33:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/22 11:56:56 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/22 18:25:36 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ t_env	*add_env_node(t_env *node, char *env)
 	sep = ft_strchr(env, '=');
 	if (sep)
 	{
-		new_value->key = strndup(env, sep - env);
-		new_value->value = strdup(sep + 1);
+		new_value->key = ft_strndup(env, sep - env);
+		new_value->value = ft_strdup(sep + 1);
 	}
 	else
 	{
-		new_value->key = strdup(env);
+		new_value->key = ft_strdup(env);
 		new_value->value = NULL;
 	}
 	new_value->next = node;

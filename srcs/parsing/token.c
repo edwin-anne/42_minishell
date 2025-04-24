@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 16:50:55 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/16 10:16:25 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/22 22:08:46 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_token	*tokenization(char **line)
 			return (NULL);
 		new->value = strdup(line[i]);
 		new->type = tokenization_set_type(line[i]);
+		new->skip = 0;
 		if (!new->value)
 			return (free(new), NULL);
 		new->next = NULL;

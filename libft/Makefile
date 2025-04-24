@@ -55,6 +55,7 @@ FTSTR_DIR = $(SRC_DIR)/ft_str/ft_split.c \
 				$(SRC_DIR)/ft_str/ft_strtrim.c \
 				$(SRC_DIR)/ft_str/ft_substr.c \
 				$(SRC_DIR)/ft_str/ft_strjoin.c \
+				$(SRC_DIR)/ft_str/ft_strndup.c \
 
 FTLST_DIR = $(SRC_DIR)/ft_lst/ft_lstadd_back_bonus.c \
 				$(SRC_DIR)/ft_lst/ft_lstadd_front_bonus.c \

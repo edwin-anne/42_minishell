@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/17 09:52:02 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/24 09:57:57 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ void	add_args(t_cmd *cmd, char *arg)
 		j++;
 	}
 	new_args[i] = ft_strdup(arg);
+	if (!new_args[i])
+	{
+		free(new_args);
+		return;
+	}
 	new_args[i + 1] = NULL;
 	old_args = cmd->args;
 	cmd->args = new_args;
@@ -44,15 +49,26 @@ int	add_redir(t_redir **redir_list, t_token *token, t_redir_type type)
 	t_redir	*new_redir;
 	t_redir	*last;
 
-	if (!token->next || token->next->type != WORD)
-		return (ft_fdprintf(2, "minishell: syntax error near unexpected token\n"));
 	new_redir = malloc(sizeof(t_redir));
 	if (!new_redir)
 		return (0);
 	new_redir->type = type;
 	new_redir->file = ft_strdup(token->next->value);
+	if (!new_redir->file)
+	{
+		free(new_redir);
+		return (0);
+	}
 	if (type == HEREDOC)
+	{
 		new_redir->limiter = ft_strdup(token->next->value);
+		if (!new_redir->limiter)
+		{
+			free(new_redir->file);
+			free(new_redir);
+			return (0);
+		}
+	}
 	else
 		new_redir->limiter = NULL;
 	new_redir->fd = -1;
@@ -66,7 +82,7 @@ int	add_redir(t_redir **redir_list, t_token *token, t_redir_type type)
 			last = last->next;
 		last->next = new_redir;
 	}
-	return (0);
+	return (1);
 }
 
 void	guess_redir(t_cmd *cmd, t_token *token)
@@ -91,18 +107,23 @@ void	process_command(t_cmd *cmd_list, t_shell *shell)
 	interpret_quotes(cmd_list->args);
 }
 
-void	process_token(t_token *token, t_cmd *current_cmd)
+int	process_token(t_token *token, t_cmd *current_cmd)
 {
 	if (token->type == REDIR_IN || token->type == REDIR_OUT
 		|| token->type == APPEND || token->type == HERE_DOC)
 	{
-		guess_redir(current_cmd, token);
 		if (!token->next)
+		{
 			ft_fdprintf(2,
 				"minishell: syntax error near unexpected token `newline'\n");
+			return (0);
+		}
+		guess_redir(current_cmd, token);
+		token->next->skip = 1;
 	}
-	else if (token->type == WORD || token->type == ENV_VAR)
+	else if ((token->type == WORD || token->type == ENV_VAR) && !token->skip)
 		add_args(current_cmd, token->value);
+	return (1);
 }
 
 t_cmd	*create_cmd(t_token *token, t_shell *shell)
@@ -121,11 +142,19 @@ t_cmd	*create_cmd(t_token *token, t_shell *shell)
 		}
 		else if (token->type == PIPE)
 		{
+			if (!token->next)
+			{
+				ft_fdprintf(2, "minishell: syntax error near unexpected token `|'\n");
+				return (free_cmds(cmd_list), NULL);
+			}
 			current_cmd->next = init_cmd();
 			current_cmd = current_cmd->next;
 		}
 		else
-			process_token(token, current_cmd);
+		{
+			if (process_token(token, current_cmd) == 0)
+				return (free_cmds(cmd_list), NULL);
+		}
 		token = token->next;
 	}
 	return (process_command(cmd_list, shell), cmd_list);

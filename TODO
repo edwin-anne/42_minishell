@@ -44,6 +44,11 @@ MINISHELL:
         ☐ "tr ' ' '\n'" parsing mauvais = "tr" "'" "'" "'\n'"
         ☐ "ls |" - "ls | | | grep test" seg fault
         ☐ ls | echo "oui" > ne supprime pas les quotes inutile
+        ☐ gerer les parenthes
+        ☐ << EOF cat >test1
+        ☐ $EMPTY | ls
+        ☐ cat Makefile > test2 /usr/bin/cat: test2: input file is output file
+        ☐ new_value->key = strndup(env, sep - env); env.c
 
 3. ERREUR INCONNU :
     ☐ "echo "line1\nline2\nline3" | grep line | wc -l" renvoie 1 alors qu'il doit renvoyer 3
