@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:41:45 by lolq              #+#    #+#             */
-/*   Updated: 2025/03/22 17:25:05 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/24 13:02:13 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,20 @@
  * updating env variables.
  */
 
-int ft_cd(t_cmd *cmds, t_env *env)
+int ft_cd(t_shell *shell, t_cmd *cmds, t_env *env)
 {
     char    *path;
     char    current_dir[PATH_MAX];
 
-    if (!cmds->args[1])
+    path = ft_cd_path(env, cmds);
+    if (!path)
     {
-        path = getenv("HOME");
-        if (!path)
-            return (ft_fdprintf(2, "cd: HOME not set\n"), FAIL);
+        shell->exit_status = 1;
+        return (ft_fdprintf(2, "cd: HOME not set\n"), FAIL);
     }
-    else
-        path = cmds->args[1];
     if (chdir(path) != 0)
     {
+        shell->exit_status = 1;
         ft_fdprintf(2, "cd: %s: %s\n", path, strerror(errno));
         return (FAIL);
     }
@@ -39,11 +38,21 @@ int ft_cd(t_cmd *cmds, t_env *env)
         update_env(env, "PWD", current_dir);
     else
     {
+        shell->exit_status = 1;
         ft_fdprintf(2, "cd: error getting current directory: %s\n", strerror(errno));
         return (FAIL);
     }
+    shell->exit_status = 0;
     return (SUCCESS);
 }
+
+char    *ft_cd_path(t_env *env, t_cmd *cmds)
+{
+    if (!cmds->args[1])
+        return (get_env(env, "HOME"));
+    return (cmds->args[1]);
+}
+
 
 void    update_env(t_env *tmp, char *str, char *current_dir)
 {
@@ -56,4 +65,15 @@ void    update_env(t_env *tmp, char *str, char *current_dir)
 		}
 		tmp = tmp->next;
 	}
+}
+
+char    *get_env(t_env *env, const char *key)
+{
+    while (env)
+    {
+        if (ft_constcmp(env->key, key) == 0)
+            return (env->value);
+        env = env->next;
+    }
+    return (NULL);
 }
