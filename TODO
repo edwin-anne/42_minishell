@@ -24,11 +24,15 @@ MINISHELL:
             ✔ fix: manage command not found "execve failed: Bad address" @done(25-04-21 08:19)
             ✔ fix: verification que le fd ne soit pas a -1 avant d'ouvrir "Warning: invalid file descriptor -1 in syscall close()" @done(25-04-22 09:42)
             ✔ fix: "exit" tout seul fait -> "Syscall param exit_group(status) contains uninitialised byte(s)" @done(25-04-21 08:14)
-            ☐ fix: wait_children est appeler si c'est une commande builtins parent
-            ☐ fix: ajouter les bon code erreurs (remplacer les EXIT_FAILURE)
+            ✔ fix: wait_children est appeler si c'est une commande builtins parent @done(25-04-22 11:17)
+            ✔ fix: ajouter les bon code erreurs (remplacer les EXIT_FAILURE) @done(25-04-24 18:14)
             ✔ fix: execution d'export dans le parent ou enfant ? @done(25-04-17 11:52)
             ✔ fix: si il n'y a pas de infile, ne pas exec la commande. @done(25-04-22 10:01)
             ✔ fix: "< infile_inexistant" -> jump or move depends on uninitialised value(s). @done(25-04-22 10:01)
+            ☐ fix: "./" execve failed: Permission denied (avec valgrind) et malloc_consolidate(): unaligned fastbin chunk detected (sans valgrind)
+            ✔ fix: si une valeur de echo dans cmd[] est a NULL l'enfant segfault (exemple: echo $TTTT = "echo" "") @done(25-04-24 17:43)
+            ✔ fix: le test : echo ' ' doit renvoyer 0 et pas 139. @done(25-04-24 17:43)
+            ☐ fix: si cd a plusieurs arguments faire erreur = too many arguments (exit code 1)
 
 2. PARSING (Edwin) :
     parsing error:
@@ -43,28 +47,7 @@ MINISHELL:
 
 3. ERREUR INCONNU :
     ☐ "echo "line1\nline2\nline3" | grep line | wc -l" renvoie 1 alors qu'il doit renvoyer 3
+    ☐ gestion du "." et "./" -> les écrire a la dur
+    ☐ a verif: apres le merge si minishell fait une difference entre permission denied et command not found(child.c ligne 104 à 109)
+    ☐ a verif: valgrind echo ' ' -> si apres le merge l'invalid read de 4 est toujours la (sur exec child)
 
-/*TODO : executing checklist (in child)
-    
-check where to redirect the entry and if we need, redirect the output
-If we have an here_doc do it first
-if we have multiple here_doc we need to stock them then erase it with the next here_doc
-! ulimit -n (if we open to much fd)? open file/pipe in the child dynamicly
-find path to cmd and execve
-do it for every pipe/cmd
-!! handle exit code !
-
-    todo 2 : if we have only one cmd (no pipe)
-    
-    2. PARSING (Edwin) :
-        parsing error:
-            ✔ prendre en consideration le "&&" comme un argument de la commande @done(25-04-15 12:00)
-            ☐ emmetre l'exit code quand "echo $?" (fait a tester !)
-            ✔ mettre les here_doc dans le dossier /tmp au lieu de la racine projet @done(25-04-16 11:41)
-            ✔ here_doc ??? "free(): double free detected in tcache 2" @done(25-04-16 11:41)
-            ☐ echo 'Hello $USER' ne doit pas remplacer la valeur $USER
-            ☐ "tr ' ' '\n'" parsing mauvais = "tr" "'" "'" "'\n'"
-            ☐ "ls |" - "ls | | | grep test" seg fault
-    
-    3. ERREUR INCONNU :
-        ✔ "echo "line1\nline2\nline3" | grep line | wc -l" renvoie 1 alors qu'il doit renvoyer 3 @done(25-04-17 13:23)

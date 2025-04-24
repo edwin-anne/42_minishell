@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:29:03 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/17 10:34:02 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/24 13:27:32 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,18 @@ int    ft_export(t_shell *shell, t_cmd *cmds)
 	while (cmds->args[i])
 	{
 		env_val = ft_split(cmds->args[i], '=');
-		if (!env_val[0] || !ft_strchr(cmds->args[i], '='))
-			return (ft_fdprintf(1, "bash: export: '=': not a valid identifier\n", cmds->args), FAIL);
+		if (!env_val[0] || !ft_strchr(cmds->args[i], '=') || 
+			verify_args_export(cmds->args[i]) != SUCCESS)
+		{
+			shell->exit_status = 1;
+			return (FAIL);
+		}
 		len = ft_strlen(env_val[0]) + 1;	
 		value = ft_strdup(cmds->args[i] + len);
-		if (verify_args_export(cmds->args[i]) == SUCCESS)
-			update_export(tmp, env_val[0], value);
-		else
-			return (FAIL);
+		update_export(tmp, env_val[0], value);
 		i++;
 	}
+	shell->exit_status = 0;
 	return (SUCCESS);
 }
 

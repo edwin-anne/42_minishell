@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:54:39 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/05 13:35:38 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/24 16:42:40 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,14 @@ int		ft_strcharcmp(char *str, char comp)
 			return (FAIL);			
 	}
 	return (SUCCESS);
+}
+
+int		ft_constcmp(char *s1, const char *s2)
+{
+	int i;
+	
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
 }
