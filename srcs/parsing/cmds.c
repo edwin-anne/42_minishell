@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/24 09:57:57 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/24 13:48:14 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	process_command(t_cmd *cmd_list, t_shell *shell)
 	quote(cmd_list->args);
 	execute_env_var(shell, cmd_list->args);
 	interpret_quotes(cmd_list->args);
+	interpret_parentheses(cmd_list->args);
 }
 
 int	process_token(t_token *token, t_cmd *current_cmd)

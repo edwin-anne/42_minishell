@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/22 22:08:46 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/24 16:09:05 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,10 @@ void			print_env_list(t_env *env);
 /*######	DEBUG 	######*/
 /*######	PRE_PARSING 	######*/
 void			debug_pre_parsing(char *str);
+
+/*######	PARENTHESES HANDLING 	######*/
+int				check_parentheses(char **args);
+char			*remove_parentheses(const char *arg);
+void			interpret_parentheses(char **args);
 
 #endif
