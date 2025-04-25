@@ -6,49 +6,45 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:12:01 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/24 09:57:20 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/25 09:59:48 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int quote(char **args)
+int	quote(char **args)
 {
 	int		i;
+	int		j;
 	int		single_quote_open;
 	int		double_quote_open;
-	char	*arg;
 
 	i = 0;
-	single_quote_open = 0;
-	double_quote_open = 0;
 	if (!args)
 		return (0);
 	while (args[i])
 	{
-		arg = args[i];
-		if (!arg[0] || (arg[0] && arg[1] == '"') || (arg[0] && arg[1] == '\''))
-			return (0);
-		while (*arg)
+		j = 0;
+		single_quote_open = 0;
+		double_quote_open = 0;
+		while (args[i][j])
 		{
-			if (*arg == '\'' && double_quote_open == 0)
+			if (args[i][j] == '\'' && !double_quote_open)
 				single_quote_open = !single_quote_open;
-			else if (*arg == '"' && single_quote_open == 0)
+			else if (args[i][j] == '"' && !single_quote_open)
 				double_quote_open = !double_quote_open;
-			arg++;
+			j++;
 		}
 		i++;
 	}
-	if (single_quote_open || double_quote_open)
-		return (0);
-	return (1);
+	return (1);  // Toujours retourner 1 pour supporter les guillemets non fermés
 }
 
 char	*remove_quotes(const char *arg)
 {
 	int		i;
 	int		j;
-	char	quote;
+	int		start_quote;
 	char	*result;
 
 	if (!arg)
@@ -58,22 +54,19 @@ char	*remove_quotes(const char *arg)
 		return (NULL);
 	i = 0;
 	j = 0;
-	quote = 0;
+	start_quote = 0;
 	while (arg[i])
 	{
-		if ((arg[i] == '\'' || arg[i] == '"') && (quote == 0 || quote == arg[i]))
-		{
-			if (quote == 0)
-				quote = arg[i];
-			else
-				quote = 0;
-		}
+		if ((arg[i] == '"' || arg[i] == '\'') && !start_quote)
+			start_quote = arg[i];
+		else if (arg[i] == start_quote)
+			start_quote = 0;
 		else
 			result[j++] = arg[i];
 		i++;
 	}
 	result[j] = '\0';
-	if (j == 0 && arg[0] != '\0')
+	if (start_quote || !*result)
 	{
 		free(result);
 		return (ft_strdup(arg));

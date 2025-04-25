@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:41:49 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/24 17:20:05 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/25 10:27:24 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_shell	*parsing(t_shell *shell, char *line, int argc, char **argv)
 
 	line = pre_parsing(line);
 	//debug_pre_parsing(line);
-	line_splited = ft_split_preserve_quotes(line);
+	line_splited = ft_split_sh(line, ' ');
 	free(line);
 	token = tokenization(line_splited);
 	free_char_array(line_splited);
