@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/24 16:22:41 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/25 16:33:18 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int create_child(t_shell *shell, t_cmd *cmds)
     while (tmp)
     {
         open_pipes(shell, tmp);
-        //print_cmd_list(cmds);
         handle_fork(shell, tmp);
         close_pipes(tmp);
         tmp = tmp->next;
@@ -81,9 +80,10 @@ void    handle_fork(t_shell *shell, t_cmd *cmd)
 void exec_child(t_cmd *cmds, t_shell *shell)
 {
     char    **env;
-    
+    int     error;
+
     env = env_char(shell);
-    find_executable(cmds, shell->env);
+    find_executable(shell->cmds, shell->env);
     if (cmds->is_builtin == true)
     {
         builtins_child(shell, cmds);
@@ -93,17 +93,17 @@ void exec_child(t_cmd *cmds, t_shell *shell)
     }
     else 
     {
-        if (!cmds->path)
+        error = exec_error(shell, cmds);
+        if (error)
         {
-            ft_fdprintf(2, "minishell: %s: command not found\n", cmds->args[0]);
             free_shell(shell);
             free_char_array(env);
-            shell->exit_status = 127;
             exit(shell->exit_status);
         }
         if (execve(cmds->path, cmds->args, env) == -1)
         {
             free_shell(shell);
+            free_char_array(env);
             perror("execve failed");
             exit(EXIT_FAILURE);    
         }

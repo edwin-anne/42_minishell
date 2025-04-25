@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/25 09:25:55 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/25 11:56:49 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define EXECUTING_H
 
 #include "minishell.h"
+#include <sys/stat.h>
 
 /* USEFUL DEFINE */
 #define SUCCESS 0
@@ -43,7 +44,7 @@ char    *get_env(t_env *env, const char *key);
 char    *ft_cd_path(t_env *env, t_cmd *cmds);
 int		ft_strcharcmp(char *str, char comp);
 int		ft_constcmp(char *s1, const char *s2);
-int cd_error(t_shell *shell, char *msg, char *arg);
+int     cd_error(t_shell *shell, char *msg, char *arg);
 
 
 /* EXECUTING: the main function calling all functions */
@@ -53,6 +54,7 @@ int    executing(t_shell *shell);
 char    *search_env_path(t_env *env);
 char    *search_in_path(char *cmd, char **path_split);
 void    find_executable(t_cmd *cmds, t_env *env);
+int     exec_error(t_shell *shell, t_cmd *cmds);
 
 /* CHILD: */
 int     create_child(t_shell *shell, t_cmd *cmds);

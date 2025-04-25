@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:49:26 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/09 14:12:04 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/25 12:03:55 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,17 @@ void    find_executable(t_cmd *cmds, t_env *env)
 
     if (cmds->is_builtin == true)
         return ;
+    if (ft_strchr(cmds->args[0], '/')) // si le chemin contient un '/'.
+    {
+        cmds->path = cmds->args[0];
+        return ;
+    }
     path_value = search_env_path(env);
     if (!path_value)
         return ;
     path_split = ft_split(path_value, ':');
     if (!path_split)
         return ;
-    if (access(cmds->args[0], X_OK) == 0)
-    {
-        cmds->path = cmds->args[0];
-        free_char_array(path_split);
-        return ;
-    }
     cmds->path = search_in_path(cmds->args[0], path_split);
     free_char_array(path_split);
 }
@@ -76,4 +75,30 @@ char    *search_in_path(char *cmd, char **path_split)
         i++; 
     }
     return (NULL);
+}
+
+int exec_error(t_shell *shell, t_cmd *cmds)
+{
+    struct stat st;
+
+    if ( !cmds->path || access(cmds->path, F_OK) == -1)
+    {
+        ft_fdprintf(2, "minishell: %s: command not found\n", cmds->args[0]);
+        shell->exit_status = 127;
+        return (127);
+    }
+    if (stat(cmds->path, &st) == 0 && S_ISDIR(st.st_mode))
+    {
+        ft_fdprintf(2, "minishell: %s: is a directory\n", cmds->args[0]);
+        shell->exit_status = 126;
+        return (126);
+    }
+    if (access(cmds->path, X_OK) == -1)
+    {
+        ft_fdprintf(2, "minishell: %s: Permission denied\n", cmds->args[0]);
+        shell->exit_status = 126;
+        return (126);
+    }
+    shell->exit_status = 0;
+    return (SUCCESS);
 }

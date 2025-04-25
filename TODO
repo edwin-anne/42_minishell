@@ -29,7 +29,9 @@ MINISHELL:
             ✔ fix: execution d'export dans le parent ou enfant ? @done(25-04-17 11:52)
             ✔ fix: si il n'y a pas de infile, ne pas exec la commande. @done(25-04-22 10:01)
             ✔ fix: "< infile_inexistant" -> jump or move depends on uninitialised value(s). @done(25-04-22 10:01)
-            ☐ fix: "./" execve failed: Permission denied (avec valgrind) et malloc_consolidate(): unaligned fastbin chunk detected (sans valgrind)
+            ✔ fix: "./" execve failed: Permission denied (avec valgrind) et malloc_consolidate(): unaligned fastbin chunk detected (sans valgrind) @done(25-04-25 16:26)
+            ✔ fix: echo '' -> invalid read de 4 (exec_child) @done(25-04-25 16:37)
+            ☐ fix: "exit 42 33" -> exit se fait bien mais ecrit 2 fois.
             ✔ fix: si une valeur de echo dans cmd[] est a NULL l'enfant segfault (exemple: echo $TTTT = "echo" "") @done(25-04-24 17:43)
             ✔ fix: le test : echo ' ' doit renvoyer 0 et pas 139. @done(25-04-24 17:43)
             ✔ fix: si cd a plusieurs arguments faire erreur = too many arguments (exit code 1) @done(25-04-25 09:42)
@@ -52,7 +54,3 @@ MINISHELL:
 
 3. ERREUR INCONNU :
     ☐ "echo "line1\nline2\nline3" | grep line | wc -l" renvoie 1 alors qu'il doit renvoyer 3
-    ☐ gestion du "." et "./" -> les écrire a la dur
-    ☐ a verif: apres le merge si minishell fait une difference entre permission denied et command not found(child.c ligne 104 à 109)
-    ☐ a verif: valgrind echo ' ' -> si apres le merge l'invalid read de 4 est toujours la (sur exec child)
-
