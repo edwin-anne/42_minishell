@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 10:14:46 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/17 09:34:45 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/25 10:43:39 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,17 @@ char	*process_env_var(t_shell *shell, char *str)
 	{
 		if (update_quote_state(str[i], &in_sq, &in_dq))
 			i++;
-		else if (str[i] == '$' && !in_sq && str[i + 1])
+		else if (str[i] == '$' && !in_sq)
 		{
-			i++;
-			if (handle_special_vars(shell, &result, str, &i))
-				continue ;
-			handle_env_var(shell->env, &result, str, &i);
+			if (!str[i + 1] || (!is_var_char(str[i + 1]) && str[i + 1] != '?' && str[i + 1] != '$'))
+				handle_regular_char(&result, str[i++]);
+			else
+			{
+				i++;
+				if (handle_special_vars(shell, &result, str, &i))
+					continue ;
+				handle_env_var(shell->env, &result, str, &i);
+			}
 		}
 		else
 			handle_regular_char(&result, str[i++]);
