@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:41:45 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/25 09:37:44 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/25 18:00:17 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int ft_cd(t_shell *shell, t_cmd *cmds, t_env *env)
     path = ft_cd_path(env, cmds);
     if (!path)
         return (cd_error(shell, "HOME not set", NULL));
+    if (cmds->args[2])
+        return (cd_error(shell, "too many arguments", "cd"));
     if (chdir(path) != 0)
         return (cd_error(shell, strerror(errno), path));
     if (!getcwd(current_dir, sizeof(current_dir)))
         return (cd_error(shell, strerror(errno), "error getting current directory"));
-    if (cmds->args[2])
-        return (cd_error(shell, "too many arguments", "cd"));
     update_env(env, "PWD", current_dir);
     shell->exit_status = 0;
     return (SUCCESS);

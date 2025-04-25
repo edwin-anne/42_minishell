@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:14:13 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/25 17:18:19 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/25 17:46:29 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int builtins_child(t_shell *shell, t_cmd *cmds)
         return(ft_export(shell, cmds));
     if (ft_strcmp(args[0], "unset") == 0)
         return (ft_unset(shell, cmds->args), shell->exit_status); 
-    if (ft_strcmp(args[0], "exit") == 0 && args[2])
+    if (ft_strcmp(args[0], "exit") == 0)
         return(shell->exit_status);
     else
         return (FAIL);
