@@ -32,7 +32,7 @@ MINISHELL:
             ☐ fix: "./" execve failed: Permission denied (avec valgrind) et malloc_consolidate(): unaligned fastbin chunk detected (sans valgrind)
             ✔ fix: si une valeur de echo dans cmd[] est a NULL l'enfant segfault (exemple: echo $TTTT = "echo" "") @done(25-04-24 17:43)
             ✔ fix: le test : echo ' ' doit renvoyer 0 et pas 139. @done(25-04-24 17:43)
-            ☐ fix: si cd a plusieurs arguments faire erreur = too many arguments (exit code 1)
+            ✔ fix: si cd a plusieurs arguments faire erreur = too many arguments (exit code 1) @done(25-04-25 09:42)
 
 2. PARSING (Edwin) :
     parsing error:

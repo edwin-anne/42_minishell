@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:41:45 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/24 13:02:13 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/25 09:37:44 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,14 @@ int ft_cd(t_shell *shell, t_cmd *cmds, t_env *env)
 
     path = ft_cd_path(env, cmds);
     if (!path)
-    {
-        shell->exit_status = 1;
-        return (ft_fdprintf(2, "cd: HOME not set\n"), FAIL);
-    }
+        return (cd_error(shell, "HOME not set", NULL));
     if (chdir(path) != 0)
-    {
-        shell->exit_status = 1;
-        ft_fdprintf(2, "cd: %s: %s\n", path, strerror(errno));
-        return (FAIL);
-    }
-    if (getcwd(current_dir, sizeof(current_dir)) != NULL)
-        update_env(env, "PWD", current_dir);
-    else
-    {
-        shell->exit_status = 1;
-        ft_fdprintf(2, "cd: error getting current directory: %s\n", strerror(errno));
-        return (FAIL);
-    }
+        return (cd_error(shell, strerror(errno), path));
+    if (!getcwd(current_dir, sizeof(current_dir)))
+        return (cd_error(shell, strerror(errno), "error getting current directory"));
+    if (cmds->args[2])
+        return (cd_error(shell, "too many arguments", "cd"));
+    update_env(env, "PWD", current_dir);
     shell->exit_status = 0;
     return (SUCCESS);
 }
@@ -53,7 +43,16 @@ char    *ft_cd_path(t_env *env, t_cmd *cmds)
     return (cmds->args[1]);
 }
 
-
+int cd_error(t_shell *shell, char *msg, char *arg)
+{
+    shell->exit_status = 1;
+    if (arg)
+        ft_fdprintf(2, "minishell: %s: %s\n", arg, msg);
+    else
+        ft_fdprintf(2, "minishell: %s\n", msg);
+    return (FAIL);
+        
+}
 void    update_env(t_env *tmp, char *str, char *current_dir)
 {
     while (tmp->next)
