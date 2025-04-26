@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/25 16:33:18 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/26 15:19:40 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,48 +35,6 @@ int create_child(t_shell *shell, t_cmd *cmds)
     return (FAIL);
 }
 
-int     handle_redir(t_shell *shell, t_cmd *cmd)
-{
-    int fd;
-
-    if (!cmd->redir_in)
-        return (0); // pas de redir
-    fd = check_redir_in(cmd->redir_in);
-    if (fd < 0)
-    {
-        shell->exit_status = 1;
-        return (-1); // erreur de redir
-    }
-    if (fd > 0)
-        close(fd);
-    return (SUCCESS); // succes
-}
-
-void    handle_fork(t_shell *shell, t_cmd *cmd)
-{
-    pid_t   pid;
-    
-    if (builtins_parent(shell, cmd) == SUCCESS)
-        return ;
-    if (handle_redir(shell, cmd) < 0)
-    {
-        shell->exit_status = 1; // si une redir rate, exit code a 1
-        return;
-    }
-    pid = fork();
-    if (pid < 0)
-        exit(1); // TODO: ne pas oublier de free la struct (edwin)
-    if (pid == 0)
-    {
-        ft_dup(cmd);
-        ft_dup_redir(cmd->redir_in, cmd->redir_out);
-        exec_child(cmd, shell);
-        exit(0);
-    }
-    cmd->pid = pid; 
-    cmd->has_child = 1; // un enfant a bien été crée
-}
-
 void exec_child(t_cmd *cmds, t_shell *shell)
 {
     char    **env;
@@ -87,7 +45,6 @@ void exec_child(t_cmd *cmds, t_shell *shell)
     if (cmds->is_builtin == true)
     {
         builtins_child(shell, cmds);
-        free_shell(shell);
         free_char_array(env);
         exit(shell->exit_status);
     }

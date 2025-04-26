@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/25 11:56:49 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/26 14:56:34 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "minishell.h"
 #include <sys/stat.h>
+#include <errno.h>
 
 /* USEFUL DEFINE */
 #define SUCCESS 0
@@ -62,8 +63,11 @@ void    exec_child(t_cmd *cmds, t_shell *shell);
 int     env_len(t_env *env);
 void    wait_children(t_shell *shell);
 char    **env_char(t_shell *shell);
+
+/*HANDLING FORK: */
 void    handle_fork(t_shell *shell, t_cmd *cmd);
-int     handle_redir(t_shell *shell, t_cmd *cmd);
+int     handle_redirout(t_shell *shell, t_cmd *cmd);
+int     handle_redirin(t_shell *shell, t_cmd *cmd);
 
 /* HANDLING PIPES: */
 void    open_pipes(t_shell *shell, t_cmd *cmds);
@@ -77,6 +81,7 @@ int     get_fdin(t_cmd *cmd);
 /* HANDLING REDIR: */
 int    check_redir_in(t_redir *redir_in);
 int    check_redir_out(t_redir *redir_out);
-void    ft_dup_redir(t_redir *in, t_redir *out);
+void   ft_dup_redir(t_redir *in, t_redir *out);
+void   redir_error(char *file);
 
 #endif
