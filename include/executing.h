@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/24 13:30:25 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/26 14:56:34 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #define EXECUTING_H
 
 #include "minishell.h"
+#include <sys/stat.h>
+#include <errno.h>
 
 /* USEFUL DEFINE */
 #define SUCCESS 0
@@ -43,7 +45,7 @@ char    *get_env(t_env *env, const char *key);
 char    *ft_cd_path(t_env *env, t_cmd *cmds);
 int		ft_strcharcmp(char *str, char comp);
 int		ft_constcmp(char *s1, const char *s2);
-
+int     cd_error(t_shell *shell, char *msg, char *arg);
 
 
 /* EXECUTING: the main function calling all functions */
@@ -53,6 +55,7 @@ int    executing(t_shell *shell);
 char    *search_env_path(t_env *env);
 char    *search_in_path(char *cmd, char **path_split);
 void    find_executable(t_cmd *cmds, t_env *env);
+int     exec_error(t_shell *shell, t_cmd *cmds);
 
 /* CHILD: */
 int     create_child(t_shell *shell, t_cmd *cmds);
@@ -60,8 +63,11 @@ void    exec_child(t_cmd *cmds, t_shell *shell);
 int     env_len(t_env *env);
 void    wait_children(t_shell *shell);
 char    **env_char(t_shell *shell);
+
+/*HANDLING FORK: */
 void    handle_fork(t_shell *shell, t_cmd *cmd);
-int     handle_redir(t_shell *shell, t_cmd *cmd);
+int     handle_redirout(t_shell *shell, t_cmd *cmd);
+int     handle_redirin(t_shell *shell, t_cmd *cmd);
 
 /* HANDLING PIPES: */
 void    open_pipes(t_shell *shell, t_cmd *cmds);
@@ -75,6 +81,7 @@ int     get_fdin(t_cmd *cmd);
 /* HANDLING REDIR: */
 int    check_redir_in(t_redir *redir_in);
 int    check_redir_out(t_redir *redir_out);
-void    ft_dup_redir(t_redir *in, t_redir *out);
+void   ft_dup_redir(t_redir *in, t_redir *out);
+void   redir_error(char *file);
 
 #endif
