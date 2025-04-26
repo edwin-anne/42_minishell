@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:41:49 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/25 10:27:24 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/26 13:28:17 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ t_shell	*parsing(t_shell *shell, char *line, int argc, char **argv)
 	shell->cmds = create_cmd(token, shell);
 	create_pipe(shell->cmds);
 	free_tokens(token);
-	//print_cmd_list(shell->cmds);
+	print_cmd_list(shell->cmds);
 	return (shell);
 }

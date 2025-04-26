@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 16:02:25 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/24 09:20:55 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/26 15:00:54 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,10 @@ void	init_signals(t_shell *shell)
 	struct sigaction	sa_quit;
 
 	g_shell = shell;
-
 	sa_int.sa_handler = handle_sigint;
 	sa_int.sa_flags = SA_RESTART;
 	sigemptyset(&sa_int.sa_mask);
 	sigaction(SIGINT, &sa_int, NULL);
-
 	sa_quit.sa_handler = handle_sigquit;
 	sa_quit.sa_flags = SA_RESTART;
 	sigemptyset(&sa_quit.sa_mask);
