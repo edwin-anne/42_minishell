@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/26 15:42:00 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/27 13:55:17 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void exec_child(t_cmd *cmds, t_shell *shell)
         if (error)
         {
             free_char_array(env);
+            free_shell(shell);
             exit(shell->exit_status);
         }
         if (execve(cmds->path, cmds->args, env) == -1)
