@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:49:26 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/25 12:03:55 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/26 15:55:48 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int exec_error(t_shell *shell, t_cmd *cmds)
     }
     if (stat(cmds->path, &st) == 0 && S_ISDIR(st.st_mode))
     {
-        ft_fdprintf(2, "minishell: %s: is a directory\n", cmds->args[0]);
+        ft_fdprintf(2, "minishell: %s: Is a directory\n", cmds->args[0]);
         shell->exit_status = 126;
         return (126);
     }
@@ -102,3 +102,4 @@ int exec_error(t_shell *shell, t_cmd *cmds)
     shell->exit_status = 0;
     return (SUCCESS);
 }
+

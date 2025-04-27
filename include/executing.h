@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/26 14:56:34 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/26 16:43:48 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,10 @@ int     exec_error(t_shell *shell, t_cmd *cmds);
 /* CHILD: */
 int     create_child(t_shell *shell, t_cmd *cmds);
 void    exec_child(t_cmd *cmds, t_shell *shell);
-int     env_len(t_env *env);
+void    child_exit(t_shell *shell, char **env, int exit_code);
 void    wait_children(t_shell *shell);
+//
+int     env_len(t_env *env);
 char    **env_char(t_shell *shell);
 
 /*HANDLING FORK: */

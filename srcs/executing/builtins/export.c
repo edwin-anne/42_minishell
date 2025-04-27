@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:29:03 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/26 11:55:02 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/27 11:59:12 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,87 +18,128 @@
  * specified names.
  */
 
-int    ft_export(t_shell *shell, t_cmd *cmds)
+static void	free_env_val(char **env_val)
 {
-	char    **env_val;
-	char    *value;
-	t_env   *tmp;
-	size_t  len;
-	int     i;
-
-	tmp = shell->env;
-	i = 1;
-	while (cmds->args[i])
+	int	i;
+ 
+	i = 0;
+	while (env_val[i])
 	{
-		env_val = ft_split(cmds->args[i], '=');
-		if (!env_val[0] || !ft_strchr(cmds->args[i], '=') || 
-			verify_args_export(cmds->args[i]) != SUCCESS)
-		{
-			shell->exit_status = 1;
-			return (FAIL);
-		}
-		len = ft_strlen(env_val[0]) + 1;	
-		value = ft_strdup(cmds->args[i] + len);
-		update_export(tmp, env_val[0], value);
+		free(env_val[i]);
 		i++;
 	}
+	free(env_val);
+}
+ 
+int	ft_export(t_shell *shell, t_cmd *cmds)
+{
+	char	**env_val;
+	char	*value;
+	t_env	*tmp;
+	size_t	len;
+	int		i;
+ 
+	tmp = shell->env;
+	i = 1;
 	shell->exit_status = 0;
-	return (SUCCESS);
+	while (cmds->args[i])
+	{
+		if (verify_args_export(cmds->args[i]) != SUCCESS)
+		{
+			shell->exit_status = 1;
+			i++;
+			continue;
+		}
+		if (ft_strchr(cmds->args[i], '='))
+		{
+			env_val = ft_split(cmds->args[i], '=');
+			if (!env_val || !env_val[0])
+			{
+				if (env_val)
+					free_env_val(env_val);
+				shell->exit_status = 1;
+				i++;
+				continue;
+			}
+			len = ft_strlen(env_val[0]) + 1;
+			value = ft_strdup(cmds->args[i] + len);
+			update_export(tmp, ft_strdup(env_val[0]), value);
+			free_env_val(env_val);
+		}
+		else
+			update_export(tmp, ft_strdup(cmds->args[i]), NULL);
+		i++;
+	}
+	return (shell->exit_status);
 }
 
 int verify_args_export(char *args)
 {
 	size_t i;
-	
+	int has_equal;
+	 
 	i = 0;
-	if (!ft_strchr(args, '='))
-		return (FAIL);
-	while (args[i] && args[i] != '=')
+	has_equal = 0;
+	if (!args || args[0] == '\0')
+		return (ft_fdprintf(2, "minishell: export: `': not a valid identifier\n"), FAIL);
+	if (args[0] == '=')
+		return (ft_fdprintf(2, "minishell: export: `%s': not a valid identifier\n", args), FAIL);
+	if (!ft_isalpha(args[0]) && args[0] != '_')
+		return (ft_fdprintf(2, "minishell: export: `%s': not a valid identifier\n", args), FAIL);
+	while (args[i])
 	{
-		if ((!ft_isalnum(args[i]) || args[i] != '_'))
+		if (args[i] == '=')
 		{
-			if ((args[i] == '+' && args[i + 1] != '='))
-				return (ft_fdprintf(1, "bash: export: '%s': not a valid identifier\n", args), FAIL);
+			has_equal = 1;
+			break;
 		}
+		if (!ft_isalnum(args[i]) && args[i] != '_')
+			return (ft_fdprintf(2, "minishell: export: `%s': not a valid identifier\n", args), FAIL);
 		i++;
 	}
-	if (ft_isdigit(args[0]) || ft_strchr(args, '+'))
-		return (ft_fdprintf(1, "bash: export: '%s': not a valid identifier\n", args), FAIL);
-	if (!ft_isalpha(args[0]) && args[0] != '_')
-		return (ft_fdprintf(1, "bash: export: invalid option\n"), FAIL);
+	 
+	if (!has_equal && args[i - 1] == '-')
+		return (ft_fdprintf(2, "minishell: export: `%s': not a valid identifier\n", args), FAIL);
+	 
 	return (SUCCESS);
 }
 
 void    update_export(t_env *tmp, char *key, char *value)
 {
-	while (tmp->next)
+	while (tmp)
 	{
 		if (ft_strcmp(tmp->key, key) == 0)
 		{
-			tmp->value= ft_strdup(value);
-			return ;
+			free(key);
+			if (tmp->value)
+				free(tmp->value);
+			tmp->value = value;
+			return;
 		}
+		if (!tmp->next)
+			break;
 		tmp = tmp->next;
 	}
 	add_var_back(tmp, key, value);
 }
-
-/* export: function add variable to the env. */
+ 
 t_env   *add_var_back(t_env *env, char *key, char *value)
-{
-    t_env   *tmp;
-    t_env   *new_var;
-    
-    new_var = malloc(sizeof(t_env));
-    if (!new_var || !env)
-        return (NULL);
-    tmp = env;
-    if (tmp->next == NULL)
-    {
-        new_var->key = key;
-        new_var->value = value;
-        tmp->next = new_var;
-        new_var->next = NULL;
-    }
-    return (tmp);
+ {
+	t_env   *tmp;
+	t_env   *new_var;
+	 
+	if (!env)
+		return (NULL);
+	new_var = malloc(sizeof(t_env));
+	if (!new_var)
+		return (NULL);
+	new_var->key = key;
+	new_var->value = value;
+	new_var->next = NULL;
+	 
+	tmp = env;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new_var;
+	return (env);
 }
