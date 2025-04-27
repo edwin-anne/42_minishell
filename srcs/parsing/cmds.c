@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/27 14:15:23 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/27 14:32:30 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,10 @@ void	guess_redir(t_cmd *cmd, t_token *token)
 void	process_command(t_cmd *cmd_list, t_shell *shell)
 {
 	execute_here_doc_cmds(cmd_list);
+	interpret_parentheses(cmd_list->args);
 	quote(cmd_list->args);
 	execute_env_var(shell, cmd_list->args);
 	interpret_quotes(cmd_list->args);
-	interpret_parentheses(cmd_list->args);
 }
 
 int	process_token(t_token *token, t_cmd *current_cmd)

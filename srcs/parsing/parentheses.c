@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:45:19 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/24 16:09:04 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/27 14:22:33 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 int check_parentheses(char **args)
 {
     int     i;
+    int     j;
     int     count;
-    char    *arg;
+    int     in_sq;
+    int     in_dq;
 
     i = 0;
     count = 0;
@@ -24,18 +26,24 @@ int check_parentheses(char **args)
         return (0);
     while (args[i])
     {
-        arg = args[i];
-        while (*arg)
+        j = 0;
+        in_sq = 0;
+        in_dq = 0;
+        while (args[i][j])
         {
-            if (*arg == '(')
+            if (args[i][j] == '\'' && !in_dq)
+                in_sq = !in_sq;
+            else if (args[i][j] == '"' && !in_sq)
+                in_dq = !in_dq;
+            else if (args[i][j] == '(' && !in_sq && !in_dq)
                 count++;
-            else if (*arg == ')')
+            else if (args[i][j] == ')' && !in_sq && !in_dq)
             {
                 count--;
                 if (count < 0)
                     return (0);
             }
-            arg++;
+            j++;
         }
         i++;
     }
@@ -47,6 +55,8 @@ char    *remove_parentheses(const char *arg)
     int     i;
     int     j;
     char    *result;
+    int     in_sq;
+    int     in_dq;
 
     if (!arg)
         return (NULL);
@@ -55,9 +65,16 @@ char    *remove_parentheses(const char *arg)
         return (NULL);
     i = 0;
     j = 0;
+    in_sq = 0;
+    in_dq = 0;
     while (arg[i])
     {
-        if (arg[i] != '(' && arg[i] != ')')
+        if (arg[i] == '\'' && !in_dq)
+            in_sq = !in_sq;
+        else if (arg[i] == '"' && !in_sq)
+            in_dq = !in_dq;
+        
+        if ((arg[i] != '(' && arg[i] != ')') || in_sq || in_dq)
             result[j++] = arg[i];
         i++;
     }
