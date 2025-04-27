@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dup.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:33:27 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/22 09:41:44 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/27 14:16:17 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ void    ft_dup(t_cmd *cmd)
         dup2(get_out, STDOUT_FILENO);
         close(get_out);
     }
+    if (cmd->pipe)
+    {
+        if (cmd->pipe->pipe[0] != get_in && cmd->pipe->pipe[0] >= 0)
+            close(cmd->pipe->pipe[0]);
+        if (cmd->pipe->pipe[1] != get_out && cmd->pipe->pipe[1] >= 0)
+            close(cmd->pipe->pipe[1]);
+    }
+    if (cmd->pipe_prev && *cmd->pipe_prev != get_in && *cmd->pipe_prev >= 0)
+        close(*cmd->pipe_prev);
 }
 
 int    get_fdin(t_cmd *cmd)
