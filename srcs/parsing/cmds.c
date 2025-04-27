@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/26 15:06:45 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/27 14:15:23 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,20 @@ int	add_redir(t_redir **redir_list, t_token *token, t_redir_type type)
 {
 	t_redir	*new_redir;
 	t_redir	*last;
+	char	*temp;
 
 	new_redir = malloc(sizeof(t_redir));
 	if (!new_redir)
 		return (0);
 	new_redir->type = type;
-	new_redir->file = ft_strdup(token->next->value);
+	temp = ft_strdup(token->next->value);
+	if (!temp)
+	{
+		free(new_redir);
+		return (0);
+	}
+	new_redir->file = remove_quotes(temp);
+	free(temp);
 	if (!new_redir->file)
 	{
 		free(new_redir);
