@@ -53,7 +53,6 @@ void exec_child(t_cmd *cmds, t_shell *shell)
         error = exec_error(shell, cmds);
         if (error)
         {
-            free_shell(shell);
             free_char_array(env);
             exit(shell->exit_status);
         }
@@ -71,10 +70,12 @@ void exec_child(t_cmd *cmds, t_shell *shell)
 
 void    wait_children(t_shell *shell)
 {
+    int     last_status;
     int     status;
     t_cmd   *tmp;
 
     status = 0;
+    last_status = 0;
     tmp = shell->cmds;
     while (tmp)
     {
@@ -82,9 +83,11 @@ void    wait_children(t_shell *shell)
         {
             waitpid(tmp->pid, &status, 0);
             if (WIFEXITED(status))
-                shell->exit_status = WEXITSTATUS(status);
+                last_status = WEXITSTATUS(status);
             else if (WIFSIGNALED(status))
-                shell->exit_status = 128 + WTERMSIG(status);
+                last_status = 128 + WTERMSIG(status);
+            if (tmp->next == NULL)
+                shell->exit_status = last_status;
         }
         tmp = tmp->next;
     }
