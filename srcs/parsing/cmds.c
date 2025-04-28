@@ -108,7 +108,8 @@ t_cmd	*create_cmd(t_token *token, t_shell *shell)
 		{
 			if (!token->next)
 			{
-				ft_fdprintf(2, "minishell: syntax error near unexpected token `|'\n");
+				ft_fdprintf(2,
+					"minishell: syntax error near unexpected token `|'\n");
 				return (free_cmds(cmd_list), NULL);
 			}
 			current_cmd->next = init_cmd();
