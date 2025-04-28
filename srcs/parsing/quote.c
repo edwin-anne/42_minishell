@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:12:01 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/28 11:56:44 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/28 18:51:22 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ char	*remove_quotes(const char *arg)
 	int		start_quote;
 	char	*result;
 
-	if (!arg)
-		return (NULL);
 	result = malloc(ft_strlen(arg) + 1);
 	if (!result)
 		return (NULL);
@@ -67,10 +65,7 @@ char	*remove_quotes(const char *arg)
 	}
 	result[j] = '\0';
 	if (start_quote || !*result)
-	{
-		free(result);
-		return (ft_strdup(arg));
-	}
+		return (free(result), ft_strdup(arg));
 	return (result);
 }
 
