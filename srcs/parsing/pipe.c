@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 18:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/24 09:56:40 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/28 12:04:41 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	create_pipe(t_cmd *cmds)
 		if (!current->pipe)
 		{
 			current->pipe = NULL;
-			return;
+			return ;
 		}
 		if (current->next)
 			current->next->pipe_prev = &(current->pipe->pipe[1]);

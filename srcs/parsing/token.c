@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 16:50:55 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/24 16:36:32 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/28 11:56:04 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 t_token	*tokenization(char **line)
 {
-	int i;
-	t_token *first = NULL;
-	t_token *prev = NULL;
-	t_token *new = NULL;
+	int		i;
+	t_token	*first;
+	t_token	*prev;
+	t_token	*new;
 
+	first = NULL;
+	prev = NULL;
+	new = NULL;
 	i = 0;
 	while (line[i] != NULL)
 	{
@@ -51,7 +54,6 @@ t_token_type	tokenization_set_type(char *word)
 {
 	if (!word)
 		return (WORD);
-	// Si le mot commence par un guillemet simple ou double, c'est un WORD
 	if (word[0] == '\'' || word[0] == '"')
 		return (WORD);
 	if (ft_strcmp(word, "|") == 0)
