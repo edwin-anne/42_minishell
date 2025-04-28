@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/26 16:43:48 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/28 15:45:43 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void    ft_unset(t_shell *shell, char **args);
 int     verify_args_export(char *args);
 void    update_export(t_env *tmp, char *key, char *value);
 t_env   *add_var_back(t_env *env, char *key, char *value);
+void	free_env_val(char **env_val);
 void    free_node_env(t_env *env);
 t_env   *search_lst(t_env *env);
 int     is_arg_nb(char *arg);
@@ -60,7 +61,8 @@ int     exec_error(t_shell *shell, t_cmd *cmds);
 /* CHILD: */
 int     create_child(t_shell *shell, t_cmd *cmds);
 void    exec_child(t_cmd *cmds, t_shell *shell);
-void    child_exit(t_shell *shell, char **env, int exit_code);
+void	handle_ext_cmds(t_shell *shell, t_cmd *cmd, char **env);
+void	handle_builtins_child(t_shell *shell, t_cmd *cmd, char **env, int exit_status);
 void    wait_children(t_shell *shell);
 //
 int     env_len(t_env *env);
