@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dup.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
+/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:33:27 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/27 14:16:17 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/28 12:11:16 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 
-void    ft_dup(t_cmd *cmd)
+void	ft_dup(t_cmd *cmd)
 {
-    int get_in;
-    int get_out;
+	int	get_in;
+	int	get_out;
 
     get_in = get_fdin(cmd);
     get_out = get_fdout(cmd);
@@ -40,22 +40,22 @@ void    ft_dup(t_cmd *cmd)
         close(*cmd->pipe_prev);
 }
 
-int    get_fdin(t_cmd *cmd)
+int	get_fdin(t_cmd *cmd)
 {
-    if (cmd->redir_in != NULL)
-        return (cmd->redir_in->fd);
-    else if (cmd->pipe_prev != NULL)
-        return (*cmd->pipe_prev);
-    else 
-        return (STDIN_FILENO);
+	if (cmd->redir_in != NULL)
+		return (cmd->redir_in->fd);
+	else if (cmd->pipe_prev != NULL)
+		return (*cmd->pipe_prev);
+	else
+		return (STDIN_FILENO);
 }
 
-int get_fdout(t_cmd *cmd)
+int	get_fdout(t_cmd *cmd)
 {
-    if (cmd->redir_out != NULL)
-        return (cmd->redir_out->fd);
-    else if (cmd->pipe && cmd->pipe->pipe[1] != -1)
-        return (cmd->pipe->pipe[1]);
-    else 
-        return (STDOUT_FILENO);
+	if (cmd->redir_out != NULL)
+		return (cmd->redir_out->fd);
+	else if (cmd->pipe && cmd->pipe->pipe[1] != -1)
+		return (cmd->pipe->pipe[1]);
+	else
+		return (STDOUT_FILENO);
 }
