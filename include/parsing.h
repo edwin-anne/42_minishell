@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/27 13:49:08 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/28 18:19:10 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ t_shell			*parsing(t_shell *shell, char *line, int argc, char **argv);
 
 /*######	PRE PARSING 	######*/
 char			*pre_parsing(char *line);
+void	        update_quotes(char c, int *in_sq, int *in_dq);
+int	            is_operator(char c);
+void	        handle_operator(char *new_line, char *line, int *i, int *j);
 
 /*######	CMDS 	######*/
 void			add_args(t_cmd *cmd, char *arg);
