@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/28 14:39:16 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/28 15:46:02 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	create_child(t_shell *shell, t_cmd *cmds)
 void	exec_child(t_cmd *cmds, t_shell *shell)
 {
 	char	**env;
-	int		error;
 	int		exit_status;
 
 	exit_status = 0;
@@ -46,29 +45,10 @@ void	exec_child(t_cmd *cmds, t_shell *shell)
 	find_executable(cmds, shell->env);
 	if (cmds->is_builtin == true)
 	{
-		builtins_child(shell, cmds);
-		exit_status = shell->exit_status;
-		free_shell(shell);
-		free_char_array(env);
-		exit(exit_status);
+		handle_builtins_child(shell, cmds, env, exit_status);
+		return ;
 	}
-	else
-	{
-		error = exec_error(shell, cmds);
-		if (error)
-		{
-			free_cmds(cmds);
-			free_char_array(env);
-			exit(shell->exit_status);
-		}
-		if (execve(cmds->path, cmds->args, env) == -1)
-		{
-			free_shell(shell);
-			free_char_array(env);
-			perror("execve failed");
-			exit(EXIT_FAILURE);
-		}
-	}
+	handle_ext_cmds(shell, cmds, env);
 	free_shell(shell);
 	free_char_array(env);
 }
