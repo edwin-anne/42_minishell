@@ -6,14 +6,14 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:29:03 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/28 11:56:49 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/28 16:01:09 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 #include "parsing.h"
 
-static void	free_env_val(char **env_val)
+void	free_env_val(char **env_val)
 {
 	int	i;
 
@@ -114,4 +114,24 @@ void	update_export(t_env *tmp, char *key, char *value)
 		tmp = tmp->next;
 	}
 	add_var_back(tmp, key, value);
+}
+
+t_env	*add_var_back(t_env *env, char *key, char *value)
+{
+	t_env	*tmp;
+	t_env	*new_var;
+
+	if (!env)
+		return (NULL);
+	new_var = malloc(sizeof(t_env));
+	if (!new_var)
+		return (NULL);
+	new_var->key = key;
+	new_var->value = value;
+	new_var->next = NULL;
+	tmp = env;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new_var;
+	return (env);
 }
