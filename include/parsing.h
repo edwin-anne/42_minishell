@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/25 10:26:44 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/27 13:49:08 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_env			*add_env_node(t_env *node, char *env);
 /*######	QUOTE 	######*/
 int             quote(char **args);
 void            interpret_quotes(char **args);
+char	        *remove_quotes(const char *arg);
 
 /*######	BUILT_IN 	######*/
 bool			is_built_in(char **cmds);

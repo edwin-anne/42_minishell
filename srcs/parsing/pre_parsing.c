@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:48:40 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/24 17:18:49 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/28 11:57:57 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static int	calculate_buffer_size(const char *line)
 {
 	int	size;
 	int	i;
-	int in_sq;
-	int in_dq;
+	int	in_sq;
+	int	in_dq;
 
 	size = 0;
 	i = 0;
@@ -29,7 +29,8 @@ static int	calculate_buffer_size(const char *line)
 			in_sq = !in_sq;
 		else if (line[i] == '"' && !in_sq)
 			in_dq = !in_dq;
-		else if (!in_sq && !in_dq && (line[i] == '|' || line[i] == '<' || line[i] == '>'))
+		else if (!in_sq && !in_dq && (line[i] == '|'
+				|| line[i] == '<' || line[i] == '>'))
 		{
 			if (i > 0 && line[i - 1] != ' '
 				&& !(i > 0 && line[i] == line[i - 1]))
@@ -49,8 +50,8 @@ char	*pre_parsing(char *line)
 	char	*new_line;
 	int		j;
 	int		i;
-	int     in_sq;
-	int     in_dq;
+	int		in_sq;
+	int		in_dq;
 
 	if (!line)
 		return (NULL);
@@ -67,7 +68,8 @@ char	*pre_parsing(char *line)
 			in_sq = !in_sq;
 		else if (line[i] == '"' && !in_sq)
 			in_dq = !in_dq;
-		else if (!in_sq && !in_dq && (line[i] == '|' || line[i] == '<' || line[i] == '>'))
+		else if (!in_sq && !in_dq && (line[i] == '|'
+				|| line[i] == '<' || line[i] == '>'))
 		{
 			if (i > 0 && line[i - 1] != ' ' && (line[i] != line[i - 1]))
 				new_line[j++] = ' ';
@@ -75,7 +77,7 @@ char	*pre_parsing(char *line)
 			if (line[i + 1] && line[i + 1] != ' ' && (line[i + 1] != line[i]))
 				new_line[j++] = ' ';
 			i++;
-			continue;
+			continue ;
 		}
 		new_line[j++] = line[i++];
 	}

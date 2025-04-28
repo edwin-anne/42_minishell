@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/28 13:31:49 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/27 13:55:17 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,33 +40,33 @@ void	exec_child(t_cmd *cmds, t_shell *shell)
 	char	**env;
 	int		error;
 
-	env = env_char(shell);
-	find_executable(cmds, shell->env);
-	if (cmds->is_builtin == true)
-	{
-		builtins_child(shell, cmds);
-		free_char_array(env);
-		exit(shell->exit_status);
-	}
-	else
-	{
-		error = exec_error(shell, cmds);
-		if (error)
-		{
-			free_cmds(cmds);
-			free_char_array(env);
-			exit(shell->exit_status);
-		}
-		if (execve(cmds->path, cmds->args, env) == -1)
-		{
-			free_shell(shell);
-			free_char_array(env);
-			perror("execve failed");
-			exit(EXIT_FAILURE);
-		}
-	}
-	free_shell(shell);
-	free_char_array(env);
+    env = env_char(shell);
+    find_executable(cmds, shell->env);
+    if (cmds->is_builtin == true)
+    {
+        builtins_child(shell, cmds);
+        free_char_array(env);
+        exit(shell->exit_status);
+    }
+    else 
+    {
+        error = exec_error(shell, cmds);
+        if (error)
+        {
+            free_char_array(env);
+            free_shell(shell);
+            exit(shell->exit_status);
+        }
+        if (execve(cmds->path, cmds->args, env) == -1)
+        {
+            free_shell(shell);
+            free_char_array(env);
+            perror("execve failed");
+            exit(EXIT_FAILURE);    
+        }
+    }
+    free_shell(shell);
+    free_char_array(env);
 }
 
 void	wait_children(t_shell *shell)
