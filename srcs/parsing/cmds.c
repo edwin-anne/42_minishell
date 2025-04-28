@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/27 14:41:08 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/28 10:30:55 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	add_args(t_cmd *cmd, char *arg)
 		free(new_args);
 		return;
 	}
-	new_args[i + 1] = '\0';
+	new_args[i + 1] = NULL;
 	old_args = cmd->args;
 	cmd->args = new_args;
 	free(old_args);
