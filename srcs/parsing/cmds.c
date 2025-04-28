@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/28 10:56:09 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/28 14:19:57 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ void	add_args(t_cmd *cmd, char *arg)
 	}
 	new_args[i] = ft_strdup(arg);
 	if (!new_args[i])
-		free(new_args);
-		return;
-	}
+		return (free(new_args));
 	new_args[i + 1] = NULL;
 	old_args = cmd->args;
 	cmd->args = new_args;
@@ -110,7 +108,8 @@ t_cmd	*create_cmd(t_token *token, t_shell *shell)
 		{
 			if (!token->next)
 			{
-				ft_fdprintf(2, "minishell: syntax error near unexpected token `|'\n");
+				ft_fdprintf(2,
+					"minishell: syntax error near unexpected token `|'\n");
 				return (free_cmds(cmd_list), NULL);
 			}
 			current_cmd->next = init_cmd();
