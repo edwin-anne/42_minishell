@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/28 10:30:55 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/28 10:56:09 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,64 +33,12 @@ void	add_args(t_cmd *cmd, char *arg)
 	}
 	new_args[i] = ft_strdup(arg);
 	if (!new_args[i])
-	{
-		free(new_args);
-		return;
-	}
+		return (free(new_args));
 	new_args[i + 1] = NULL;
 	old_args = cmd->args;
 	cmd->args = new_args;
 	free(old_args);
 	cmd->is_builtin = is_built_in(cmd->args);
-}
-
-int	add_redir(t_redir **redir_list, t_token *token, t_redir_type type)
-{
-	t_redir	*new_redir;
-	t_redir	*last;
-	char	*temp;
-
-	new_redir = malloc(sizeof(t_redir));
-	if (!new_redir)
-		return (0);
-	new_redir->type = type;
-	temp = ft_strdup(token->next->value);
-	if (!temp)
-	{
-		free(new_redir);
-		return (0);
-	}
-	new_redir->file = remove_quotes(temp);
-	free(temp);
-	if (!new_redir->file)
-	{
-		free(new_redir);
-		return (0);
-	}
-	if (type == HEREDOC)
-	{
-		new_redir->limiter = ft_strdup(token->next->value);
-		if (!new_redir->limiter)
-		{
-			free(new_redir->file);
-			free(new_redir);
-			return (0);
-		}
-	}
-	else
-		new_redir->limiter = NULL;
-	new_redir->fd = -1;
-	new_redir->next = NULL;
-	if (!(*redir_list))
-		*redir_list = new_redir;
-	else
-	{
-		last = *redir_list;
-		while (last->next)
-			last = last->next;
-		last->next = new_redir;
-	}
-	return (1);
 }
 
 void	guess_redir(t_cmd *cmd, t_token *token)
@@ -109,11 +57,11 @@ void	guess_redir(t_cmd *cmd, t_token *token)
 
 void	process_command(t_cmd *cmd_list, t_shell *shell)
 {
-	t_cmd *tmp;
+	t_cmd	*tmp;
 
 	tmp = cmd_list;
 	execute_here_doc_cmds(cmd_list);
-	while(tmp)
+	while (tmp)
 	{
 		interpret_parentheses(tmp->args);
 		quote(tmp->args);
