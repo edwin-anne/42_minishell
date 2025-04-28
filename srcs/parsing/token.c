@@ -6,55 +6,55 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 16:50:55 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/28 18:54:58 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/28 18:56:34 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-t_token *create_token(char *line_content, t_token *prev)
+t_token	*create_token(char *line_content, t_token *prev)
 {
-    t_token *new;
+	t_token	*new;
 
-    new = malloc(sizeof(t_token));
-    if (!new)
-        return (NULL);
-    new->value = strdup(line_content);
-    if (!new->value)
-        return (free(new), NULL);
-    new->type = tokenization_set_type(line_content);
-    new->skip = 0;
-    new->next = NULL;
-    new->prev = prev;
-    return (new);
+	new = malloc(sizeof(t_token));
+	if (!new)
+		return (NULL);
+	new->value = strdup(line_content);
+	if (!new->value)
+		return (free(new), NULL);
+	new->type = tokenization_set_type(line_content);
+	new->skip = 0;
+	new->next = NULL;
+	new->prev = prev;
+	return (new);
 }
 
-t_token *tokenization(char **line, int i)
+t_token	*tokenization(char **line, int i)
 {
-    t_token *first;
-    t_token *prev;
-    t_token *new;
+	t_token	*first;
+	t_token	*prev;
+	t_token	*new;
 
-    first = NULL;
-    prev = NULL;
-    while (line[i] != NULL)
-    {
-        new = create_token(line[i], prev);
-        if (!new)
-            return (NULL);
-        if (!first)
-        {
-            first = new;
-            prev = first;
-        }
-        else
-        {
-            prev->next = new;
-            prev = new;
-        }
-        i++;
-    }
-    return (first);
+	first = NULL;
+	prev = NULL;
+	while (line[i] != NULL)
+	{
+		new = create_token(line[i], prev);
+		if (!new)
+			return (NULL);
+		if (!first)
+		{
+			first = new;
+			prev = first;
+		}
+		else
+		{
+			prev->next = new;
+			prev = new;
+		}
+		i++;
+	}
+	return (first);
 }
 
 t_token_type	tokenization_set_type(char *word)
