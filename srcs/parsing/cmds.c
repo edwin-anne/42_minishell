@@ -33,7 +33,9 @@ void	add_args(t_cmd *cmd, char *arg)
 	}
 	new_args[i] = ft_strdup(arg);
 	if (!new_args[i])
-		return (free(new_args));
+		free(new_args);
+		return;
+	}
 	new_args[i + 1] = NULL;
 	old_args = cmd->args;
 	cmd->args = new_args;

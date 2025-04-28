@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:22:18 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/26 15:10:04 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/28 12:09:23 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
  * - wait_children() : ensures process cleanup. 
  */
 
-int executing(t_shell *shell)
+int	executing(t_shell *shell)
 {
-    if (!shell || !shell->cmds)
-        return (FAIL);
-    create_child(shell, shell->cmds);
-    wait_children(shell);
-    return (SUCCESS);
+	if (!shell || !shell->cmds)
+		return (FAIL);
+	create_child(shell, shell->cmds);
+	wait_children(shell);
+	return (SUCCESS);
 }

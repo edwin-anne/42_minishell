@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:46:58 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/24 13:33:04 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/28 11:49:14 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,15 @@
 /**
  * @brief: pwd return the working directory name.
  */
-
-int    ft_pwd(t_shell *shell)
+int	ft_pwd(t_shell *shell)
 {
-	char    *path;
+	char	*path;
 
 	path = getcwd(0, 0);
 	if (!path)
 	{
 		ft_fdprintf(2, "pwd: error retrieving current directory: getcwd: \
-cannot access parent directories: No such file or directory\n");
+			cannot access parent directories: No such file or directory\n");
 		shell->exit_status = 1;
 		return (FAIL);
 	}
