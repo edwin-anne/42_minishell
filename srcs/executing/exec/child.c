@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/28 14:13:16 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/28 14:14:48 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	exec_child(t_cmd *cmds, t_shell *shell)
 	{
 		builtins_child(shell, cmds);
 		free_char_array(env);
-		free_shell(shell);
 		exit(shell->exit_status);
 	}
 	else
@@ -54,9 +53,9 @@ void	exec_child(t_cmd *cmds, t_shell *shell)
 		error = exec_error(shell, cmds);
 		if (error)
 		{
+			free_cmds(cmds);
 			free_char_array(env);
-			free_shell(shell);
-			exit(error);
+			exit(shell->exit_status);
 		}
 		if (execve(cmds->path, cmds->args, env) == -1)
 		{
@@ -66,6 +65,7 @@ void	exec_child(t_cmd *cmds, t_shell *shell)
 			exit(EXIT_FAILURE);
 		}
 	}
+	free_shell(shell);
 	free_char_array(env);
 }
 

@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:43:44 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/28 11:07:43 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/28 12:05:59 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ static void	setup_heredoc_signals(void)
 
 char	*execute_here_doc(char *filepath, char *limiter)
 {
-	char			*limit_with_nl;
-	char			*line;
-	int				fd;
-	pid_t			pid;
-	int				status;
+	char				*limit_with_nl;
+	char				*line;
+	int					fd;
+	pid_t				pid;
+	int					status;
 	struct sigaction	old_int;
 	struct sigaction	old_quit;
 
@@ -74,7 +74,8 @@ char	*execute_here_doc(char *filepath, char *limiter)
 		{
 			ft_putstr_fd("> ", 1);
 			line = get_next_line(0);
-			if (!line || ft_strncmp(line, limit_with_nl, ft_strlen(limit_with_nl)) == 0)
+			if (!line || ft_strncmp(line, limit_with_nl,
+			ft_strlen(limit_with_nl)) == 0)
 			{
 				free(line);
 				break ;

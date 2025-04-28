@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:12:01 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/25 09:59:48 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/28 11:56:44 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	quote(char **args)
 		}
 		i++;
 	}
-	return (1);  // Toujours retourner 1 pour supporter les guillemets non fermés
+	return (1);
 }
 
 char	*remove_quotes(const char *arg)
@@ -78,7 +78,7 @@ void	interpret_quotes(char **args)
 {
 	int		i;
 	char	*processed;
-	
+
 	i = 0;
 	if (!args)
 		return ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmds.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/28 10:58:31 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/28 10:56:09 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	add_args(t_cmd *cmd, char *arg)
 	}
 	new_args[i] = ft_strdup(arg);
 	if (!new_args[i])
-	{
 		free(new_args);
 		return;
 	}
@@ -42,47 +41,6 @@ void	add_args(t_cmd *cmd, char *arg)
 	cmd->args = new_args;
 	free(old_args);
 	cmd->is_builtin = is_built_in(cmd->args);
-}
-
-int	add_redir(t_redir **redir_list, t_token *token, t_redir_type type)
-{
-	t_redir	*new_redir;
-	t_redir	*last;
-
-	new_redir = malloc(sizeof(t_redir));
-	if (!new_redir)
-		return (0);
-	new_redir->type = type;
-	new_redir->file = ft_strdup(token->next->value);
-	if (!new_redir->file)
-	{
-		free(new_redir);
-		return (0);
-	}
-	if (type == HEREDOC)
-	{
-		new_redir->limiter = ft_strdup(token->next->value);
-		if (!new_redir->limiter)
-		{
-			free(new_redir->file);
-			free(new_redir);
-			return (0);
-		}
-	}
-	else
-		new_redir->limiter = NULL;
-	new_redir->fd = -1;
-	new_redir->next = NULL;
-	if (!(*redir_list))
-		*redir_list = new_redir;
-	else
-	{
-		last = *redir_list;
-		while (last->next)
-			last = last->next;
-		last->next = new_redir;
-	}
-	return (1);
 }
 
 void	guess_redir(t_cmd *cmd, t_token *token)
@@ -101,11 +59,18 @@ void	guess_redir(t_cmd *cmd, t_token *token)
 
 void	process_command(t_cmd *cmd_list, t_shell *shell)
 {
+	t_cmd	*tmp;
+
+	tmp = cmd_list;
 	execute_here_doc_cmds(cmd_list);
-	quote(cmd_list->args);
-	execute_env_var(shell, cmd_list->args);
-	interpret_quotes(cmd_list->args);
-	interpret_parentheses(cmd_list->args);
+	while (tmp)
+	{
+		interpret_parentheses(tmp->args);
+		quote(tmp->args);
+		execute_env_var(shell, tmp->args);
+		interpret_quotes(tmp->args);
+		tmp = tmp->next;
+	}
 }
 
 int	process_token(t_token *token, t_cmd *current_cmd)
