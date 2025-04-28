@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/28 18:30:41 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/28 18:55:06 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	            process_token(t_token *token, t_cmd *current_cmd);
 t_cmd           *create_cmd(t_token *token, t_shell *shell);
 
 /*######	TOKEN 	######*/
-t_token			*tokenization(char **line);
+t_token			*tokenization(char **line, int i);
 t_token_type	tokenization_set_type(char *word);
 
 /*######	ENVIRONNEMENT 	######*/
