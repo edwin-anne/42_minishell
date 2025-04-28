@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/28 14:14:48 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/28 14:39:16 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,18 @@ void	exec_child(t_cmd *cmds, t_shell *shell)
 {
 	char	**env;
 	int		error;
+	int		exit_status;
 
+	exit_status = 0;
 	env = env_char(shell);
 	find_executable(cmds, shell->env);
 	if (cmds->is_builtin == true)
 	{
 		builtins_child(shell, cmds);
+		exit_status = shell->exit_status;
+		free_shell(shell);
 		free_char_array(env);
-		exit(shell->exit_status);
+		exit(exit_status);
 	}
 	else
 	{
