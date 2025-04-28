@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/28 18:19:10 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/28 18:30:41 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,9 @@ void            create_pipe(t_cmd *cmds);
 
 /*######	UTILS 	######*/
 /*######	FT_SPLIT_MULTI  	######*/
-
+int             ft_countnbr(const char *str, char c);
+void	        ft_freetab(char **tab, int n);
+void	        ft_skip_sep(const char *str, int *i, char c);
 char	        **ft_split_sh(char const *s, char c);
 
 /*######	FREE 	######*/
