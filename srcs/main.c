@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:35:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/11 16:41:43 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/29 17:07:30 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,37 @@
 #include "executing.h"
 #include "minishell.h"
 
+void	init(t_shell **shell, char **envp)
+{
+	*shell = malloc(sizeof(t_shell));
+	if (!*shell)
+		exit(1);
+	using_history();
+	(*shell)->env = copy_env(envp);
+	(*shell)->cmds = NULL;
+	(*shell)->exit_status = 0;
+	init_signals(*shell);
+}
+
+void	new_line(char *line, t_shell *shell, int argc, char **argv)
+{
+	add_history(line);
+	parsing(shell, line, argc, argv);
+	if (shell->cmds)
+	{
+		executing(shell);
+		free_cmds(shell->cmds);
+		shell->cmds = NULL;
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	t_shell	*shell;
 
-	shell = malloc(sizeof(t_shell));
-	shell->env = copy_env(envp);
-	//print_env_list(shell->env);
+	shell = NULL;
+	init(&shell, envp);
 	while (1)
 	{
 		line = readline("$ ");
@@ -30,11 +53,12 @@ int	main(int argc, char **argv, char **envp)
 			ft_putstr_fd("\n", 1);
 			break ;
 		}
-		
-		parsing(shell, line, argc, argv);
 		if (line[0] != '\0')
-			add_history(line);
+			new_line(line, shell, argc, argv);
 		free(line);
 	}
+	free_shell(shell);
+	clear_history();
+	rl_clear_history();
 	return (0);
 }

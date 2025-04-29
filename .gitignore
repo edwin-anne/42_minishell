@@ -1,0 +1,21 @@
+# Object files
+*.o
+
+# Executable
+minishell
+
+# OS specific files
+.DS_Store
+
+# Temporary files
+*.swp
+*~
+
+# Here_doc temp files
+/tmp/here_doc*
+
+# Debug files
+core
+vgcore*
+.gdb_history
+

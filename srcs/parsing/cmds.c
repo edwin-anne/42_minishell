@@ -6,17 +6,18 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/11 12:00:15 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 16:05:20 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void add_args(t_cmd *cmd, char *arg)
+void	add_args(t_cmd *cmd, char *arg)
 {
-	int	i;
-	int	j;
-	char **new_args;
+	int		i;
+	int		j;
+	char	**new_args;
+	char	**old_args;
 
 	i = 0;
 	j = 0;
@@ -24,100 +25,94 @@ void add_args(t_cmd *cmd, char *arg)
 		i++;
 	new_args = malloc(sizeof(char *) * (i + 2));
 	if (!new_args)
-		return;
+		return ;
 	while (j < i)
 	{
 		new_args[j] = cmd->args[j];
 		j++;
 	}
-	new_args[i] = strdup(arg);
+	new_args[i] = ft_strdup(arg);
+	if (!new_args[i])
+		return (free(new_args));
 	new_args[i + 1] = NULL;
-	free(cmd->args);
+	old_args = cmd->args;
 	cmd->args = new_args;
+	free(old_args);
 	cmd->is_builtin = is_built_in(cmd->args);
 }
 
-void guess_redir(t_cmd *cmd, t_token *token)
+void	guess_redir(t_cmd *cmd, t_token *token)
 {
-	int	redir_type;
+	if (!cmd || !token)
+		return ;
+	if (token->type == REDIR_IN)
+		add_redir(&cmd->redir_in, token, INPUT_REDIR);
+	else if (token->type == REDIR_OUT)
+		add_redir(&cmd->redir_out, token, OUTPUT_REDIR);
+	else if (token->type == APPEND)
+		add_redir(&cmd->redir_out, token, APPEND_REDIR);
+	else if (token->type == HERE_DOC)
+		add_redir(&cmd->redir_in, token, HEREDOC);
+}
 
-	if (!cmd || !token || !cmd->redir)
-		return ;
-	if (!token->type)
+void	process_command(t_cmd *cmd_list, t_shell *shell)
+{
+	t_cmd	*tmp;
+
+	tmp = cmd_list;
+	execute_here_doc_cmds(cmd_list, shell);
+	while (tmp)
 	{
-		cmd->redir->type_in = NONE;
-		return ;
+		interpret_parentheses(tmp->args);
+		quote(tmp->args);
+		execute_env_var(shell, tmp->args);
+		interpret_quotes(tmp->args);
+		tmp = tmp->next;
 	}
-	if (token->type == REDIR_IN || token->type == REDIR_OUT || 
-		token->type == APPEND || token->type == HEREDOC)
+}
+
+int	process_token(t_token *token, t_cmd *current_cmd)
+{
+	if (token->type == REDIR_IN || token->type == REDIR_OUT
+		|| token->type == APPEND || token->type == HERE_DOC)
 	{
-		if (!token->next || token->next->type != WORD)
+		if (!token->next)
 		{
-			cmd->redir->type_in = NONE;
-			return ;
+			ft_fdprintf(2,
+				"minishell: syntax error near unexpected token `newline'\n");
+			return (0);
 		}
-		redir_type = NONE;
-		if (token->type == REDIR_IN)
-			redir_type = FILE_REDIR;
-		else if (token->type == REDIR_OUT)
-			redir_type = FILE_REDIR;
-		else if (token->type == APPEND)
-			redir_type = APPEND_REDIR;
-		else if (token->type == HEREDOC)
-			redir_type = HERE_DOC;
-		write_redir(cmd, token, redir_type);
+		guess_redir(current_cmd, token);
+		token->next->skip = 1;
 	}
-	else
-		cmd->redir->type_in = NONE;
+	else if ((token->type == WORD || token->type == ENV_VAR) && !token->skip)
+		add_args(current_cmd, token->value);
+	return (1);
 }
 
-void write_redir(t_cmd *cmd, t_token *token, t_redir_type type)
+t_cmd	*create_cmd(t_token *token, t_shell *shell)
 {
-	if (!cmd || !token || !cmd->redir || !token->next)
-		return;
-	
-	cmd->redir->type_in = type;
-	if (token->next->value)
-		cmd->redir->file_in = strdup(token->next->value);
-	else
-		cmd->redir->file_in = NULL;
-}
+	t_cmd	*cmd_list;
+	t_cmd	*current_cmd;
 
-t_cmd *create_cmd(t_token *token, t_shell *shell)
-{
-	t_cmd *cmd_list = NULL;
-	t_cmd *current_cmd = NULL;
-	
 	cmd_list = init_cmd();
 	current_cmd = cmd_list;
 	while (token)
 	{
-		if (!cmd_list)
+		if (token->type == PIPE)
 		{
-			cmd_list = init_cmd();
-			current_cmd = cmd_list;
-		}
-		else if (token->type == PIPE)
-		{
+			if (!token->next)
+				return (ft_fdprintf(2, SYNTAX_ERR_PIPE),
+					free_cmds(cmd_list), NULL);
 			current_cmd->next = init_cmd();
 			current_cmd = current_cmd->next;
 		}
-		else if (token->type == REDIR_IN || token->type == REDIR_OUT || 
-				token->type == APPEND || token->type == HEREDOC)
+		else
 		{
-			guess_redir(current_cmd, token);
-			if (token->next)
-				token = token->next;
-			else
-				ft_fdprintf(2, "minishell: syntax error near unexpected token `newline'\n");
+			if (process_token(token, current_cmd) == 0)
+				return (free_cmds(cmd_list), NULL);
 		}
-		else if (token->type == WORD || token->type == ENV_VAR)
-			add_args(current_cmd, token->value);
 		token = token->next;
 	}
-	execute_here_doc_cmds(cmd_list);
-	quote(cmd_list->args);
-	execute_env_var(shell->env, cmd_list->args);
-	interpret_quotes(cmd_list->args);
-	return (cmd_list);
+	return (process_command(cmd_list, shell), cmd_list);
 }

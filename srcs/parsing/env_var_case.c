@@ -1,20 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug_here_doc.c                                   :+:      :+:    :+:   */
+/*   env_var_case.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/02 12:10:08 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/02 12:12:40 by Edwin ANNE       ###   ########.fr       */
+/*   Created: 2025/03/19 12:01:15 by Edwin ANNE        #+#    #+#             */
+/*   Updated: 2025/04/29 17:08:41 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	debug_here_doc(char *filepath, char *limiter)
+char	*ft_getexitcode(t_shell *shell)
 {
-	printf("\n========= Debug Here Doc =========\n\n");
-	printf("Nom du fichier : %s\n", filepath);
-	printf("Limiteur : %s\n", limiter);
+	char	*result;
+
+	result = ft_itoa(shell->exit_status);
+	return (result);
+}
+
+void	remove_empty_args(char **args)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (args[i])
+	{
+		if (args[i][0] != '\0')
+		{
+			args[j] = args[i];
+			j++;
+		}
+		else
+			free(args[i]);
+		i++;
+	}
+	args[j] = NULL;
 }

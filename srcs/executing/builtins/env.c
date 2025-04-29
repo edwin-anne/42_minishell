@@ -3,41 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:12:37 by loribeir          #+#    #+#             */
-/*   Updated: 2025/03/10 17:53:20 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/28 11:42:23 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 
 /**
- * @brief Env should display all the variable of the environnement.
+ * @brief: env should display all the variable of the environnement.
  */
 
- int   ft_env(t_shell *shell, char **args)
- {
-    t_env   *current;
-    
-    current = shell->env;
-    if (shell->cmds->args[1])
-    {
-        if (ft_strcmp(shell->cmds->args[1], "env") != 0)
-        {
-            ft_printf("env: '%s': No such file or directory\n", args[1]);
-            return (FAIL);
-        }
-    }
-    while (current)
-    {
-        if (current->value)
-            ft_printf("%s=%s\n", current->key, current->value);
-        else
-            ft_printf("%s=n", current->key);
-        current = current->next;
-    }
-   return (SUCCESS);
- }
+int	ft_env(t_shell *shell, t_cmd *cmds)
+{
+	t_env	*current;
 
- 
+	current = shell->env;
+	if (cmds->args[1])
+	{
+		if (cmds->args[1])
+		{
+			ft_fdprintf(2, "env: '%s': No such file or directory\n",
+				cmds->args[1]);
+			shell->exit_status = 127;
+			return (FAIL);
+		}
+	}
+	shell->exit_status = 0;
+	while (current)
+	{
+		if (current->value)
+			ft_fdprintf(1, "%s=%s\n", current->key, current->value);
+		current = current->next;
+	}
+	return (SUCCESS);
+}

@@ -6,49 +6,29 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 11:21:25 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/03/09 13:57:00 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 15:54:05 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-void	free_redir(t_redir *redir)
-{
-	if (!redir)
-		return ;
-	if (redir->file_in != NULL)
-		free(redir->file_in);
-	if (redir->limiter_here_doc != NULL)
-		free(redir->limiter_here_doc);
-	if (redir->file_out != NULL)
-		free(redir->file_out);
-	if (redir)
-		free(redir);
-}
-
 void	free_cmds(t_cmd *cmd)
 {
 	t_cmd	*tmp;
-	int		i;
 
-	i = 0;
+	if (!cmd)
+		return ;
+	clean_heredoc_files(cmd);
 	while (cmd)
 	{
 		tmp = cmd;
-		if (cmd->args)
-		{
-			while (cmd->args[i])
-			{
-				free(cmd->args[i]);
-				i++;
-			}
-			free(cmd->args);
-		}
-		free(cmd->path);
-		if (cmd->redir)
-			free_redir(cmd->redir);
+		free_cmds_next(cmd);
 		cmd = cmd->next;
-		free(tmp);
+		if (tmp)
+		{
+			free(tmp);
+			tmp = NULL;
+		}
 	}
 }
 
