@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:57:53 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/22 09:53:18 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/29 13:50:31 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	init_signals(t_shell *shell);
 void	free_shell(t_shell *shell);
 void	free_env(t_env *env);
 void	free_cmds(t_cmd *cmd);
+void	free_cmds_next(t_cmd *cmd);
 void	free_redir(t_redir *redir);
 void	free_char_array(char **array);
 
