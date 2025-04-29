@@ -6,19 +6,11 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 18:25:51 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/28 18:30:29 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 14:59:53 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-static void	ft_update_quotes(const char *str, int *i, int *sq, int *dq)
-{
-	if (str[*i] == '\'' && !(*dq))
-		*sq = !(*sq);
-	else if (str[*i] == '"' && !(*sq))
-		*dq = !(*dq);
-}
 
 void	ft_skip_sep(const char *str, int *i, char c)
 {
@@ -26,7 +18,7 @@ void	ft_skip_sep(const char *str, int *i, char c)
 		(*i)++;
 }
 
-static void	ft_skip_word(const char *str, int *i, char c)
+void	ft_skip_word(const char *str, int *i, char c)
 {
 	int	sq;
 	int	dq;

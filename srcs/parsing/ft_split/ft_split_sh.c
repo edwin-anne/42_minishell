@@ -6,13 +6,13 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:24:58 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/28 18:32:53 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 14:29:44 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static void	ft_update_quotes(const char *s, int *i, int *sq, int *dq)
+void	ft_update_quotes(const char *s, int *i, int *sq, int *dq)
 {
 	if (s[*i] == '\'' && !(*dq))
 		*sq = !(*sq);
@@ -20,7 +20,7 @@ static void	ft_update_quotes(const char *s, int *i, int *sq, int *dq)
 		*dq = !(*dq);
 }
 
-static int	ft_get_word_len(const char *s, int *i, char c)
+int	ft_get_word_len(const char *s, int *i, char c)
 {
 	int	start;
 	int	sq;
@@ -37,7 +37,7 @@ static int	ft_get_word_len(const char *s, int *i, char c)
 	return (*i - start);
 }
 
-static char	**ft_cpystr(char **tab, const char *s, char c, int nb)
+char	**ft_cpystr(char **tab, const char *s, char c, int nb)
 {
 	int	i;
 	int	j;

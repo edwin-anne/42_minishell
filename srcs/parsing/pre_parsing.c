@@ -6,13 +6,13 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 18:48:40 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/28 18:20:31 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 14:27:57 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static void	update_quotes_calc(char c, int *in_sq, int *in_dq)
+void	update_quotes_calc(char c, int *in_sq, int *in_dq)
 {
 	if (c == '\'' && !(*in_dq))
 		*in_sq = !(*in_sq);
@@ -20,7 +20,7 @@ static void	update_quotes_calc(char c, int *in_sq, int *in_dq)
 		*in_dq = !(*in_dq);
 }
 
-static int	add_space_size(const char *line, int i)
+int	add_space_size(const char *line, int i)
 {
 	int	count;
 
@@ -32,7 +32,7 @@ static int	add_space_size(const char *line, int i)
 	return (count);
 }
 
-static int	calculate_buffer_size(const char *line)
+int	calculate_buffer_size(const char *line)
 {
 	int	size;
 	int	i;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_2.c                                           :+:      :+:    :+:   */
+/*   free_.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 13:47:49 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 13:50:19 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 15:08:20 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,7 @@ void	free_redir_list(t_redir *redir)
 
 void	free_cmds_next(t_cmd *cmd)
 {
-	int	i;
-
-	if (cmd->args)
-	{
-		i = 0;
-		while (cmd->args[i])
-		{
-			if (cmd->args[i])
-				free(cmd->args[i]);
-			i++;
-		}
-		free(cmd->args);
-		cmd->args = NULL;
-	}
+	free_args(cmd);
 	cmd->path = NULL;
 	if (cmd->redir_in)
 	{
@@ -59,5 +46,22 @@ void	free_cmds_next(t_cmd *cmd)
 	{
 		free(cmd->pipe);
 		cmd->pipe = NULL;
+	}
+}
+void	free_args(t_cmd *cmd)
+{
+	int	i;
+
+	if (cmd->args)
+	{
+		i = 0;
+		while (cmd->args[i])
+		{
+			if (cmd->args[i])
+				free(cmd->args[i]);
+			i++;
+		}
+		free(cmd->args);
+		cmd->args = NULL;
 	}
 }
