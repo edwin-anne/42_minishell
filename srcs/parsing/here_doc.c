@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:43:44 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/28 12:05:59 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 14:58:18 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 #include <unistd.h>
 #include <features.h>
 
-static void	handle_heredoc_sigint(int sig)
+void	handle_heredoc_sigint(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
 	exit(130);
 }
 
-static int	open_here_doc_file(char *filepath, char *limit_with_nl, int *fd)
+int	open_here_doc_file(char *filepath, char *limit_with_nl, int *fd)
 {
 	*fd = open(filepath, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (!limit_with_nl || *fd < 0)
@@ -36,7 +36,7 @@ static int	open_here_doc_file(char *filepath, char *limit_with_nl, int *fd)
 	return (1);
 }
 
-static void	setup_heredoc_signals(void)
+void	setup_heredoc_signals(void)
 {
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
@@ -97,7 +97,7 @@ char	*execute_here_doc(char *filepath, char *limiter)
 	return (filepath);
 }
 
-static int	handle_here_doc(t_redir *redir, int *id_here_doc)
+int	handle_here_doc(t_redir *redir, int *id_here_doc)
 {
 	char	*id_str;
 	char	*filepath;

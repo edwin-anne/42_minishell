@@ -6,13 +6,13 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 10:55:57 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/28 10:57:46 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 14:39:42 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static	t_redir	*create_new_redir(t_token *token, t_redir_type type)
+t_redir	*create_new_redir(t_token *token, t_redir_type type)
 {
 	t_redir	*new_redir;
 	char	*temp;
@@ -33,7 +33,7 @@ static	t_redir	*create_new_redir(t_token *token, t_redir_type type)
 	return (new_redir);
 }
 
-static int	setup_heredoc(t_redir *redir, t_token *token)
+int	setup_heredoc(t_redir *redir, t_token *token)
 {
 	if (redir->type == HEREDOC)
 	{
@@ -46,7 +46,7 @@ static int	setup_heredoc(t_redir *redir, t_token *token)
 	return (1);
 }
 
-static void	append_redir(t_redir **redir_list, t_redir *new_redir)
+void	append_redir(t_redir **redir_list, t_redir *new_redir)
 {
 	t_redir	*last;
 
