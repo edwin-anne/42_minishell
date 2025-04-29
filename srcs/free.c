@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 11:21:25 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 13:51:30 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 15:54:05 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	free_cmds(t_cmd *cmd)
 
 	if (!cmd)
 		return ;
+	clean_heredoc_files(cmd);
 	while (cmd)
 	{
 		tmp = cmd;

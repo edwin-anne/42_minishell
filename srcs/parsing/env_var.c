@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 10:14:46 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 13:31:31 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 16:16:00 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*process_env_var(t_shell *shell, char *str)
 	int		in_sq;
 	int		in_dq;
 
-	result = strdup("");
+	result = ft_strdup("");
 	i = 0;
 	in_sq = 0;
 	in_dq = 0;
@@ -99,4 +99,5 @@ void	execute_env_var(t_shell *shell, char **args)
 		args[i] = processed;
 		i++;
 	}
+	remove_empty_args(args);
 }

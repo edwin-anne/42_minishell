@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 14:59:57 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 16:30:10 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,14 +111,22 @@ char			*get_env_value(t_env *env, char *key);
 /* env_var_case.c */
 char			*ft_getexitcode(t_shell *shell);
 char			*ft_getpid(void);
+void			remove_empty_args(char **args);
 
 /* here_doc.c */
 void			handle_heredoc_sigint(int sig);
 int				open_here_doc_file(char *filepath, char *limit_with_nl, int *fd);
-void			setup_heredoc_signals(void);
-char			*execute_here_doc(char *filepath, char *limiter);
-int				handle_here_doc(t_redir *redir, int *id_here_doc);
-int				execute_here_doc_cmds(t_cmd *cmds);
+void			setup_heredoc_signals(struct sigaction *old_int, struct sigaction *old_quit);
+char			*read_heredoc_lines(int fd, char *limit_with_nl);
+char			*execute_here_doc(t_shell *shell, char *filepath, char *limiter);
+int				handle_here_doc(t_shell *shell, t_redir *redir, int *id_here_doc);
+int				execute_here_doc_cmds(t_cmd *cmds, t_shell *shell);
+
+// /* here_doc_.c */
+void			clean_heredoc_files(t_cmd *cmds);
+// void			handle_heredoc_child(t_shell *shell, char *limit_with_nl, int fd);
+// int				handle_heredoc_parent(pid_t pid, struct sigaction *old_int,
+// 					struct sigaction *old_quit, char *limit_with_nl);
 
 /* parentheses_utils.c */
 int				process_parenthesis_char(char c, int *in_sq, int *in_dq, int *count);

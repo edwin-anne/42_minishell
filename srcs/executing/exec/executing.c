@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:22:18 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/28 18:02:51 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:37:31 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@
 
 int	executing(t_shell *shell)
 {
-	if (!shell || !shell->cmds || !shell->cmds->args)
+	if (!shell || !shell->cmds)
 		return (FAIL);
+	if (!shell->cmds->args || !shell->cmds->args[0])
+		return (SUCCESS);
 	create_child(shell, shell->cmds);
 	wait_children(shell);
 	return (SUCCESS);

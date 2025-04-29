@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 16:50:55 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/28 18:56:34 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 16:16:11 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_token	*create_token(char *line_content, t_token *prev)
 	new = malloc(sizeof(t_token));
 	if (!new)
 		return (NULL);
-	new->value = strdup(line_content);
+	new->value = ft_strdup(line_content);
 	if (!new->value)
 		return (free(new), NULL);
 	new->type = tokenization_set_type(line_content);
