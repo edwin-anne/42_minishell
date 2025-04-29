@@ -6,13 +6,13 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 10:14:46 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/25 10:43:39 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 13:31:31 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-static int	handle_special_vars(t_shell *shell, char **res, char *str, int *i)
+int	handle_special_vars(t_shell *shell, char **res, char *str, int *i)
 {
 	char	*tmp;
 
@@ -35,7 +35,7 @@ static int	handle_special_vars(t_shell *shell, char **res, char *str, int *i)
 	return (0);
 }
 
-static void	handle_env_var(t_env *env, char **res, char *str, int *i)
+void	handle_env_var(t_env *env, char **res, char *str, int *i)
 {
 	char	var_name[256];
 	char	*value;
@@ -50,7 +50,7 @@ static void	handle_env_var(t_env *env, char **res, char *str, int *i)
 		append_str(res, value);
 }
 
-static void	handle_regular_char(char **res, char c)
+void	handle_regular_char(char **res, char c)
 {
 	char	temp[2];
 
@@ -76,15 +76,7 @@ char	*process_env_var(t_shell *shell, char *str)
 			i++;
 		else if (str[i] == '$' && !in_sq)
 		{
-			if (!str[i + 1] || (!is_var_char(str[i + 1]) && str[i + 1] != '?' && str[i + 1] != '$'))
-				handle_regular_char(&result, str[i++]);
-			else
-			{
-				i++;
-				if (handle_special_vars(shell, &result, str, &i))
-					continue ;
-				handle_env_var(shell->env, &result, str, &i);
-			}
+			handle_dollar_sign(shell, &result, str, &i);
 		}
 		else
 			handle_regular_char(&result, str[i++]);

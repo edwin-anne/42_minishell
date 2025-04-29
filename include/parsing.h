@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 09:08:59 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 13:31:41 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,10 @@ int             execute_here_doc_cmds(t_cmd *cmds);
 void	        execute_env_var(t_shell *shell, char **args);
 void            name_env_var(char c, char **result);
 void            append_str(char **result, const char *str);
+void	        handle_dollar_sign(t_shell *shell, char **result, char *str, int *i);
+void	        handle_env_var(t_env *env, char **res, char *str, int *i);
+int	            handle_special_vars(t_shell *shell, char **res, char *str, int *i);
+void	        handle_regular_char(char **res, char c);
 
 /*######	ENV_VAR_CASE 	######*/
 char            *ft_getpid();
@@ -133,5 +137,8 @@ void			debug_pre_parsing(char *str);
 int				check_parentheses(char **args);
 char			*remove_parentheses(const char *arg);
 void			interpret_parentheses(char **args);
+int             process_char(char c, int *count, int *in_sq, int *in_dq);
+void            update_quote_state_2(char c, int *in_sq, int *in_dq);
+int             is_parenthesis_to_skip(char c, int in_sq, int in_dq);
 
 #endif
