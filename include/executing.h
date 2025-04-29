@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/29 14:57:41 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:36:21 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define FAIL 1
 # define PATH_MAX 4096
 # define MSG_FILEDIRECTORY "minishell: %s: No such file or directory\n"
+# define MSG_IDENTIFIER "minishell: export: `%s': not a valid identifier\n"
+# define MSG_NOIDENTIFIER "minishell: export: `': not a valid identifier\n"
 
 /* BUILTINS: all builtins functions */
 int		builtins_parent(t_shell *shell, t_cmd *cmds);
@@ -37,6 +39,7 @@ void	ft_unset(t_shell *shell, char **args);
 /* BUILTINS: useful functions. */
 int		verify_args_export(char *args);
 void	update_export(t_env *tmp, char *key, char *value);
+int	    handle_arg_export (t_shell *shell, t_env *env, char *arg);
 t_env	*add_var_back(t_env *env, char *key, char *value);
 void	free_env_val(char **env_val);
 void	free_node_env(t_env *env);
