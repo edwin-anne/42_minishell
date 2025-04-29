@@ -13,10 +13,11 @@
 #ifndef PARSING_H
 # define PARSING_H
 
-#include "minishell.h"
+# include "minishell.h"
 
 /*######	TOKEN 	######*/
-typedef enum e_token_type {
+typedef enum e_token_type
+{
 	WORD,
 	PIPE,
 	REDIR_IN,
@@ -24,15 +25,16 @@ typedef enum e_token_type {
 	APPEND,
 	HERE_DOC,
 	ENV_VAR
-} t_token_type;
+}	t_token_type;
 
-typedef struct s_token {
-	t_token_type type;
-	char *value;
-	struct s_token *next;
-	struct s_token *prev;
-	int skip;
-} t_token;
+typedef struct s_token
+{
+	t_token_type	type;
+	char			*value;
+	struct s_token	*next;
+	struct s_token	*prev;
+	int				skip;
+}	t_token;
 
 # define SYNTAX_ERR_PIPE "minishell: syntax error near unexpected token `|'\n"
 
@@ -79,7 +81,8 @@ void			guess_redir(t_cmd *cmd, t_token *token);
 void			add_args(t_cmd *cmd, char *arg);
 
 /* cmds_redir.c */
-int				add_redir(t_redir **redir_list, t_token *token, t_redir_type type);
+int				add_redir(t_redir **redir_list, t_token *token,
+					t_redir_type type);
 void			append_redir(t_redir **redir_list, t_redir *new_redir);
 int				setup_heredoc(t_redir *redir, t_token *token);
 t_redir			*create_new_redir(t_token *token, t_redir_type type);
@@ -99,38 +102,42 @@ void			execute_env_var(t_shell *shell, char **args);
 char			*process_env_var(t_shell *shell, char *str);
 void			handle_regular_char(char **res, char c);
 void			handle_env_var(t_env *env, char **res, char *str, int *i);
-int				handle_special_vars(t_shell *shell, char **res, char *str, int *i);
+int				handle_special_vars(t_shell *shell, \
+						char **res, char *str, int *i);
 
 /* env_var_utils.c */
-void			handle_dollar_sign(t_shell *shell, char **result, char *str, int *i);
+void			handle_dollar_sign(t_shell *shell, char **result, \
+						char *str, int *i);
 int				update_quote_state(char c, int *in_sq, int *in_dq);
 void			append_str(char **result, const char *str);
 int				is_var_char(char c);
 char			*get_env_value(t_env *env, char *key);
 
 /* env_var_case.c */
-char *ft_getexitcode(t_shell *shell);
-void NewFunction(char exit_status[12], t_shell *shell);
+char			*ft_getexitcode(t_shell *shell);
 void			remove_empty_args(char **args);
 
 /* here_doc.c */
 void			handle_heredoc_sigint(int sig);
-int				open_here_doc_file(char *filepath, char *limit_with_nl, int *fd);
-void			setup_heredoc_signals(struct sigaction *old_int, struct sigaction *old_quit);
+int				open_here_doc_file(char *filepath, char *limit_with_nl, \
+							int *fd);
+void			setup_heredoc_signals(struct sigaction *old_int, \
+							struct sigaction *old_quit);
 char			*read_heredoc_lines(int fd, char *limit_with_nl);
-char			*execute_here_doc(t_shell *shell, char *filepath, char *limiter);
-int				handle_here_doc(t_shell *shell, t_redir *redir, int *id_here_doc);
+char			*execute_here_doc(t_shell *shell, \
+							char *filepath, char *limiter);
+int				handle_here_doc(t_shell *shell, \
+							t_redir *redir, int *id_here_doc);
 int				execute_here_doc_cmds(t_cmd *cmds, t_shell *shell);
 
 // /* here_doc_.c */
 void			clean_heredoc_files(t_cmd *cmds);
-// void			handle_heredoc_child(t_shell *shell, char *limit_with_nl, int fd);
-// int				handle_heredoc_parent(pid_t pid, struct sigaction *old_int,
-// 					struct sigaction *old_quit, char *limit_with_nl);
 
 /* parentheses_utils.c */
-int				process_parenthesis_char(char c, int *in_sq, int *in_dq, int *count);
-void			process_remove_parenthesis(const char *arg, char *result, int *j, int *quotes);
+int				process_parenthesis_char(char c, int *in_sq, \
+							int *in_dq, int *count);
+void			process_remove_parenthesis(const char *arg, \
+							char *result, int *j, int *quotes);
 int				handle_empty_result(char *result, const char *arg, int j);
 
 /* parentheses.c */
