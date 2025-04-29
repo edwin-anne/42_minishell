@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:29:03 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/28 16:01:09 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:21:54 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ int	verify_args_export(char *args)
 	i = 0;
 	has_equal = 0;
 	if (!args || args[0] == '\0')
-		return (ft_fdprintf(2, "minishell: export: `': not a valid identifier\n"), FAIL);
+		return (ft_fdprintf(2, MSG_NOIDENTIFIER), FAIL);
 	if (args[0] == '=')
-		return (ft_fdprintf(2, "minishell: export: `%s': not a valid identifier\n", args), FAIL);
+		return (ft_fdprintf(2, MSG_IDENTIFIER, args), FAIL);
 	if (!ft_isalpha(args[0]) && args[0] != '_')
-		return (ft_fdprintf(2, "minishell: export: `%s': not a valid identifier\n", args), FAIL);
+		return (ft_fdprintf(2, MSG_IDENTIFIER, args), FAIL);
 	while (args[i])
 	{
 		if (args[i] == '=')
@@ -89,11 +89,11 @@ int	verify_args_export(char *args)
 			break ;
 		}
 		if (!ft_isalnum(args[i]) && args[i] != '_')
-			return (ft_fdprintf(2, "minishell: export: `%s': not a valid identifier\n", args), FAIL);
+			return (ft_fdprintf(2, MSG_IDENTIFIER, args), FAIL);
 		i++;
 	}
 	if (!has_equal && args[i - 1] == '-')
-		return (ft_fdprintf(2, "minishell: export: `%s': not a valid identifier\n", args), FAIL);
+		return (ft_fdprintf(2, MSG_IDENTIFIER, args), FAIL);
 	return (SUCCESS);
 }
 

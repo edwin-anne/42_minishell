@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/29 14:57:41 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/29 15:21:47 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define FAIL 1
 # define PATH_MAX 4096
 # define MSG_FILEDIRECTORY "minishell: %s: No such file or directory\n"
+# define MSG_IDENTIFIER "minishell: export: `%s': not a valid identifier\n"
+# define MSG_NOIDENTIFIER "minishell: export: `': not a valid identifier\n"
 
 /* BUILTINS: all builtins functions */
 int		builtins_parent(t_shell *shell, t_cmd *cmds);
