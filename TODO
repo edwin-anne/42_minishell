@@ -1,56 +1,39 @@
 MINISHELL:  
-    1. EXECUTING (Lola):
-        
-        handling builtins cmds:
-        ✔ echo with the option -n @done(25-03-11 17:17)
-            ✔ echo multiple arg no space between arg @done(25-03-22 17:38)
-          ✔ cd with only a relative or abs path @done(25-03-22 17:38)
-          ✔ pwd with no option (verif s'il se sert de l'env) @done(25-03-13 18:39)
-          ✔ export with no option @done(25-03-08 15:06)
-          ✔ unset with no options @done(25-03-09 16:11)
-          ✔ env with no options or arguments @done(25-03-10 17:53) 
-              ✔ env s'exec dans l'enfant @done(25-04-05 13:22)
-          ✔ echo -n -n (ne doit rien écrire) @done(25-03-22 12:18)
-          ✔ exit with no options @done(25-03-17 11:34)
-    
-        tofix:
-            ✔ test: "export =" -> segfault (check après merge) @done(25-04-07 18:20)
-            ✔ test: echo -nnnnnnnnn -> doit fonctionner @done(25-04-05 13:35)
-            ✔ test: "ls | ls" -> actuellement exec 4 fois ls au lieu de 2 @done(25-04-05 13:22)
-            ✔ test: "cd .." -> ne fonctionne pas. @done(25-04-17 13:12)
-            ✔ test: "cd" -> ne renvoie pas vers le home @done(25-04-17 13:12)
-            ✔ test: "cd <dossier qui n'existe pas>" doit renvoyer une erreur @done(25-04-17 13:12)
-            ✔ fix: (child.c:64) appelle de shell->cmds ? (pas cmds) @done(25-04-17 11:52)
-            ✔ fix: manage command not found "execve failed: Bad address" @done(25-04-21 08:19)
-            ✔ fix: verification que le fd ne soit pas a -1 avant d'ouvrir "Warning: invalid file descriptor -1 in syscall close()" @done(25-04-22 09:42)
-            ✔ fix: "exit" tout seul fait -> "Syscall param exit_group(status) contains uninitialised byte(s)" @done(25-04-21 08:14)
-            ✔ fix: wait_children est appeler si c'est une commande builtins parent @done(25-04-22 11:17)
-            ✔ fix: ajouter les bon code erreurs (remplacer les EXIT_FAILURE) @done(25-04-24 18:14)
-            ✔ fix: execution d'export dans le parent ou enfant ? @done(25-04-17 11:52)
-            ✔ fix: si il n'y a pas de infile, ne pas exec la commande. @done(25-04-22 10:01)
-            ✔ fix: "< infile_inexistant" -> jump or move depends on uninitialised value(s). @done(25-04-22 10:01)
-            ✔ fix: "./" execve failed: Permission denied (avec valgrind) et malloc_consolidate(): unaligned fastbin chunk detected (sans valgrind) @done(25-04-25 16:26)
-            ✔ fix: echo '' -> invalid read de 4 (exec_child) @done(25-04-25 16:37)
-            ✔ fix: "exit 42 33" -> exit se fait bien mais ecrit 2 fois. @done(25-04-25 17:22)
-            ✔ fix: si une valeur de echo dans cmd[] est a NULL l'enfant segfault (exemple: echo $TTTT = "echo" "") @done(25-04-24 17:43)
-            ✔ fix: le test : echo ' ' doit renvoyer 0 et pas 139. @done(25-04-24 17:43)
-            ✔ fix: si cd a plusieurs arguments faire erreur = too many arguments (exit code 1) @done(25-04-25 09:42)
+	✔ test: "export =" -> segfault (check après merge) @done(25-04-07 18:20)
+    ✔ test: echo -nnnnnnnnn -> doit fonctionner @done(25-04-05 13:35)
+    ✔ test: "ls | ls" -> actuellement exec 4 fois ls au lieu de 2 @done(25-04-05 13:22)
+    ✔ test: "cd .." -> ne fonctionne pas. @done(25-04-17 13:12)
+    ✔ test: "cd" -> ne renvoie pas vers le home @done(25-04-17 13:12)
+    ✔ test: "cd <dossier qui n'existe pas>" doit renvoyer une erreur @done(25-04-17 13:12)
+    ✔ fix: (child.c:64) appelle de shell->cmds ? (pas cmds) @done(25-04-17 11:52)
+    ✔ fix: manage command not found "execve failed: Bad address" @done(25-04-21 08:19)
+    ✔ fix: verification que le fd ne soit pas a -1 avant d'ouvrir "Warning: invalid file descriptor -1 in syscall close()" @done(25-04-22 09:42)
+    ✔ fix: "exit" tout seul fait -> "Syscall param exit_group(status) contains uninitialised byte(s)" @done(25-04-21 08:14)
+    ✔ fix: wait_children est appeler si c'est une commande builtins parent @done(25-04-22 11:17)
+    ✔ fix: ajouter les bon code erreurs (remplacer les EXIT_FAILURE) @done(25-04-24 18:14)
+    ✔ fix: execution d'export dans le parent ou enfant ? @done(25-04-17 11:52)
+    ✔ fix: si il n'y a pas de infile, ne pas exec la commande. @done(25-04-22 10:01)
+    ✔ fix: "< infile_inexistant" -> jump or move depends on uninitialised value(s). @done(25-04-22 10:01)
+    ✔ fix: "./" execve failed: Permission denied (avec valgrind) et malloc_consolidate(): unaligned fastbin chunk detected (sans valgrind) @done(25-04-25 16:26)
+    ✔ fix: echo '' -> invalid read de 4 (exec_child) @done(25-04-25 16:37)
+    ✔ fix: "exit 42 33" -> exit se fait bien mais ecrit 2 fois. @done(25-04-25 17:22)
+    ✔ fix: si une valeur de echo dans cmd[] est a NULL l'enfant segfault (exemple: echo $TTTT = "echo" "") @done(25-04-24 17:43)
+    ✔ fix: le test : echo ' ' doit renvoyer 0 et pas 139. @done(25-04-24 17:43)
+    ✔ fix: si cd a plusieurs arguments faire erreur = too many arguments (exit code 1) @done(25-04-25 09:42)
+	☐ fix105 : cat >./outfiles/outfile01 <missing 
+	☐ fix108: cat >./outfiles/outfile01 <missing >./test_files/invalid_permission
+	
 
-2. PARSING (Edwin) :
-    parsing error:
-        ✔ prendre en consideration le "&&" comme un argument de la commande @done(25-04-15 12:00)
-        ☐ emmetre l'exit code quand "echo $?" (fait a tester !)
-        ✔ mettre les here_doc dans le dossier /tmp au lieu de la racine projet @done(25-04-16 11:41)
-        ✔ here_doc ??? "free(): double free detected in tcache 2" @done(25-04-16 11:41)
-        ☐ echo 'Hello $USER' ne doit pas remplacer la valeur $USER
-        ☐ "tr ' ' '\n'" parsing mauvais = "tr" "'" "'" "'\n'"
-        ☐ "ls |" - "ls | | | grep test" seg fault
-        ☐ ls | echo "oui" > ne supprime pas les quotes inutile
-        ☐ gerer les parenthes
-        ☐ << EOF cat >test1
-        ☐ $EMPTY | ls
-        ☐ cat Makefile > test2 /usr/bin/cat: test2: input file is output file
-        ☐ new_value->key = strndup(env, sep - env); env.c
-
-3. ERREUR INCONNU :
-    ☐ "echo "line1\nline2\nline3" | grep line | wc -l" renvoie 1 alors qu'il doit renvoyer 3
+    ✔ prendre en consideration le "&&" comme un argument de la commande @done(25-04-15 12:00)
+    ☐ emmetre l'exit code quand "echo $?" (fait a tester !)
+    ✔ mettre les here_doc dans le dossier /tmp au lieu de la racine projet @done(25-04-16 11:41)
+    ✔ here_doc ??? "free(): double free detected in tcache 2" @done(25-04-16 11:41)
+    ☐ echo 'Hello $USER' ne doit pas remplacer la valeur $USER
+    ☐ "tr ' ' '\n'" parsing mauvais = "tr" "'" "'" "'\n'"
+    ☐ "ls |" - "ls | | | grep test" seg fault
+    ☐ ls | echo "oui" > ne supprime pas les quotes inutile
+    ☐ gerer les parenthes
+    ☐ << EOF cat >test1
+    ☐ $EMPTY | ls
+    ☐ cat Makefile > test2 /usr/bin/cat: test2: input file is output file
+    ☐ new_value->key = strndup(env, sep - env); env.c

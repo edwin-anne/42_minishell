@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handling_fork.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:48:18 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/28 12:15:03 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/29 09:38:05 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ void	handle_fork(t_shell *shell, t_cmd *cmd)
 
 	if (builtins_parent(shell, cmd) == SUCCESS)
 		return ;
-	if (handle_redirin(shell, cmd) < 0 || handle_redirout(shell, cmd) < 0)
+	if (handle_redirin(shell, cmd) < 0)
+		return ;
+	if (handle_redirout(shell, cmd) < 0)
 		return ;
 	pid = fork();
 	if (pid < 0)

@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:22:18 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/28 12:09:23 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/28 18:02:51 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 int	executing(t_shell *shell)
 {
-	if (!shell || !shell->cmds)
+	if (!shell || !shell->cmds || !shell->cmds->args)
 		return (FAIL);
 	create_child(shell, shell->cmds);
 	wait_children(shell);
