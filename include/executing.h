@@ -39,7 +39,7 @@ void	ft_unset(t_shell *shell, char **args);
 /* BUILTINS: useful functions. */
 int		verify_args_export(char *args);
 void	update_export(t_env *tmp, char *key, char *value);
-int	    handle_arg_export (t_shell *shell, t_env *env, char *arg);
+int		handle_arg_export(t_shell *shell, t_env *env, char *arg);
 t_env	*add_var_back(t_env *env, char *key, char *value);
 void	free_env_val(char **env_val);
 void	free_node_env(t_env *env);

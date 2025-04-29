@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 13:47:49 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 15:08:20 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 15:16:03 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	free_cmds_next(t_cmd *cmd)
 		cmd->pipe = NULL;
 	}
 }
+
 void	free_args(t_cmd *cmd)
 {
 	int	i;

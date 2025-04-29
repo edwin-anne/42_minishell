@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:35:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 14:07:12 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 17:07:30 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	init(t_shell **shell, char **envp)
 	if (!*shell)
 		exit(1);
 	using_history();
-	rl_initialize();
 	(*shell)->env = copy_env(envp);
 	(*shell)->cmds = NULL;
 	(*shell)->exit_status = 0;
