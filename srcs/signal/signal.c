@@ -6,13 +6,13 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 16:02:25 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/26 15:00:54 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 13:44:48 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_shell *g_shell;
+t_shell	*g_shell;
 
 static void	handle_sigint(int sig)
 {
@@ -46,4 +46,3 @@ void	init_signals(t_shell *shell)
 	sigemptyset(&sa_quit.sa_mask);
 	sigaction(SIGQUIT, &sa_quit, NULL);
 }
-

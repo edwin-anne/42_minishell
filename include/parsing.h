@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 13:31:41 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 13:42:47 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,11 +134,11 @@ void			print_env_list(t_env *env);
 void			debug_pre_parsing(char *str);
 
 /*######	PARENTHESES HANDLING 	######*/
-int				check_parentheses(char **args);
-char			*remove_parentheses(const char *arg);
-void			interpret_parentheses(char **args);
-int             process_char(char c, int *count, int *in_sq, int *in_dq);
-void            update_quote_state_2(char c, int *in_sq, int *in_dq);
-int             is_parenthesis_to_skip(char c, int in_sq, int in_dq);
+int	process_parenthesis_char(char c, int *in_sq, int *in_dq, int *count);
+void	process_remove_parenthesis(const char *arg, char *result, int *j, int *quotes);
+int	handle_empty_result(char *result, const char *arg, int j);
+int	check_parentheses(char **args);
+char	*remove_parentheses(const char *arg);
+void	interpret_parentheses(char **args);
 
 #endif
