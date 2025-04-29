@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:54:39 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/28 15:09:45 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/29 14:54:06 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,3 @@ int	ft_constcmp(char *s1, const char *s2)
 		i++;
 	return (s1[i] - s2[i]);
 }
-

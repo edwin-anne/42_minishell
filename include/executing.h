@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/29 14:42:54 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/29 14:57:41 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define SUCCESS 0
 # define FAIL 1
 # define PATH_MAX 4096
+# define MSG_FILEDIRECTORY "minishell: %s: No such file or directory\n"
 
 /* BUILTINS: all builtins functions */
 int		builtins_parent(t_shell *shell, t_cmd *cmds);

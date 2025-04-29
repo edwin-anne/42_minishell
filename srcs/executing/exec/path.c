@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:49:26 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/28 17:28:29 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/29 14:57:46 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ int	exec_error(t_shell *shell, t_cmd *cmds)
 	if (!cmds->path || access(cmds->path, F_OK) == -1)
 	{
 		if (ft_strchr(cmds->args[0], '/'))
-            ft_fdprintf(2, "minishell: %s: No such file or directory\n", cmds->args[0]);
-		else	
+			ft_fdprintf(2, MSG_FILEDIRECTORY, cmds->args[0]);
+		else
 			ft_fdprintf(2, "minishell: %s: command not found\n", cmds->args[0]);
 		shell->exit_status = 127;
 		return (127);

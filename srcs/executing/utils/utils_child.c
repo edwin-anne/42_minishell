@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 14:56:19 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/28 16:11:27 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/29 14:53:51 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	env_len(t_env *env)
 	return (res);
 }
 
-void	handle_builtins_child(t_shell *shell, t_cmd *cmd, char **env, int exit_status)
+void	handle_builtins_child(t_shell *shell, t_cmd *cmd, char **env, \
+	int exit_status)
 {
 	builtins_child(shell, cmd);
 	exit_status = shell->exit_status;
