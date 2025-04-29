@@ -6,66 +6,54 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:29:03 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/29 15:21:54 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/29 15:36:11 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 #include "parsing.h"
 
-void	free_env_val(char **env_val)
-{
-	int	i;
-
-	i = 0;
-	while (env_val[i])
-	{
-		free(env_val[i]);
-		i++;
-	}
-	free(env_val);
-}
-
 int	ft_export(t_shell *shell, t_cmd *cmds)
 {
-	char	**env_val;
-	char	*value;
-	t_env	*tmp;
-	size_t	len;
-	int		i;
+    t_env	*env;
+    int		i;
 
-	tmp = shell->env;
-	i = 1;
-	shell->exit_status = 0;
-	while (cmds->args[i])
-	{
-		if (verify_args_export(cmds->args[i]) != SUCCESS)
-		{
-			shell->exit_status = 1;
-			i++;
-			continue ;
-		}
-		if (ft_strchr(cmds->args[i], '='))
-		{
-			env_val = ft_split(cmds->args[i], '=');
-			if (!env_val || !env_val[0])
-			{
-				if (env_val)
-					free_env_val(env_val);
-				shell->exit_status = 1;
-				i++;
-				continue ;
-			}
-			len = ft_strlen(env_val[0]) + 1;
-			value = ft_strdup(cmds->args[i] + len);
-			update_export(tmp, ft_strdup(env_val[0]), value);
-			free_env_val(env_val);
-		}
-		else
-			update_export(tmp, ft_strdup(cmds->args[i]), NULL);
-		i++;
-	}
-	return (shell->exit_status);
+    env = shell->env;
+    i = 1;
+    shell->exit_status = 0;
+    while (cmds->args[i])
+    {
+        handle_arg_export(shell, env, cmds->args[i]);
+        i++;
+    }
+    return (shell->exit_status);
+}
+
+int	handle_arg_export (t_shell *shell, t_env *env, char *arg)
+{
+    char	**env_val;
+    char	*value;
+    size_t	len;
+
+    if (verify_args_export(arg) != SUCCESS)
+        return (shell->exit_status = 1, FAIL);
+    if (ft_strchr(arg, '='))
+    {
+        env_val = ft_split(arg, '=');
+        if (!env_val || !env_val[0])
+        {
+            if (env_val)
+                free_env_val(env_val);
+            return (shell->exit_status = 1, FAIL);
+        }
+        len = ft_strlen(env_val[0]) + 1;
+        value = ft_strdup(arg + len);
+        update_export(env, ft_strdup(env_val[0]), value);
+        free_env_val(env_val);
+    }
+    else
+        update_export(env, ft_strdup(arg), NULL);
+    return (SUCCESS);
 }
 
 int	verify_args_export(char *args)
@@ -116,22 +104,15 @@ void	update_export(t_env *tmp, char *key, char *value)
 	add_var_back(tmp, key, value);
 }
 
-t_env	*add_var_back(t_env *env, char *key, char *value)
+void	free_env_val(char **env_val)
 {
-	t_env	*tmp;
-	t_env	*new_var;
+	int	i;
 
-	if (!env)
-		return (NULL);
-	new_var = malloc(sizeof(t_env));
-	if (!new_var)
-		return (NULL);
-	new_var->key = key;
-	new_var->value = value;
-	new_var->next = NULL;
-	tmp = env;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new_var;
-	return (env);
+	i = 0;
+	while (env_val[i])
+	{
+		free(env_val[i]);
+		i++;
+	}
+	free(env_val);
 }
