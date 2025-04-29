@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/28 14:19:57 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 09:13:11 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,19 +99,11 @@ t_cmd	*create_cmd(t_token *token, t_shell *shell)
 	current_cmd = cmd_list;
 	while (token)
 	{
-		if (!cmd_list)
-		{
-			cmd_list = init_cmd();
-			current_cmd = cmd_list;
-		}
-		else if (token->type == PIPE)
+		if (token->type == PIPE)
 		{
 			if (!token->next)
-			{
-				ft_fdprintf(2,
-					"minishell: syntax error near unexpected token `|'\n");
-				return (free_cmds(cmd_list), NULL);
-			}
+				return (ft_fdprintf(2, SYNTAX_ERR_PIPE),
+					free_cmds(cmd_list), NULL);
 			current_cmd->next = init_cmd();
 			current_cmd = current_cmd->next;
 		}

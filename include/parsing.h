@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/28 18:55:06 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 09:08:59 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct s_token {
     struct s_token *prev;
     int skip;
 } t_token;
+
+# define SYNTAX_ERR_PIPE "minishell: syntax error near unexpected token `|'\n"
 
 /*######	INIT 	######*/
 t_cmd			*init_cmd(void);
