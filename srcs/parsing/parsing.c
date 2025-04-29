@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:41:49 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/28 18:54:39 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 11:09:42 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_shell	*parsing(t_shell *shell, char *line, int argc, char **argv)
 {
 	char	**line_splited;
 	t_token	*token;
-	int i;
+	int		i;
 
 	i = 0;
 	(void)argc;
