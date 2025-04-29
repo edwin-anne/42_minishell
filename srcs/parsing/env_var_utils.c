@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 12:35:57 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 13:37:39 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 16:49:44 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_env_value(t_env *env, char *key)
 
 int	is_var_char(char c)
 {
-	if (isalnum(c))
+	if (ft_isalnum(c))
 		return (1);
 	if (c == '_')
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 16:30:10 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/29 17:03:58 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ int				is_var_char(char c);
 char			*get_env_value(t_env *env, char *key);
 
 /* env_var_case.c */
-char			*ft_getexitcode(t_shell *shell);
-char			*ft_getpid(void);
+char *ft_getexitcode(t_shell *shell);
+void NewFunction(char exit_status[12], t_shell *shell);
 void			remove_empty_args(char **args);
 
 /* here_doc.c */

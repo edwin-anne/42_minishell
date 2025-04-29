@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 09:29:03 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/29 15:36:11 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/29 17:12:21 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,45 +15,45 @@
 
 int	ft_export(t_shell *shell, t_cmd *cmds)
 {
-    t_env	*env;
-    int		i;
+	t_env	*env;
+	int		i;
 
-    env = shell->env;
-    i = 1;
-    shell->exit_status = 0;
-    while (cmds->args[i])
-    {
-        handle_arg_export(shell, env, cmds->args[i]);
-        i++;
-    }
-    return (shell->exit_status);
+	env = shell->env;
+	i = 1;
+	shell->exit_status = 0;
+	while (cmds->args[i])
+	{
+		handle_arg_export(shell, env, cmds->args[i]);
+		i++;
+	}
+	return (shell->exit_status);
 }
 
-int	handle_arg_export (t_shell *shell, t_env *env, char *arg)
+int	handle_arg_export(t_shell *shell, t_env *env, char *arg)
 {
-    char	**env_val;
-    char	*value;
-    size_t	len;
+	char	**env_val;
+	char	*value;
+	size_t	len;
 
-    if (verify_args_export(arg) != SUCCESS)
-        return (shell->exit_status = 1, FAIL);
-    if (ft_strchr(arg, '='))
-    {
-        env_val = ft_split(arg, '=');
-        if (!env_val || !env_val[0])
-        {
-            if (env_val)
-                free_env_val(env_val);
-            return (shell->exit_status = 1, FAIL);
-        }
-        len = ft_strlen(env_val[0]) + 1;
-        value = ft_strdup(arg + len);
-        update_export(env, ft_strdup(env_val[0]), value);
-        free_env_val(env_val);
-    }
-    else
-        update_export(env, ft_strdup(arg), NULL);
-    return (SUCCESS);
+	if (verify_args_export(arg) != SUCCESS)
+		return (shell->exit_status = 1, FAIL);
+	if (ft_strchr(arg, '='))
+	{
+		env_val = ft_split(arg, '=');
+		if (!env_val || !env_val[0])
+		{
+			if (env_val)
+				free_env_val(env_val);
+			return (shell->exit_status = 1, FAIL);
+		}
+		len = ft_strlen(env_val[0]) + 1;
+		value = ft_strdup(arg + len);
+		update_export(env, ft_strdup(env_val[0]), value);
+		free_env_val(env_val);
+	}
+	else
+		update_export(env, ft_strdup(arg), NULL);
+	return (SUCCESS);
 }
 
 int	verify_args_export(char *args)
