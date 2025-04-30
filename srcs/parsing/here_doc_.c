@@ -6,13 +6,11 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:47:19 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 16:42:15 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/30 17:42:54 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-static int	g_heredoc_interrupted;
 
 void	clean_heredoc_files(t_cmd *cmds)
 {
@@ -36,15 +34,6 @@ void	clean_heredoc_files(t_cmd *cmds)
 	}
 }
 
-void	handle_heredoc_sigint(int sig)
-{
-	(void)sig;
-	g_heredoc_interrupted = 1;
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-}
-
 int	open_here_doc_file(char *filepath, char *limit_with_nl, int *fd)
 {
 	*fd = open(filepath, O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -57,30 +46,11 @@ int	open_here_doc_file(char *filepath, char *limit_with_nl, int *fd)
 	return (1);
 }
 
-void	setup_heredoc_signals(struct sigaction *old_int,
-								struct sigaction *old_quit)
-{
-	struct sigaction	sa_int;
-	struct sigaction	sa_quit;
-
-	sigaction(SIGINT, NULL, old_int);
-	sigaction(SIGQUIT, NULL, old_quit);
-	sa_int.sa_handler = handle_heredoc_sigint;
-	sa_int.sa_flags = SA_RESTART;
-	sigemptyset(&sa_int.sa_mask);
-	sigaction(SIGINT, &sa_int, NULL);
-	sa_quit.sa_handler = SIG_IGN;
-	sa_quit.sa_flags = SA_RESTART;
-	sigemptyset(&sa_quit.sa_mask);
-	sigaction(SIGQUIT, &sa_quit, NULL);
-}
-
 char	*read_heredoc_lines(int fd, char *limit_with_nl)
 {
 	char	*line;
 
-	g_heredoc_interrupted = 0;
-	while (!g_heredoc_interrupted)
+	while (1)
 	{
 		ft_putstr_fd("> ", 1);
 		line = get_next_line(0);
@@ -93,7 +63,5 @@ char	*read_heredoc_lines(int fd, char *limit_with_nl)
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
-	if (g_heredoc_interrupted)
-		return (NULL);
 	return ("success");
 }
