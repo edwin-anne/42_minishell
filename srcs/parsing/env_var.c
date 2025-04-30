@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 10:14:46 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/30 11:03:38 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/30 17:49:31 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,13 @@ void	handle_regular_char(char **res, char c)
 	append_str(res, temp);
 }
 
-char	*process_env_var(t_shell *shell, char *str)
+char	*process_env_var(t_shell *shell, char *str, int i)
 {
 	char	*result;
-	int		i;
 	int		in_sq;
 	int		in_dq;
 
 	result = ft_strdup("");
-	i = 0;
 	in_sq = 0;
 	in_dq = 0;
 	while (str[i])
@@ -75,9 +73,7 @@ char	*process_env_var(t_shell *shell, char *str)
 			handle_regular_char(&result, str[i++]);
 		}
 		else if (str[i] == '$' && !in_sq)
-		{
 			handle_dollar_sign(shell, &result, str, &i);
-		}
 		else
 			handle_regular_char(&result, str[i++]);
 	}
@@ -87,6 +83,7 @@ char	*process_env_var(t_shell *shell, char *str)
 void	execute_env_var(t_shell *shell, char **args)
 {
 	int		i;
+	int		j;
 	char	*processed;
 
 	i = 0;
@@ -94,7 +91,8 @@ void	execute_env_var(t_shell *shell, char **args)
 		return ;
 	while (args[i])
 	{
-		processed = process_env_var(shell, args[i]);
+		j = 0;
+		processed = process_env_var(shell, args[i], j);
 		free(args[i]);
 		args[i] = processed;
 		i++;

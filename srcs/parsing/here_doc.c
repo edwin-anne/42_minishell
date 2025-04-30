@@ -6,24 +6,17 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:43:44 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 16:42:37 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/30 17:40:54 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include <signal.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <features.h>
 
 char	*execute_here_doc(t_shell *shell, char *filepath, char *limiter)
 {
-	char				*limit_with_nl;
-	int					fd;
-	struct sigaction	old_int;
-	struct sigaction	old_quit;
-	char				*result;
+	char	*limit_with_nl;
+	int		fd;
+	char	*result;
 
 	(void)shell;
 	limit_with_nl = ft_strjoin(limiter, "\n");
@@ -31,10 +24,7 @@ char	*execute_here_doc(t_shell *shell, char *filepath, char *limiter)
 		return (NULL);
 	if (!open_here_doc_file(filepath, limit_with_nl, &fd))
 		return (NULL);
-	setup_heredoc_signals(&old_int, &old_quit);
 	result = read_heredoc_lines(fd, limit_with_nl);
-	sigaction(SIGINT, &old_int, NULL);
-	sigaction(SIGQUIT, &old_quit, NULL);
 	free(limit_with_nl);
 	close(fd);
 	if (!result)

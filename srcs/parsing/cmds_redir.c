@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 10:55:57 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/30 14:45:15 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/30 17:50:33 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ t_redir	*create_new_redir(t_token *token, t_redir_type type, t_shell *shell)
 	t_redir	*new_redir;
 	char	*temp;
 	char	*processed;
+	int		i;
 
+	i = 0;
 	new_redir = malloc(sizeof(t_redir));
 	if (!new_redir)
 		return (NULL);
@@ -29,7 +31,7 @@ t_redir	*create_new_redir(t_token *token, t_redir_type type, t_shell *shell)
 	free(temp);
 	if (!processed)
 		return (free(new_redir), NULL);
-	new_redir->file = process_env_var(shell, processed);
+	new_redir->file = process_env_var(shell, processed, i);
 	free(processed);
 	if (!new_redir->file)
 		return (free(new_redir), NULL);
@@ -66,7 +68,8 @@ void	append_redir(t_redir **redir_list, t_redir *new_redir)
 	}
 }
 
-int	add_redir(t_redir **redir_list, t_token *token, t_redir_type type, t_shell *shell)
+int	add_redir(t_redir **redir_list, t_token *token, \
+				t_redir_type type, t_shell *shell)
 {
 	t_redir	*new_redir;
 

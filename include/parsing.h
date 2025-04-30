@@ -6,14 +6,13 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/30 11:38:30 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/30 17:52:08 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-# include "minishell.h"
 # include "minishell.h"
 
 /*######	TOKEN 	######*/
@@ -38,15 +37,6 @@ typedef struct s_token
 }	t_token;
 
 # define SYNTAX_ERR_PIPE "minishell: syntax error near unexpected token `|'\n"
-
-void print_redir_list(t_redir *redir_list, const char *type);
-void print_cmd_list(t_cmd *cmd_list);
-void print_env_list(t_env *env);
-void	debug_here_doc(char *filepath, char *limiter);
-void	debug_pre_parsing(char *str);
-void afficher_tableau(char **tableau);
-const char *token_type_to_string(t_token_type type);
-void view_token_struct(const t_token *liste);
 
 /* init.c */
 t_cmd			*init_cmd(void);
@@ -85,7 +75,8 @@ t_token_type	tokenization_set_type(char *word);
 
 /* cmds.c */
 t_cmd			*create_cmd(t_token *token, t_shell *shell);
-int				process_token(t_shell *shell, t_token *token, t_cmd *current_cmd);
+int				process_token(t_shell *shell, \
+							t_token *token, t_cmd *current_cmd);
 void			process_command(t_cmd *cmd_list, t_shell *shell);
 void			guess_redir(t_shell *shell, t_cmd *cmd, t_token *token);
 void			add_args(t_cmd *cmd, char *arg);
@@ -95,7 +86,8 @@ int				add_redir(t_redir **redir_list, t_token *token, \
 							t_redir_type type, t_shell *shell);
 void			append_redir(t_redir **redir_list, t_redir *new_redir);
 int				setup_heredoc(t_redir *redir, t_token *token);
-t_redir			*create_new_redir(t_token *token, t_redir_type type, t_shell *shell);
+t_redir			*create_new_redir(t_token *token, \
+							t_redir_type type, t_shell *shell);
 
 /* built_in.c */
 bool			is_built_in(char **cmds);
@@ -109,7 +101,7 @@ t_env			*copy_env(char **envp);
 
 /* env_var.c */
 void			execute_env_var(t_shell *shell, char **args);
-char			*process_env_var(t_shell *shell, char *str);
+char			*process_env_var(t_shell *shell, char *str, int i);
 void			handle_regular_char(char **res, char c);
 void			handle_env_var(t_env *env, char **res, char *str, int *i);
 int				handle_special_vars(t_shell *shell, \
@@ -127,20 +119,17 @@ char			*ft_getexitcode(t_shell *shell);
 void			remove_empty_args(char **args);
 
 /* here_doc.c */
-void			handle_heredoc_sigint(int sig);
-int				open_here_doc_file(char *filepath, char *limit_with_nl, \
-							int *fd);
-void			setup_heredoc_signals(struct sigaction *old_int, \
-							struct sigaction *old_quit);
-char			*read_heredoc_lines(int fd, char *limit_with_nl);
 char			*execute_here_doc(t_shell *shell, \
-							char *filepath, char *limiter);
+						char *filepath, char *limiter);
 int				handle_here_doc(t_shell *shell, \
-							t_redir *redir, int *id_here_doc);
+						t_redir *redir, int *id_here_doc);
 int				execute_here_doc_cmds(t_cmd *cmds, t_shell *shell);
 
 /* here_doc_.c */
 void			clean_heredoc_files(t_cmd *cmds);
+int				open_here_doc_file(char *filepath, \
+						char *limit_with_nl, int *fd);
+char			*read_heredoc_lines(int fd, char *limit_with_nl);
 
 /* parentheses_utils.c */
 int				process_parenthesis_char(char c, int *in_sq, \
