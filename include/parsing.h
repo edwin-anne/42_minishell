@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/30 11:35:41 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/30 11:38:30 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,7 @@ typedef enum e_token_type
 	HERE_DOC,
 	ENV_VAR
 }	t_token_type;
-}	t_token_type;
 
-typedef struct s_token
-{
-	t_token_type	type;
-	char			*value;
-	struct s_token	*next;
-	struct s_token	*prev;
-	int				skip;
-}	t_token;
 typedef struct s_token
 {
 	t_token_type	type;
