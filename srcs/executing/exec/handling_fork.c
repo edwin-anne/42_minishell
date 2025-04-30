@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handling_fork.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:48:18 by lolq              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/04/30 15:02:50 by lolq             ###   ########.fr       */
+=======
+/*   Updated: 2025/04/30 13:56:25 by loribeir         ###   ########.fr       */
+>>>>>>> cbf3fefb1dd47a1b979f3a3c71fdf3ee9c37cfe7
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,26 +77,27 @@ int	handle_redirin(t_shell *shell, t_cmd *cmd)
 		close(fd_in);
 	return (SUCCESS);
 }
+
 void	close_unused_pipes(t_cmd *cmds, t_cmd *current)
 {
-    t_cmd *tmp;
-	
+	t_cmd	*tmp;
+
 	tmp = cmds;
-    while (tmp)
-    {
-        if (tmp != current && tmp->pipe)
-        {
-            if (tmp->pipe->pipe[0] != -1)
-            {
-                close(tmp->pipe->pipe[0]);
-                tmp->pipe->pipe[0] = -1;
-            }
-            if (tmp->pipe->pipe[1] != -1)
-            {
-                close(tmp->pipe->pipe[1]);
-                tmp->pipe->pipe[1] = -1;
-            }
-        }
-        tmp = tmp->next;
-    }
+	while (tmp)
+	{
+		if (tmp != current && tmp->pipe)
+		{
+			if (tmp->pipe->pipe[0] != -1)
+			{
+				close(tmp->pipe->pipe[0]);
+				tmp->pipe->pipe[0] = -1;
+			}
+			if (tmp->pipe->pipe[1] != -1)
+			{
+				close(tmp->pipe->pipe[1]);
+				tmp->pipe->pipe[1] = -1;
+			}
+		}
+		tmp = tmp->next;
+	}
 }
