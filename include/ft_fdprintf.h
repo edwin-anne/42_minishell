@@ -19,23 +19,23 @@
 
 # include "libft.h"
 
-int	ft_fdprintf(int fd, const char *format, ...);
-int	parsing_format(int fd, const char **format);
-int	processing_letter(int fd, int letter, va_list args);
-int	processing(int fd, int format, void *args);
+int		ft_fdprintf(int fd, const char *format, ...);
+int		parsing_format(int fd, const char **format);
+int		processing_letter(int fd, int letter, va_list args);
+int		processing(int fd, int format, void *args);
 
 /*######	HEXA   	######*/
-int	processing_hexa(int fd, int letter, va_list args);
-int	base16_converter(uintptr_t num, char *buffer);
-int	processing_void_pointer(int fd, void *ptr);
+int		processing_hexa(int fd, int letter, va_list args);
+int		base16_converter(uintptr_t num, char *buffer);
+int		processing_void_pointer(int fd, void *ptr);
 
 /*######	NUMBER   	######*/
-int	processing_number(int fd, int letter, va_list args);
+int		processing_number(int fd, int letter, va_list args);
 char	*ft_uitoa(unsigned int num);
 
 /*######	ERROR   	######*/
-int	write_null(int fd);
-int	write_nil(int fd);
-int	write_format(int fd, int letter);
+int		write_null(int fd);
+int		write_nil(int fd);
+int		write_format(int fd, int letter);
 
 #endif
