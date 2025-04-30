@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 10:02:15 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/30 08:28:44 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/30 13:57:06 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_echo(t_shell *shell, t_cmd *cmds)
 	return (SUCCESS);
 }
 
-int		echo_option(const char *arg)
+int	echo_option(const char *arg)
 {
 	int	i;
 
