@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dup.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 11:33:27 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/28 14:38:45 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:40:33 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,33 @@ void	ft_dup(t_cmd *cmd)
 	if (get_in != STDIN_FILENO && get_in >= 0)
 	{
 		dup2(get_in, STDIN_FILENO);
+		dprintf(2, "CLOSE FD (dup in): %d\n", get_in);
 		close(get_in);
 	}
 	if (get_out != STDOUT_FILENO && get_out >= 0)
 	{
 		dup2(get_out, STDOUT_FILENO);
+		dprintf(2, "CLOSE FD (dup out): %d\n", get_out);
 		close(get_out);
 	}
 	if (cmd->pipe)
 	{
 		if (cmd->pipe->pipe[0] != get_in && cmd->pipe->pipe[0] >= 0)
+		{
+			dprintf(2, "CLOSE FD (pipe read): %d\n", cmd->pipe->pipe[0]);
 			close(cmd->pipe->pipe[0]);
+		}
 		if (cmd->pipe->pipe[1] != get_out && cmd->pipe->pipe[1] >= 0)
+		{
+			dprintf(2, "CLOSE FD (pipe write): %d\n", cmd->pipe->pipe[1]);
 			close(cmd->pipe->pipe[1]);
+		}
 	}
 	if (cmd->pipe_prev && *cmd->pipe_prev != get_in && *cmd->pipe_prev >= 0)
+	{
+		dprintf(2, "CLOSE FD (pipe prev): %d\n", *cmd->pipe_prev);
 		close(*cmd->pipe_prev);
+	}
 }
 
 int	get_fdin(t_cmd *cmd)
