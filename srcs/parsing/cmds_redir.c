@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 10:55:57 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/30 11:29:11 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/30 14:45:15 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_redir	*create_new_redir(t_token *token, t_redir_type type, t_shell *shell)
 {
 	t_redir	*new_redir;
 	char	*temp;
+	char	*processed;
 
 	new_redir = malloc(sizeof(t_redir));
 	if (!new_redir)
@@ -24,9 +25,12 @@ t_redir	*create_new_redir(t_token *token, t_redir_type type, t_shell *shell)
 	temp = ft_strdup(token->next->value);
 	if (!temp)
 		return (free(new_redir), NULL);
-	new_redir->file = remove_quotes(temp);
-	new_redir->file = process_env_var(shell, new_redir->file);
+	processed = remove_quotes(temp);
 	free(temp);
+	if (!processed)
+		return (free(new_redir), NULL);
+	new_redir->file = process_env_var(shell, processed);
+	free(processed);
 	if (!new_redir->file)
 		return (free(new_redir), NULL);
 	new_redir->fd = -1;
