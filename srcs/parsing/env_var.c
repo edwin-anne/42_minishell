@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 10:14:46 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 16:48:51 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/30 11:03:38 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,16 @@ char	*process_env_var(t_shell *shell, char *str)
 	in_dq = 0;
 	while (str[i])
 	{
-		if (update_quote_state(str[i], &in_sq, &in_dq))
-			i++;
+		if (str[i] == '\'' && !in_dq)
+		{
+			in_sq = !in_sq;
+			handle_regular_char(&result, str[i++]);
+		}
+		else if (str[i] == '\"' && !in_sq)
+		{
+			in_dq = !in_dq;
+			handle_regular_char(&result, str[i++]);
+		}
 		else if (str[i] == '$' && !in_sq)
 		{
 			handle_dollar_sign(shell, &result, str, &i);

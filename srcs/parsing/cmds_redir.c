@@ -6,13 +6,13 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 10:55:57 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 14:39:42 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/30 11:29:11 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-t_redir	*create_new_redir(t_token *token, t_redir_type type)
+t_redir	*create_new_redir(t_token *token, t_redir_type type, t_shell *shell)
 {
 	t_redir	*new_redir;
 	char	*temp;
@@ -25,6 +25,7 @@ t_redir	*create_new_redir(t_token *token, t_redir_type type)
 	if (!temp)
 		return (free(new_redir), NULL);
 	new_redir->file = remove_quotes(temp);
+	new_redir->file = process_env_var(shell, new_redir->file);
 	free(temp);
 	if (!new_redir->file)
 		return (free(new_redir), NULL);
@@ -61,11 +62,11 @@ void	append_redir(t_redir **redir_list, t_redir *new_redir)
 	}
 }
 
-int	add_redir(t_redir **redir_list, t_token *token, t_redir_type type)
+int	add_redir(t_redir **redir_list, t_token *token, t_redir_type type, t_shell *shell)
 {
 	t_redir	*new_redir;
 
-	new_redir = create_new_redir(token, type);
+	new_redir = create_new_redir(token, type, shell);
 	if (!new_redir)
 		return (0);
 	if (!setup_heredoc(new_redir, token))
