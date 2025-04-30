@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/29 15:36:21 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/30 08:29:00 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		builtins_child(t_shell *shell, t_cmd *cmds);
 int		ft_pwd(t_shell *shell);
 int		ft_cd(t_shell *shell, t_cmd *cmds, t_env *env);
 int		ft_env(t_shell *shell, t_cmd *cmds);
-int		ft_echo(t_cmd *cmds);
+int		ft_echo(t_shell *shell, t_cmd *cmds);
 int		ft_export(t_shell *shell, t_cmd *cmds);
 void	ft_exit(t_shell *shell, t_cmd *cmds);
 void	ft_unset(t_shell *shell, char **args);
@@ -48,9 +48,9 @@ int		is_arg_nb(char *arg);
 void	update_env(t_env *tmp, char *str, char *current_dir);
 char	*get_env(t_env *env, const char *key);
 char	*ft_cd_path(t_env *env, t_cmd *cmds);
-int		ft_strcharcmp(char *str, char comp);
-int		ft_constcmp(char *s1, const char *s2);
 int		cd_error(t_shell *shell, char *msg, char *arg);
+int		echo_option(const char *arg);
+int		ft_constcmp(char *s1, const char *s2);
 
 /* EXECUTING: the main function calling all functions */
 int		executing(t_shell *shell);
