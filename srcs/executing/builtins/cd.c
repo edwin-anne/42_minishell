@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:41:45 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/28 11:37:28 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/30 09:19:28 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,14 @@ int	ft_cd(t_shell *shell, t_cmd *cmds, t_env *env)
 
 char	*ft_cd_path(t_env *env, t_cmd *cmds)
 {
+	char	*home;
+
 	if (!cmds->args[1])
-		return (get_env(env, "HOME"));
+	{
+		home = get_env(env, "HOME");
+		if (!home)
+			return (NULL);
+	}
 	return (cmds->args[1]);
 }
 
