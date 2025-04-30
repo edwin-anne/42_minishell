@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:48:18 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/30 13:18:10 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/30 15:02:50 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	handle_fork(t_shell *shell, t_cmd *cmd)
 		exec_child(cmd, shell);
 		exit(0);
 	}
-	close_pipes(cmd);
 	close_unused_pipes(shell->cmds, cmd);
 	cmd->pid = pid;
 	cmd->has_child = 1;
