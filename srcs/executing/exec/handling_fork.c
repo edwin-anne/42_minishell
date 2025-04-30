@@ -6,11 +6,36 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:48:18 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/29 09:38:05 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/30 15:05:43 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
+
+void	handle_fork(t_shell *shell, t_cmd *cmd)
+{
+	pid_t	pid;
+
+	if (builtins_parent(shell, cmd) == SUCCESS)
+		return ;
+	if (handle_redirin(shell, cmd) < 0)
+		return ;
+	if (handle_redirout(shell, cmd) < 0)
+		return ;
+	pid = fork();
+	if (pid < 0)
+		exit(1);
+	if (pid == 0)
+	{
+		ft_dup(cmd);
+		ft_dup_redir(cmd->redir_in, cmd->redir_out);
+		exec_child(cmd, shell);
+		exit(0);
+	}
+	close_unused_pipes(shell->cmds, cmd);
+	cmd->pid = pid;
+	cmd->has_child = 1;
+}
 
 int	handle_redirout(t_shell *shell, t_cmd *cmd)
 {
@@ -49,26 +74,26 @@ int	handle_redirin(t_shell *shell, t_cmd *cmd)
 	return (SUCCESS);
 }
 
-void	handle_fork(t_shell *shell, t_cmd *cmd)
+void	close_unused_pipes(t_cmd *cmds, t_cmd *current)
 {
-	pid_t	pid;
+	t_cmd	*tmp;
 
-	if (builtins_parent(shell, cmd) == SUCCESS)
-		return ;
-	if (handle_redirin(shell, cmd) < 0)
-		return ;
-	if (handle_redirout(shell, cmd) < 0)
-		return ;
-	pid = fork();
-	if (pid < 0)
-		exit(1);
-	if (pid == 0)
+	tmp = cmds;
+	while (tmp)
 	{
-		ft_dup(cmd);
-		ft_dup_redir(cmd->redir_in, cmd->redir_out);
-		exec_child(cmd, shell);
-		exit(0);
+		if (tmp != current && tmp->pipe)
+		{
+			if (tmp->pipe->pipe[0] != -1)
+			{
+				close(tmp->pipe->pipe[0]);
+				tmp->pipe->pipe[0] = -1;
+			}
+			if (tmp->pipe->pipe[1] != -1)
+			{
+				close(tmp->pipe->pipe[1]);
+				tmp->pipe->pipe[1] = -1;
+			}
+		}
+		tmp = tmp->next;
 	}
-	cmd->pid = pid;
-	cmd->has_child = 1;
 }

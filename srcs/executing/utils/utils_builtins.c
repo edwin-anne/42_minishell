@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:54:39 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/29 15:33:31 by lolq             ###   ########.fr       */
+/*   Updated: 2025/04/30 08:28:09 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,6 @@ void	free_node_env(t_env *env)
 		free(env->value);
 		free(env);
 	}
-}
-
-int	ft_strcharcmp(char *str, char comp)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] == '-')
-		i++;
-	while (str[i])
-	{
-		if (str[i] == comp)
-			i++;
-		else
-			return (FAIL);
-	}
-	return (SUCCESS);
 }
 
 int	ft_constcmp(char *s1, const char *s2)
