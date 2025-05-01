@@ -6,42 +6,23 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 16:02:25 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/05/01 08:50:00 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/01 09:52:28 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_shell	*g_shell;
-
 static void	handle_sigint(int sig)
 {
 	(void)sig;
-	write(1, "\n", 1);
+	write(1, "$ ^C\n", 5);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
 }
 
-static void	handle_sigquit(int sig)
+void	init_signals(void)
 {
-	(void)sig;
-	ft_putstr_fd("\n", 1);
-	exit(0);
-}
-
-void	init_signals(t_shell *shell)
-{
-	struct sigaction	sa_int;
-	struct sigaction	sa_quit;
-
-	g_shell = shell;
-	sa_int.sa_handler = handle_sigint;
-	sa_int.sa_flags = SA_RESTART;
-	sigemptyset(&sa_int.sa_mask);
-	sigaction(SIGINT, &sa_int, NULL);
-	sa_quit.sa_handler = handle_sigquit;
-	sa_quit.sa_flags = SA_RESTART;
-	sigemptyset(&sa_quit.sa_mask);
-	sigaction(SIGQUIT, &sa_quit, NULL);
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, SIG_IGN);
 }

@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:57:53 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/30 14:25:53 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/01 08:56:02 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_shell
 }	t_shell;
 
 /*######	SIGNAUX   	######*/
-void	init_signals(t_shell *shell);
+void	init_signals(void);
 
 /*######	FREE   	######*/
 void	free_shell(t_shell *shell);
