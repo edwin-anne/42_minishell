@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:12:01 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/05/01 10:07:13 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/01 10:50:35 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	quote(char **args)
 
 	i = 0;
 	if (!args)
-		return (0);
+		return (2);
 	while (args[i])
 	{
 		j = 0;

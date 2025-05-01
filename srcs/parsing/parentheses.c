@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:45:19 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/05/01 10:37:02 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/01 10:50:50 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	interpret_parentheses(char **args)
 
 	i = 0;
 	if (!args)
-		return (0);
+		return (2);
 	if (!check_parentheses(args))
 		return (0);
 	while (args[i])
