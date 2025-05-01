@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 16:02:25 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/30 17:40:44 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/01 08:50:00 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	handle_sigquit(int sig)
 {
 	(void)sig;
 	ft_putstr_fd("\n", 1);
-	free_shell(g_shell);
 	exit(0);
 }
 
