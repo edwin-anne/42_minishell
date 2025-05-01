@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/30 17:52:08 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/01 10:36:42 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_token_type	tokenization_set_type(char *word);
 t_cmd			*create_cmd(t_token *token, t_shell *shell);
 int				process_token(t_shell *shell, \
 							t_token *token, t_cmd *current_cmd);
-void			process_command(t_cmd *cmd_list, t_shell *shell);
+int				process_command(t_cmd *cmd_list, t_shell *shell);
 void			guess_redir(t_shell *shell, t_cmd *cmd, t_token *token);
 void			add_args(t_cmd *cmd, char *arg);
 
@@ -141,7 +141,7 @@ int				handle_empty_result(char *result, const char *arg, int j);
 /* parentheses.c */
 int				check_parentheses(char **args);
 char			*remove_parentheses(const char *arg);
-void			interpret_parentheses(char **args);
+int			interpret_parentheses(char **args);
 
 /* quote.c */
 int				quote(char **args);
