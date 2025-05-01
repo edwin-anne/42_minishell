@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 12:35:57 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 16:49:44 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/30 11:15:05 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,6 @@ void	append_str(char **result, const char *str)
 	ft_strlcat(new_result, str, ft_strlen(*result) + ft_strlen(str) + 1);
 	free(*result);
 	*result = new_result;
-}
-
-int	update_quote_state(char c, int *in_sq, int *in_dq)
-{
-	if (c == '\'' && !(*in_dq))
-		*in_sq = !(*in_sq);
-	else if (c == '\"' && !(*in_sq))
-		*in_dq = !(*in_dq);
-	else
-		return (0);
-	return (1);
 }
 
 void	handle_dollar_sign(t_shell *shell, char **result, char *str, int *i)

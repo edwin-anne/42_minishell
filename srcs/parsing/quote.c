@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:12:01 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 16:35:56 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/30 11:43:53 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*remove_quotes(const char *arg)
 		i++;
 	}
 	result[j] = '\0';
-	if (start_quote || !*result)
+	if (start_quote)
 		return (free(result), ft_strdup(arg));
 	return (result);
 }

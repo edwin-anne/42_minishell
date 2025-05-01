@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 16:05:20 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/30 17:03:33 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,18 @@ void	add_args(t_cmd *cmd, char *arg)
 	cmd->is_builtin = is_built_in(cmd->args);
 }
 
-void	guess_redir(t_cmd *cmd, t_token *token)
+void	guess_redir(t_shell *shell, t_cmd *cmd, t_token *token)
 {
 	if (!cmd || !token)
 		return ;
 	if (token->type == REDIR_IN)
-		add_redir(&cmd->redir_in, token, INPUT_REDIR);
+		add_redir(&cmd->redir_in, token, INPUT_REDIR, shell);
 	else if (token->type == REDIR_OUT)
-		add_redir(&cmd->redir_out, token, OUTPUT_REDIR);
+		add_redir(&cmd->redir_out, token, OUTPUT_REDIR, shell);
 	else if (token->type == APPEND)
-		add_redir(&cmd->redir_out, token, APPEND_REDIR);
+		add_redir(&cmd->redir_out, token, APPEND_REDIR, shell);
 	else if (token->type == HERE_DOC)
-		add_redir(&cmd->redir_in, token, HEREDOC);
+		add_redir(&cmd->redir_in, token, HEREDOC, shell);
 }
 
 void	process_command(t_cmd *cmd_list, t_shell *shell)
@@ -64,14 +64,13 @@ void	process_command(t_cmd *cmd_list, t_shell *shell)
 	while (tmp)
 	{
 		interpret_parentheses(tmp->args);
-		quote(tmp->args);
 		execute_env_var(shell, tmp->args);
 		interpret_quotes(tmp->args);
 		tmp = tmp->next;
 	}
 }
 
-int	process_token(t_token *token, t_cmd *current_cmd)
+int	process_token(t_shell *shell, t_token *token, t_cmd *current_cmd)
 {
 	if (token->type == REDIR_IN || token->type == REDIR_OUT
 		|| token->type == APPEND || token->type == HERE_DOC)
@@ -82,7 +81,7 @@ int	process_token(t_token *token, t_cmd *current_cmd)
 				"minishell: syntax error near unexpected token `newline'\n");
 			return (0);
 		}
-		guess_redir(current_cmd, token);
+		guess_redir(shell, current_cmd, token);
 		token->next->skip = 1;
 	}
 	else if ((token->type == WORD || token->type == ENV_VAR) && !token->skip)
@@ -109,7 +108,7 @@ t_cmd	*create_cmd(t_token *token, t_shell *shell)
 		}
 		else
 		{
-			if (process_token(token, current_cmd) == 0)
+			if (process_token(shell, token, current_cmd) == 0)
 				return (free_cmds(cmd_list), NULL);
 		}
 		token = token->next;
