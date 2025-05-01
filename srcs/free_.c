@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 13:47:49 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 15:16:03 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/04/30 10:38:18 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void	free_redir_list(t_redir *redir)
 
 void	free_cmds_next(t_cmd *cmd)
 {
-	free_args(cmd);
+	if (cmd->path && cmd->path != cmd->args[0])
+		free(cmd->path);
 	cmd->path = NULL;
+	free_args(cmd);
 	if (cmd->redir_in)
 	{
 		free_redir_list(cmd->redir_in);

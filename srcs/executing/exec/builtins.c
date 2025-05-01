@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:14:13 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/28 12:08:45 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/30 08:19:44 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	builtins_child(t_shell *shell, t_cmd *cmds)
 
 	args = cmds->args;
 	if (ft_strcmp(args[0], "echo") == 0)
-		return (ft_echo(cmds));
+		return (ft_echo(shell, cmds));
 	else if (ft_strcmp(args[0], "pwd") == 0)
 		return (ft_pwd(shell));
 	else if (ft_strcmp(args[0], "env") == 0)

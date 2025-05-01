@@ -6,7 +6,7 @@
 /*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 10:02:15 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/28 11:39:29 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/04/30 13:57:06 by loribeir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * And echo -n will not add a newline.
  */
 
-int	ft_echo(t_cmd *cmds)
+int	ft_echo(t_shell *shell, t_cmd *cmds)
 {
 	char	**args;
 	int		no_nl;
@@ -26,7 +26,7 @@ int	ft_echo(t_cmd *cmds)
 	no_nl = 0;
 	i = 1;
 	args = cmds->args;
-	while (args[i] && ft_strcharcmp(args[i], 'n') == SUCCESS)
+	while (args[i] && echo_option(args[i]))
 	{
 		no_nl = 1;
 		i++;
@@ -41,5 +41,19 @@ int	ft_echo(t_cmd *cmds)
 	}
 	if (no_nl == 0)
 		ft_fdprintf(1, "\n");
+	shell->exit_status = 0;
 	return (SUCCESS);
+}
+
+int	echo_option(const char *arg)
+{
+	int	i;
+
+	i = 0;
+	if (arg[0] != '-' || arg[1] == '\0')
+		return (0);
+	i = 1;
+	while (arg[i] == 'n')
+		i++;
+	return (arg[i] == '\0');
 }
