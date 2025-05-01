@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:49:26 by lolq              #+#    #+#             */
-/*   Updated: 2025/05/01 11:04:16 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/01 12:20:19 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,11 @@ int	exec_error(t_shell *shell, t_cmd *cmds)
 	if (!cmds->path || access(cmds->path, F_OK) == -1)
 	{
 		if (ft_strchr(cmds->args[0], '/'))
-			ft_fdprintf(2, MSG_FILEDIRECTORY, cmds->args[0]);
+		{
+			ft_fdprintf(2, "minishell: %s: Not a directory\n", cmds->args[0]);
+			shell->exit_status = 126;
+			return (126);
+		}
 		else
 			ft_fdprintf(2, "minishell: %s: command not found\n", cmds->args[0]);
 		shell->exit_status = 127;
