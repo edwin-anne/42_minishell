@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:41:45 by lolq              #+#    #+#             */
-/*   Updated: 2025/05/01 08:39:41 by lolq             ###   ########.fr       */
+/*   Updated: 2025/05/01 11:04:30 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_cd(t_shell *shell, t_cmd *cmds, t_env *env)
 
 	path = ft_cd_path(env, cmds);
 	if (!path)
-	return (cd_error(shell, "HOME not set", NULL));
+		return (cd_error(shell, "HOME not set", NULL));
 	arg_count = 0;
 	while (cmds->args && cmds->args[arg_count])
 		arg_count++;
