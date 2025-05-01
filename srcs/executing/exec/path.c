@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:49:26 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/29 14:57:46 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/05/01 09:42:42 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,12 @@ char	*search_in_path(char *cmd, char **path_split)
 
 int	exec_error(t_shell *shell, t_cmd *cmds)
 {
-	struct stat	st;
-
+	if (!cmds->args[0] || cmds->args[0][0] == '\0')
+    {
+        ft_fdprintf(2, "minishell: %s: command not found\n", cmds->args[0]);
+        shell->exit_status = 127;
+        return (127);
+    }
 	if (!cmds->path || access(cmds->path, F_OK) == -1)
 	{
 		if (ft_strchr(cmds->args[0], '/'))
@@ -90,18 +94,25 @@ int	exec_error(t_shell *shell, t_cmd *cmds)
 		shell->exit_status = 127;
 		return (127);
 	}
-	if (stat(cmds->path, &st) == 0 && S_ISDIR(st.st_mode))
-	{
-		ft_fdprintf(2, "minishell: %s: Is a directory\n", cmds->args[0]);
-		shell->exit_status = 126;
-		return (126);
-	}
-	if (access(cmds->path, X_OK) == -1)
-	{
-		ft_fdprintf(2, "minishell: %s: Permission denied\n", cmds->args[0]);
-		shell->exit_status = 126;
-		return (126);
-	}
-	shell->exit_status = 0;
-	return (SUCCESS);
+	return (exec_error_perm(shell, cmds));
+}
+
+int	exec_error_perm(t_shell *shell, t_cmd *cmds)
+{
+    struct stat	st;
+
+    if (stat(cmds->path, &st) == 0 && S_ISDIR(st.st_mode))
+    {
+        ft_fdprintf(2, "minishell: %s: Is a directory\n", cmds->args[0]);
+        shell->exit_status = 126;
+        return (126);
+    }
+    if (access(cmds->path, X_OK) == -1)
+    {
+        ft_fdprintf(2, "minishell: %s: Permission denied\n", cmds->args[0]);
+        shell->exit_status = 126;
+        return (126);
+    }
+    shell->exit_status = 0;
+    return (SUCCESS);
 }

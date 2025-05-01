@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 13:15:35 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/30 13:09:40 by lolq             ###   ########.fr       */
+/*   Updated: 2025/05/01 09:41:20 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	*search_env_path(t_env *env);
 char	*search_in_path(char *cmd, char **path_split);
 void	find_executable(t_cmd *cmds, t_env *env);
 int		exec_error(t_shell *shell, t_cmd *cmds);
+int		exec_error_perm(t_shell *shell, t_cmd *cmds);
 
 /* CHILD: */
 int		create_child(t_shell *shell, t_cmd *cmds);
