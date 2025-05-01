@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/05/01 10:36:54 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/01 11:15:33 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	guess_redir(t_shell *shell, t_cmd *cmd, t_token *token)
 		add_redir(&cmd->redir_in, token, HEREDOC, shell);
 }
 
-int	process_command(t_cmd *cmd_list, t_shell *shell)
+int	process_command(t_cmd *cmd_list, t_shell *shell, int i)
 {
 	t_cmd	*tmp;
 
@@ -63,7 +63,7 @@ int	process_command(t_cmd *cmd_list, t_shell *shell)
 	execute_here_doc_cmds(cmd_list, shell);
 	while (tmp)
 	{
-		if (!quote(tmp->args))
+		if (!quote(tmp->args, i))
 		{
 			ft_fdprintf(2,
 				"minishell: syntax error near unexpected token\n");
@@ -103,7 +103,7 @@ int	process_token(t_shell *shell, t_token *token, t_cmd *current_cmd)
 	return (1);
 }
 
-t_cmd	*create_cmd(t_token *token, t_shell *shell)
+t_cmd	*create_cmd(t_token *token, t_shell *shell, int i)
 {
 	t_cmd	*cmd_list;
 	t_cmd	*current_cmd;
@@ -127,7 +127,7 @@ t_cmd	*create_cmd(t_token *token, t_shell *shell)
 		}
 		token = token->next;
 	}
-	if (!process_command(cmd_list, shell))
+	if (!process_command(cmd_list, shell, i))
 		return (free_cmds(cmd_list), NULL);
 	return (cmd_list);
 }

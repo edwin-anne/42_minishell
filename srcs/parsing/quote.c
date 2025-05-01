@@ -6,15 +6,14 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:12:01 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/05/01 10:50:35 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/01 11:14:31 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	quote(char **args)
+int	quote(char **args, int i)
 {
-	int		i;
 	int		j;
 	int		single_quote_open;
 	int		double_quote_open;
