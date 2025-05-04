@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:49:26 by lolq              #+#    #+#             */
-/*   Updated: 2025/05/04 10:19:29 by lolq             ###   ########.fr       */
+/*   Updated: 2025/05/04 11:39:38 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	find_executable(t_cmd *cmds, t_env *env)
 	char	**path_split;
 	char	*path_value;
 
+	if (!cmds->args || !cmds->args[0] || cmds->args[0][0] == '\0')
+		return ;
 	if (cmds->is_builtin == true)
 		return ;
 	if (ft_strchr(cmds->args[0], '/'))
@@ -72,6 +74,7 @@ char	*search_in_path(char *cmd, char **path_split)
 
 int	exec_error(t_shell *shell, t_cmd *cmds)
 {
+
 	if (!cmds->args[0] || cmds->args[0][0] == '\0')
 	{
 		ft_fdprintf(2, "minishell: %s: command not found\n", cmds->args[0]);
