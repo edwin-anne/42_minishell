@@ -6,18 +6,11 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 11:14:13 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/30 08:19:44 by lolq             ###   ########.fr       */
+/*   Updated: 2025/05/04 10:19:35 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
-
-/**
- * @brief : builtins exec will check which builtins is called and execute the
- * correct ones.
- * if the cmd is inside a pipe or redir, then the cmd should not execute inside
- * the parent.
- */
 
 int	builtins_child(t_shell *shell, t_cmd *cmds)
 {

@@ -6,18 +6,11 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:49:26 by lolq              #+#    #+#             */
-/*   Updated: 2025/05/01 12:20:19 by lolq             ###   ########.fr       */
+/*   Updated: 2025/05/04 10:19:29 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
-
-/**
- * @brief: find the full path of executable cmd using the system's PATH. 
- * - searches for the PATH env variable in the linked list.
- * - use the PATH to locate the exec file.
- * - add the path to the structure.
- */
 
 char	*search_env_path(t_env *env)
 {
