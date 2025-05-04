@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 12:46:58 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/28 11:49:14 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/05/04 10:20:04 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 
-/**
- * @brief: pwd return the working directory name.
- */
 int	ft_pwd(t_shell *shell)
 {
 	char	*path;

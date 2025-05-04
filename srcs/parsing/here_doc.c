@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 18:43:44 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/30 17:40:54 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/01 12:00:41 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	handle_here_doc(t_shell *shell, t_redir *redir, int *id_here_doc)
 		return (ft_fdprintf(2, "minishell: memory allocation error\n"), 1);
 	if (execute_here_doc(shell, filepath, redir->limiter))
 	{
+		free(redir->file);
 		redir->file = ft_strdup(filepath);
 		if (!redir->file)
 		{

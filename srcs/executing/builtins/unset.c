@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 13:41:43 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/28 11:51:27 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/05/04 10:20:10 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "executing.h"
-
-/**
- * @brief: unset values and attributes of variables and functions.
- */
 
 void	ft_unset(t_shell *shell, char **args)
 {

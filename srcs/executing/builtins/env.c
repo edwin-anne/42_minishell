@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 16:12:37 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/28 11:42:23 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/05/04 10:19:51 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
-
-/**
- * @brief: env should display all the variable of the environnement.
- */
 
 int	ft_env(t_shell *shell, t_cmd *cmds)
 {
