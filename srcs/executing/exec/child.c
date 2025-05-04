@@ -6,19 +6,11 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/30 13:04:14 by lolq             ###   ########.fr       */
+/*   Updated: 2025/05/04 11:29:53 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
-#include "parsing.h"
-
-/**
- * @brief: handles the creation and execution of child processes for cmd exec.
- *  - create child processes for each cmd in the linked list. 
- *  - exec a cmd in a child process, handling if it's a built-ins or not.
- *  - wait for all child processes to finish and update the exit status.
- */
 
 int	create_child(t_shell *shell, t_cmd *cmds)
 {
@@ -27,6 +19,11 @@ int	create_child(t_shell *shell, t_cmd *cmds)
 	tmp = cmds;
 	while (tmp)
 	{
+		if (!tmp->args || !tmp->args[0] || tmp->args[0][0] == '\0')
+		{
+			tmp = tmp->next;
+			continue ;
+		}
 		open_pipes(shell, tmp);
 		handle_fork(shell, tmp);
 		close_pipes(tmp);
@@ -40,6 +37,11 @@ void	exec_child(t_cmd *cmds, t_shell *shell)
 	char	**env;
 	int		exit_status;
 
+	if (!cmds->args || !cmds->args[0] || cmds->args[0][0] == '\0')
+	{
+		free_shell(shell);
+        exit(0);
+	}
 	exit_status = 0;
 	env = env_char(shell);
 	find_executable(cmds, shell->env);

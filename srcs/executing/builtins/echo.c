@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 10:02:15 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/30 13:57:06 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/05/04 10:19:46 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
-
-/**
- * @brief: echo have to write arguments to minishell output.
- * And echo -n will not add a newline.
- */
 
 int	ft_echo(t_shell *shell, t_cmd *cmds)
 {

@@ -6,16 +6,12 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:54:39 by loribeir          #+#    #+#             */
-/*   Updated: 2025/04/30 08:28:09 by lolq             ###   ########.fr       */
+/*   Updated: 2025/05/04 10:30:10 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 #include "minishell.h"
-
-/**
- * @brief Useful & necessary functions to make builtins working.
- */
 
 t_env	*search_lst(t_env *env)
 {

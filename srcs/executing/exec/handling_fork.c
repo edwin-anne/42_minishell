@@ -6,7 +6,7 @@
 /*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 14:48:18 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/30 15:05:43 by lolq             ###   ########.fr       */
+/*   Updated: 2025/05/04 10:43:27 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	handle_fork(t_shell *shell, t_cmd *cmd)
 	if (handle_redirin(shell, cmd) < 0)
 		return ;
 	if (handle_redirout(shell, cmd) < 0)
+		return ;
+	if (!cmd->args || !cmd->args[0] || cmd->args[0][0] == '\0')
 		return ;
 	pid = fork();
 	if (pid < 0)

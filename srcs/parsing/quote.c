@@ -6,22 +6,21 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 14:12:01 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/30 11:43:53 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/01 11:14:31 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	quote(char **args)
+int	quote(char **args, int i)
 {
-	int		i;
 	int		j;
 	int		single_quote_open;
 	int		double_quote_open;
 
 	i = 0;
 	if (!args)
-		return (0);
+		return (2);
 	while (args[i])
 	{
 		j = 0;
@@ -35,6 +34,8 @@ int	quote(char **args)
 				double_quote_open = !double_quote_open;
 			j++;
 		}
+		if (single_quote_open || double_quote_open)
+			return (0);
 		i++;
 	}
 	return (1);

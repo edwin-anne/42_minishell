@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loribeir <loribeir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 08:53:09 by lolq              #+#    #+#             */
-/*   Updated: 2025/04/30 18:14:03 by loribeir         ###   ########.fr       */
+/*   Updated: 2025/05/04 10:19:57 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
-
-/**
- * @brief: exit will cause normal process termination and the leat significant
- * byte of status is returned to the parent.
- */
 
 void	ft_exit(t_shell *shell, t_cmd *cmds)
 {

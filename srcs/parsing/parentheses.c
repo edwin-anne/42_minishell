@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 13:45:19 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/29 13:41:30 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/01 10:50:50 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,16 @@ char	*remove_parentheses(const char *arg)
 	return (result);
 }
 
-void	interpret_parentheses(char **args)
+int	interpret_parentheses(char **args)
 {
 	int		i;
 	char	*processed;
 
 	i = 0;
 	if (!args)
-		return ;
+		return (2);
 	if (!check_parentheses(args))
-	{
-		ft_fdprintf(2, "minishell: syntax error near unexpected token `('\n");
-		return ;
-	}
+		return (0);
 	while (args[i])
 	{
 		processed = remove_parentheses(args[i]);
@@ -83,4 +80,5 @@ void	interpret_parentheses(char **args)
 		}
 		i++;
 	}
+	return (1);
 }
