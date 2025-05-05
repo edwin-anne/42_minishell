@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:49:26 by lolq              #+#    #+#             */
-/*   Updated: 2025/05/04 11:39:38 by lolq             ###   ########.fr       */
+/*   Updated: 2025/05/05 16:32:26 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ char	*search_in_path(char *cmd, char **path_split)
 
 int	exec_error(t_shell *shell, t_cmd *cmds)
 {
-
 	if (!cmds->args[0] || cmds->args[0][0] == '\0')
 	{
 		ft_fdprintf(2, "minishell: %s: command not found\n", cmds->args[0]);

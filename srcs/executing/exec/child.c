@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/05/04 11:29:53 by lolq             ###   ########.fr       */
+/*   Updated: 2025/05/05 16:32:42 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	exec_child(t_cmd *cmds, t_shell *shell)
 	if (!cmds->args || !cmds->args[0] || cmds->args[0][0] == '\0')
 	{
 		free_shell(shell);
-        exit(0);
+		exit(0);
 	}
 	exit_status = 0;
 	env = env_char(shell);
