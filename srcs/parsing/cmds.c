@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/05/01 11:15:33 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/05 15:43:53 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	process_command(t_cmd *cmd_list, t_shell *shell, int i)
 	t_cmd	*tmp;
 
 	tmp = cmd_list;
-	execute_here_doc_cmds(cmd_list, shell);
 	while (tmp)
 	{
 		if (!quote(tmp->args, i))

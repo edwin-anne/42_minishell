@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:42:03 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/05/01 11:15:38 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/05 16:21:56 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define PARSING_H
 
 # include "minishell.h"
+
+extern int	g_heredoc_interrupted;
 
 /*######	TOKEN 	######*/
 typedef enum e_token_type
@@ -141,7 +143,7 @@ int				handle_empty_result(char *result, const char *arg, int j);
 /* parentheses.c */
 int				check_parentheses(char **args);
 char			*remove_parentheses(const char *arg);
-int			interpret_parentheses(char **args);
+int				interpret_parentheses(char **args);
 
 /* quote.c */
 int				quote(char **args, int i);
