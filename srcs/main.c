@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 21:35:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/05/01 08:55:47 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/05 15:44:16 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ void	new_line(char *line, t_shell *shell, int argc, char **argv)
 	parsing(shell, line, argc, argv);
 	if (shell->cmds)
 	{
-		executing(shell);
+		execute_here_doc_cmds(shell->cmds, shell);
+		if (!g_heredoc_interrupted)
+			executing(shell);
+		else
+			shell->exit_status = 130;
 		free_cmds(shell->cmds);
 		shell->cmds = NULL;
 	}
