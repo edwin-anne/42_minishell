@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 16:38:24 by lolq              #+#    #+#             */
-/*   Updated: 2025/05/05 16:32:42 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/04 12:06:12 by lolq             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	create_child(t_shell *shell, t_cmd *cmds)
 	{
 		if (!tmp->args || !tmp->args[0] || tmp->args[0][0] == '\0')
 		{
+			close_pipes(tmp);
 			tmp = tmp->next;
 			continue ;
 		}
