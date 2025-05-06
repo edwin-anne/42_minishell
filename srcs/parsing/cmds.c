@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/05/06 09:44:01 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/06 14:16:31 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int	process_token(t_shell *shell, t_token *token, t_cmd *current_cmd)
 		{
 			ft_fdprintf(2,
 				"minishell: syntax error near unexpected token `newline'\n");
+			shell->exit_status = 2;
 			return (0);
 		}
 		guess_redir(shell, current_cmd, token);
