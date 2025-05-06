@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:11:28 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/05/05 15:43:53 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/06 09:44:01 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ t_cmd	*create_cmd(t_token *token, t_shell *shell, int i)
 	{
 		if (token->type == PIPE)
 		{
-			if (!token->next)
+			if (!token->next || token->next->type == PIPE)
 				return (ft_fdprintf(2, SYNTAX_ERR_PIPE),
 					free_cmds(cmd_list), NULL);
 			current_cmd->next = init_cmd();
