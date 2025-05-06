@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_child.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lolq <lolq@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 14:56:19 by lolq              #+#    #+#             */
-/*   Updated: 2025/05/04 11:43:46 by lolq             ###   ########.fr       */
+/*   Updated: 2025/05/05 16:33:39 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ void	handle_ext_cmds(t_shell *shell, t_cmd *cmd, char **env)
 	int	exit_status;
 
 	if (!cmd->args || !cmd->args[0] || cmd->args[0][0] == '\0'
-        || (ft_strchr(cmd->args[0], '=') && !ft_strchr(cmd->args[0], '/')))
-    {
-        free_shell(shell);
-        free_char_array(env);
-        exit(0);
-    }
+		|| (ft_strchr(cmd->args[0], '=') && !ft_strchr(cmd->args[0], '/')))
+	{
+		free_shell(shell);
+		free_char_array(env);
+		exit(0);
+	}
 	exit_status = 0;
 	error = exec_error(shell, cmd);
 	if (error)

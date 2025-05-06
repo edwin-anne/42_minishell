@@ -6,11 +6,21 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:47:19 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/04/30 17:42:54 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/05 16:19:47 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+int	g_heredoc_interrupted = 0;
+
+static void	handle_heredoc_signal(int sig)
+{
+	(void)sig;
+	g_heredoc_interrupted = 1;
+	write(1, "\n", 1);
+	close(0);
+}
 
 void	clean_heredoc_files(t_cmd *cmds)
 {
@@ -49,8 +59,10 @@ int	open_here_doc_file(char *filepath, char *limit_with_nl, int *fd)
 char	*read_heredoc_lines(int fd, char *limit_with_nl)
 {
 	char	*line;
+	void	(*old_sigint)(int);
 
-	while (1)
+	old_sigint = signal(SIGINT, handle_heredoc_signal);
+	while (!g_heredoc_interrupted)
 	{
 		ft_putstr_fd("> ", 1);
 		line = get_next_line(0);
@@ -63,5 +75,8 @@ char	*read_heredoc_lines(int fd, char *limit_with_nl)
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
+	signal(SIGINT, old_sigint);
+	if (g_heredoc_interrupted)
+		return (NULL);
 	return ("success");
 }
