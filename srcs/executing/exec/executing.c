@@ -6,37 +6,37 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:22:18 by lolq              #+#    #+#             */
-/*   Updated: 2025/05/06 15:15:18 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/05/06 15:49:08 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executing.h"
 
-t_cmd *skip_empty_commands(t_cmd *current, t_shell *shell)
+t_cmd	*skip_empty_commands(t_cmd *current, t_shell *shell)
 {
 	while (current)
 	{
-		if ((!current->args || !current->args[0] || current->args[0][0] == '\0') &&
-			(current->redir_in || current->redir_out))
+		if ((!current->args || !current->args[0] || current->args[0][0] == '\0')
+			&& (current->redir_in || current->redir_out))
 		{
 			handle_redirin(shell, current);
 			handle_redirout(shell, current);
 			current = current->next;
-			continue;
+			continue ;
 		}
 		if (!current->args || !current->args[0] || current->args[0][0] == '\0')
 		{
 			current = current->next;
-			continue;
+			continue ;
 		}
-		break;
+		break ;
 	}
 	return (current);
 }
 
-int executing(t_shell *shell)
+int	executing(t_shell *shell)
 {
-	t_cmd *current;
+	t_cmd	*current;
 
 	if (!shell || !shell->cmds)
 		return (FAIL);
@@ -48,4 +48,3 @@ int executing(t_shell *shell)
 	wait_children(shell);
 	return (SUCCESS);
 }
-
