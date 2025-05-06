@@ -51,7 +51,7 @@ void	exec_child(t_cmd *cmds, t_shell *shell)
 		handle_builtins_child(shell, cmds, env, exit_status);
 		return ;
 	}
-	handle_ext_cmds(shell, cmds, env);
+	handle_ext_cmds(shell, cmds, env, 0);
 	free_shell(shell);
 	free_char_array(env);
 }

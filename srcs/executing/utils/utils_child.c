@@ -65,10 +65,9 @@ void	handle_builtins_child(t_shell *shell, t_cmd *cmd, char **env, \
 	exit(exit_status);
 }
 
-void	handle_ext_cmds(t_shell *shell, t_cmd *cmd, char **env)
+void	handle_ext_cmds(t_shell *shell, t_cmd *cmd, char **env, int exit_status)
 {
 	int	error;
-	int	exit_status;
 
 	if (!cmd->args || !cmd->args[0] || cmd->args[0][0] == '\0'
 		|| (ft_strchr(cmd->args[0], '=') && !ft_strchr(cmd->args[0], '/')))

@@ -65,7 +65,8 @@ int		exec_error_perm(t_shell *shell, t_cmd *cmds);
 /* CHILD: */
 int		create_child(t_shell *shell, t_cmd *cmds);
 void	exec_child(t_cmd *cmds, t_shell *shell);
-void	handle_ext_cmds(t_shell *shell, t_cmd *cmd, char **env);
+void	handle_ext_cmds(t_shell *shell, t_cmd *cmd, char **env, \
+							int exit_status);
 void	handle_builtins_child(t_shell *shell, t_cmd *cmd, char **env, \
 							int exit_status);
 void	wait_children(t_shell *shell);
