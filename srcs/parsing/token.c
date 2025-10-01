@@ -73,7 +73,7 @@ t_token_type	tokenization_set_type(char *word)
 		return (APPEND);
 	if (ft_strcmp(word, "<<") == 0)
 		return (HERE_DOC);
-	if (word[0] == '$' && strlen(word) > 1)
+	if (word[0] == '$' && ft_strlen(word) > 1)
 		return (ENV_VAR);
 	return (WORD);
 }
