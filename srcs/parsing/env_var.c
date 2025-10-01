@@ -24,6 +24,14 @@ int	handle_special_vars(t_shell *shell, char **res, char *str, int *i)
 		(*i)++;
 		return (1);
 	}
+	if (str[*i] == '$')
+	{
+		tmp = ft_itoa(getpid());
+		append_str(res, tmp);
+		free(tmp);
+		(*i)++;
+		return (1);
+	}
 	return (0);
 }
 
